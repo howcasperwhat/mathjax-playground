@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "test": "vitest",
     "up": "taze major -I",
+    "deploy": "pnpm build && gh-pages -d dist",
     "postinstall": "npx simple-git-hooks"
   },
   "dependencies": {
@@ -27,6 +28,7 @@
     "@vue/test-utils": "catalog:dev",
     "eslint": "catalog:dev",
     "eslint-plugin-format": "catalog:dev",
+    "gh-pages": "catalog:other",
     "jsdom": "catalog:build",
     "lint-staged": "catalog:dev",
     "simple-git-hooks": "catalog:dev",
