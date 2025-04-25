@@ -1,9 +1,10 @@
-html,
-body,
 #app {
-  height: 100%;
-  margin: 0;
+  width: calc(100vw - 2rem);
+  height: calc(100vh - 2rem);
+  margin: 1rem;
   padding: 0;
+  display: flex;
+  gap: 1rem;
 }
 
 html.dark {

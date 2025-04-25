@@ -8,10 +8,20 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Copy: typeof import('./src/components/Copy.vue')['default']
+    Dragger: typeof import('./src/components/Dragger.vue')['default']
+    Logo: typeof import('./src/components/Logo.vue')['default']
+    MathJax: typeof import('./src/components/MathJax.vue')['default']
+    MonacoEditor: typeof import('./src/components/MonacoEditor.vue')['default']
+    Painter: typeof import('./src/components/Painter.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Save: typeof import('./src/components/Save.vue')['default']
+    ShikiEditor: typeof import('./src/components/ShikiEditor.vue')['default']
     TheCounter: typeof import('./src/components/TheCounter.vue')['default']
     TheFooter: typeof import('./src/components/TheFooter.vue')['default']
     TheInput: typeof import('./src/components/TheInput.vue')['default']
+    ThemeSwitch: typeof import('./src/components/ThemeSwitch.vue')['default']
+    ToolBar: typeof import('./src/components/ToolBar.vue')['default']
   }
 }
