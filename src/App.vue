@@ -5,7 +5,8 @@ useStorage('code', code)
 
 <template>
   <ToolBar w-16 />
-  <main flex="~ col gap-4"
+  <main
+    flex="~ col gap-4"
     w="[calc(100vw-7rem)]"
     h="[calc(100vh-2rem)]"
   >

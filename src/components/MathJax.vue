@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
+import { art } from '~/composables/artwork'
 import { transformer } from '../composables/transformer'
-import { art } from '~/composables/artwork';
 
 const props = defineProps<{
   tex: string
@@ -26,14 +26,14 @@ onMounted(() => {
 
 <template>
   <div
-    h="25%" bg-gray bg-op-8 rd-4 of-scroll b="1px solid gray op-24"
+    h="25%" rd-4 bg-gray bg-op-8 of-scroll b="1px solid gray op-24"
     :style="{
       display: 'flex',
       justifyContent: 'safe center',
       alignItems: 'safe center',
     }"
   >
-    <div v-html="html" ref="container" />
+    <div ref="container" v-html="html" />
   </div>
 </template>
 

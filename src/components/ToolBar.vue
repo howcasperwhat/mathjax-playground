@@ -3,17 +3,35 @@
 
 <template>
   <nav
-    p-x-2 p-y-4 rd-4 bg-gray bg-op-8
-    b="1px solid gray op-24" h-max
+    p-x-2 p-y-4 rd-4 bg-gray bg-op-8 h-max of-auto
+    max-h="[calc(100vh-2rem)]"
+    b="1px solid gray op-24"
     grid="~ flow-row items-center justify-center gap-4"
     children:flex="~ items-center justify-center"
   >
     <Logo />
-    <hr c-gray op-24>
-    <ThemeSwitch />
+    <Separator />
     <Painter />
-    <hr c-gray op-24>
+    <Separator />
     <Copy />
-    <Save />
+    <Separator />
+    <Download />
+    <Separator />
+    <!-- <Save /> -->
+    <ThemeSwitch />
   </nav>
 </template>
+
+<style scoped>
+nav {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+nav::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+  background: transparent;
+}
+</style>

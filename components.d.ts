@@ -8,7 +8,9 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    ColorPicker: typeof import('./src/components/ColorPicker.vue')['default']
     Copy: typeof import('./src/components/Copy.vue')['default']
+    Download: typeof import('./src/components/Download.vue')['default']
     Dragger: typeof import('./src/components/Dragger.vue')['default']
     Logo: typeof import('./src/components/Logo.vue')['default']
     MathJax: typeof import('./src/components/MathJax.vue')['default']
@@ -17,6 +19,7 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Save: typeof import('./src/components/Save.vue')['default']
+    Separator: typeof import('./src/components/Separator.vue')['default']
     ShikiEditor: typeof import('./src/components/ShikiEditor.vue')['default']
     TheCounter: typeof import('./src/components/TheCounter.vue')['default']
     TheFooter: typeof import('./src/components/TheFooter.vue')['default']

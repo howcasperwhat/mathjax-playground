@@ -26,7 +26,7 @@ onMounted(() => {
         horizontalScrollbarSize: 8,
       },
       scrollBeyondLastLine: false,
-      contextmenu: false
+      contextmenu: false,
     })
 
     // Listen to content changes and update the modelValue
@@ -35,9 +35,7 @@ onMounted(() => {
     })
 
     watch(isDark, () =>
-      monaco.editor.setTheme(isDark.value ? 'vs-dark' : 'vs'),
-      { immediate: true }
-    )
+      monaco.editor.setTheme(isDark.value ? 'vs-dark' : 'vs'), { immediate: true })
   }
 })
 
@@ -45,10 +43,11 @@ onUnmounted(() => {
   editorInstance.value?.dispose()
 })
 // });
-
 </script>
 
 <template>
-  <div ref="editor" rd-4 of-hidden
-    b="1px solid gray op-24" h="75%" />
+  <div
+    ref="editor" rd-4 of-hidden
+    b="1px solid gray op-24" h="75%"
+  />
 </template>

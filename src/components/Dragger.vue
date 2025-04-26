@@ -4,6 +4,6 @@
 
 <template>
   <div>
-    
+    Dragger
   </div>
 </template>

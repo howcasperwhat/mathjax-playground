@@ -1,9 +1,9 @@
 <script setup lang='ts'>
-import { art } from '~/composables/artwork';
+import { art } from '~/composables/artwork'
 </script>
 
 <template>
   <button icon-btn>
-    <div i-carbon:save @click="art.save('png')" />
+    <div i-carbon:save @click="art.save()" />
   </button>
 </template>

@@ -6,12 +6,12 @@ const show = ref(true)
 
 <template>
   <button toggle-btn>
-    <div i-carbon:copy @click="show = !show" />
+    <div i-carbon:download @click="show = !show" />
   </button>
   <button v-show="show" icon-btn>
-    <div i-carbon:png @click="art.copy('png')" />
+    <div i-carbon:png @click="art.download('png')" />
   </button>
   <button v-show="show" icon-btn>
-    <div i-carbon:svg @click="art.copy('svg')" />
+    <div i-carbon:svg @click="art.download('svg')" />
   </button>
 </template>
