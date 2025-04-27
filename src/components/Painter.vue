@@ -10,7 +10,7 @@ const show = ref(true)
   </button>
   <ColorPicker v-show="show" v-model="art.pigment.value" />
   <button v-show="show" icon-btn>
-    <div i-carbon:paint-brush-alt @click="art.switchTool('paint')" />
+    <div i-carbon:paint-brush-alt @click="art.switchTool('pen')" />
   </button>
   <button v-show="show" icon-btn>
     <div i-carbon:paint-brush @click="art.switchTool('brush')" />

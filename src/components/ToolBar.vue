@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <nav
+  <div
     p-x-2 p-y-4 rd-4 bg-gray bg-op-8 h-max of-auto
     max-h="[calc(100vh-2rem)]"
     b="1px solid gray op-24"
@@ -19,7 +19,7 @@
     <Separator />
     <!-- <Save /> -->
     <ThemeSwitch />
-  </nav>
+  </div>
 </template>
 
 <style scoped>

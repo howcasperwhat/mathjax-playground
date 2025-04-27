@@ -1,9 +1,6 @@
 <script setup lang='ts'>
-
 </script>
 
 <template>
-  <div>
-    Dragger
-  </div>
+  ColorPanel
 </template>

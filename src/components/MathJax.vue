@@ -15,6 +15,8 @@ const container = ref<HTMLElement | null>(null)
 onMounted(() => {
   watch(() => props.tex, () => {
     const element = transformer.from(props.tex).children[0]
+    // // eslint-disable-next-line no-console
+    // console.log('tex changed', props.tex, element)
     html.value = element.outerHTML
     nextTick(() => {
       art.setElement(container.value!.children[0])
@@ -26,7 +28,8 @@ onMounted(() => {
 
 <template>
   <div
-    h="25%" rd-4 bg-gray bg-op-8 of-scroll b="1px solid gray op-24"
+    rounded bg-gray bg-op-0 of-auto
+    b="1px solid gray op-24"
     :style="{
       display: 'flex',
       justifyContent: 'safe center',

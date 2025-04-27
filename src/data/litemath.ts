@@ -85,6 +85,30 @@ const litemath = {
           match: '[a-zA-Z]+',
           name: 'variable.other.litemath',
         },
+        {
+          match: '\\(',
+          name: 'punctuation.math.begin.bracket.round',
+        },
+        {
+          match: '\\)',
+          name: 'punctuation.math.end.bracket.round',
+        },
+        {
+          match: '\\[',
+          name: 'punctuation.math.begin.bracket.square',
+        },
+        {
+          match: '\\]',
+          name: 'punctuation.math.end.bracket.square',
+        },
+        {
+          match: '\\{',
+          name: 'punctuation.math.begin.bracket.curly',
+        },
+        {
+          match: '\\}',
+          name: 'punctuation.math.end.bracket.curly',
+        },
       ],
     },
   },

@@ -8,14 +8,21 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    CodeHistory: typeof import('./src/components/CodeHistory.vue')['default']
+    ColorPanel: typeof import('./src/components/ColorPanel.vue')['default']
     ColorPicker: typeof import('./src/components/ColorPicker.vue')['default']
+    ColorTabbar: typeof import('./src/components/ColorTabbar.vue')['default']
+    copy: typeof import('./src/components/YResizable copy.vue')['default']
     Copy: typeof import('./src/components/Copy.vue')['default']
     Download: typeof import('./src/components/Download.vue')['default']
     Dragger: typeof import('./src/components/Dragger.vue')['default']
+    History: typeof import('./src/components/History.vue')['default']
     Logo: typeof import('./src/components/Logo.vue')['default']
     MathJax: typeof import('./src/components/MathJax.vue')['default']
     MonacoEditor: typeof import('./src/components/MonacoEditor.vue')['default']
+    OpacityPicker: typeof import('./src/components/OpacityPicker.vue')['default']
     Painter: typeof import('./src/components/Painter.vue')['default']
+    Resizable: typeof import('./src/components/Resizable.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Save: typeof import('./src/components/Save.vue')['default']
@@ -26,5 +33,7 @@ declare module 'vue' {
     TheInput: typeof import('./src/components/TheInput.vue')['default']
     ThemeSwitch: typeof import('./src/components/ThemeSwitch.vue')['default']
     ToolBar: typeof import('./src/components/ToolBar.vue')['default']
+    XResizable: typeof import('./src/components/XResizable.vue')['default']
+    YResizable: typeof import('./src/components/YResizable.vue')['default']
   }
 }
