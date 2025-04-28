@@ -6,6 +6,11 @@ interface ArtElement {
 }
 
 type Tool = 'pen' | 'brush' | 'eraser' | ''
+// 200 000 characters => 1MB
+interface Memory {
+  code: string
+  preview?: string
+}
 
 class ArtWork {
   currentTool = ref<Tool>('')
@@ -14,6 +19,7 @@ class ArtWork {
   color = ref<string>('')
   opacity = ref<number>(1.0)
   mask: HTMLElement
+  memory: Ref<Memory[]> = ref([])
 
   isBrushedRect(elem: Element) {
     return elem.tagName === 'rect' && elem.classList.contains('brushed-rect')
@@ -242,6 +248,8 @@ class ArtWork {
       this.mask.style.top = `${rect.top}px`
       this.mask.style.left = `${rect.left}px`
     }, 10))
+
+    useStorage('memory', this.memory)
   }
 
   switchTool(tool: Tool = '') {
@@ -291,8 +299,9 @@ class ArtWork {
     URL.revokeObjectURL(url) // Clean up the object URL
   }
 
-  save() {
-    // TODO
+  save(type: 'code' | 'preview') {
+    // eslint-disable-next-line no-console
+    console.log('save', type)
   }
 }
 

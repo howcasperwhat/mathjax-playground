@@ -17,8 +17,9 @@
     <Separator />
     <Download />
     <Separator />
-    <!-- <Save /> -->
-    <ThemeSwitch />
+    <Save />
+    <Separator />
+    <About />
   </div>
 </template>
 

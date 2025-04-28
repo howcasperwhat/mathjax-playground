@@ -33,6 +33,7 @@
     "gh-pages": "catalog:other",
     "jsdom": "catalog:build",
     "lint-staged": "catalog:dev",
+    "lru-cache": "catalog:dev",
     "mathjax-full": "catalog:dev",
     "monaco-editor": "catalog:dev",
     "shiki": "catalog:dev",

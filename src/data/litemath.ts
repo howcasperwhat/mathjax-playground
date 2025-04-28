@@ -109,6 +109,10 @@ const litemath = {
           match: '\\}',
           name: 'punctuation.math.end.bracket.curly',
         },
+        {
+          match: '\\|',
+          name: 'punctuation.math.begin.bracket.vertical',
+        },
       ],
     },
   },

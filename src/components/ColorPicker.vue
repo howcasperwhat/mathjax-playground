@@ -12,6 +12,8 @@ function toggle() {
 
 function change(event: Event) {
   model.value = (event.target as HTMLInputElement).value
+  // eslint-disable-next-line no-console
+  console.log('color', model.value)
 }
 </script>
 
