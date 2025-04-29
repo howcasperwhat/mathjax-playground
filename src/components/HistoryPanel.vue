@@ -1,9 +1,11 @@
 <script setup lang='ts'>
 const MAX_LENGTH = 20
-const saved = computed(() => Object.keys(art.memory.value).map(key => ({
-  tex: key,
-  preview: !!art.memory.value[key].preview,
-})))
+const saved = computed(() =>
+  Object.keys(art.memory.value).map(key => ({
+    tex: key,
+    preview: !!art.memory.value[key].preview,
+  })),
+)
 const preshowing = ref(false)
 function preshow(tex: string) {
   // eslint-disable-next-line no-console
@@ -43,8 +45,8 @@ function getClass() {
     b="1px solid gray op-24"
   >
     <div h-2 w-full left-0 top-0 sticky z-10>
-      <div bg-gray="200 dark:600" h-full w-full>
-        <div h-full :class="getClass()" :style="{ width: `${getUsage() * 100}%` }" />
+      <div bg-gray bg-op-20 h-full w-full>
+        <div bg-op-80 h-full :class="getClass()" :style="{ width: `${getUsage() * 100}%` }" />
       </div>
     </div>
     <div
@@ -75,23 +77,35 @@ function getClass() {
     </div>
     <div
       v-show="preshowing"
-
-      flex="~ items-center justify-end gap-2" text-sm p-2 shrink-0 w-full bottom-0 left-0 sticky z-10
+      flex="~ items-center justify-between gap-2"
+      text-sm p-4 shrink-0 w-full bottom-0 left-0 sticky z-10
     >
-      <button
-        b="1px solid gray op-24"
-        text-white p-x-2 p-y-1 rounded bg-teal-700 btn
-        @click="confirm"
+      <div
+        flex="~ items-center gap-2"
       >
-        Confirm
-      </button>
-      <button
-        b="1px solid gray op-24"
-
-        text-white p-x-2 p-y-1 rounded bg-gray-700 btn @click="cancel"
+        <button
+          text-white p-x-2 p-y-1 rounded bg-red btn
+          @click="1"
+        >
+          Delete
+        </button>
+      </div>
+      <div
+        flex="~ items-center gap-2"
       >
-        Cancel
-      </button>
+        <button
+          text-white p-x-2 p-y-1 rounded bg-teal-700 btn
+          @click="confirm"
+        >
+          Confirm
+        </button>
+        <button
+          text-white
+          p-x-2 p-y-1 rounded bg-gray-700 btn @click="cancel"
+        >
+          Cancel
+        </button>
+      </div>
     </div>
   </div>
 </template>
