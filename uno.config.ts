@@ -8,9 +8,9 @@ import {
 
 export default defineConfig({
   shortcuts: [
-    ['icon-btn', 'text-[1em] inline-block cursor-pointer select-none opacity-75 transition duration-200 ease-in-out hover:opacity-100 hover:text-hex-18f active:opacity-100 active:text-hex-c66'],
+    ['btn', 'text-[1em] inline-block cursor-pointer select-none disabled:cursor-not-allowed disabled:op-20'],
+    ['icon-btn', 'btn opacity-75 transition duration-200 ease-in-out hover:opacity-100 hover:text-hex-18f active:opacity-100 active:text-hex-c66'],
     ['toggle-btn', 'text-[0.8em] inline-block cursor-pointer select-none opacity-80 transition duration-200 ease-in-out hover:opacity-90 active:opacity-100 c-gray'],
-    ['btn', 'text-[1em] inline-block cursor-pointer select-none'],
   ],
   presets: [
     presetWind4(),

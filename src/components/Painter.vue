@@ -8,7 +8,6 @@ const show = ref(true)
   <button toggle-btn>
     <div i-carbon:box @click="show = !show" />
   </button>
-  <ColorPicker v-show="show" v-model="art.pigment.value" />
   <button v-show="show" icon-btn>
     <div i-carbon:paint-brush-alt @click="art.switchTool('pen')" />
   </button>

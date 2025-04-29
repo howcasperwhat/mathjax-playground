@@ -14,6 +14,7 @@ const container = ref<HTMLElement | null>(null)
 
 onMounted(() => {
   watch(() => props.tex, () => {
+    // console.log(props.tex)
     const element = transformer.from(props.tex).children[0]
     // // eslint-disable-next-line no-console
     // console.log('tex changed', props.tex, element)

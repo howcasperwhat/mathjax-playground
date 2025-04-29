@@ -1,6 +1,7 @@
 <script setup lang='ts'>
-import { ref } from 'vue'
-import { art } from '~/composables/artwork'
+defineProps <{
+  opacity?: number
+}>()
 
 const model = defineModel<string>({ required: true })
 const element = ref<HTMLInputElement | null>(null)
@@ -11,22 +12,28 @@ function toggle() {
 }
 
 function change(event: Event) {
-  model.value = (event.target as HTMLInputElement).value
-  // eslint-disable-next-line no-console
-  console.log('color', model.value)
+  const target = event.target as HTMLInputElement
+  model.value = target.value
 }
 </script>
 
 <template>
   <div inline-flex items-center relative>
-    <button btn @click="toggle">
-      <svg width="1.2em" height="1.2em" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="16" cy="16" r="14" stroke="gray" stroke-width="2" :fill="model" />
+    <button b="1px solid gray op-24" rounded of-hidden btn @click="toggle">
+      <svg
+        width="1.2rem" height="1.2rem" viewBox="0 0 32 32" fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          x="0" y="0" width="32" height="32"
+          :fill="model" :fill-opacity="opacity ?? 1"
+        />
       </svg>
     </button>
     <input
       ref="element" type="color"
-      op-0 h-0 w-0 left-12 top-0 absolute
+      left="50%" top="50%"
+      op-0 h-0 w-0 absolute
       :value="model" @input="change"
     >
   </div>
