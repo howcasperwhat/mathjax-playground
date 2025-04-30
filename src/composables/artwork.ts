@@ -13,7 +13,7 @@ interface Memory {
 }
 
 class ArtWork {
-  readonly MAX_SIZE = 2e6
+  static readonly MAX_SIZE = 2e6
   name = ref('')
   currentTool = ref<Tool>('')
   tex = ref(`\\sum_{i=1}^{n} i^2 = \\frac{n(n+1)(2n+1)}{6}`)
@@ -356,9 +356,34 @@ class ArtWork {
     URL.revokeObjectURL(url) // Clean up the object URL
   }
 
-  save(type: 'code' | 'preview') {
+  usage(memory: Record<string, Memory>) {
+    const usage = Object.entries(memory).reduce(
+      (acc, [key, value]) =>
+        acc + key.length + value.tex.length
+        + (value.preview?.length ?? 0),
+      0,
+    )
+    return usage / ArtWork.MAX_SIZE
+  }
+
+  preShow(tex: string) {
     // eslint-disable-next-line no-console
-    console.log('save', type)
+    console.log('preShow', tex)
+  }
+
+  confirmShow() {
+    // eslint-disable-next-line no-console
+    console.log('confirmShow')
+  }
+
+  cancelShow() {
+    // eslint-disable-next-line no-console
+    console.log('cancelShow')
+  }
+
+  removeShow() {
+    // eslint-disable-next-line no-console
+    console.log('remove')
   }
 }
 

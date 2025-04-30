@@ -8,9 +8,23 @@ import {
 
 export default defineConfig({
   shortcuts: [
-    ['btn', 'text-[1em] inline-block cursor-pointer select-none disabled:cursor-not-allowed disabled:op-20'],
+    ['btn', 'text-[1em] inline-block cursor-pointer select-none disabled:cursor-not-allowed disabled:op-20 whitespace-nowrap of-hidden'],
     ['icon-btn', 'btn opacity-75 transition duration-200 ease-in-out hover:opacity-100 hover:text-hex-18f active:opacity-100 active:text-hex-c66'],
     ['toggle-btn', 'text-[0.8em] inline-block cursor-pointer select-none opacity-80 transition duration-200 ease-in-out hover:opacity-90 active:opacity-100 c-gray'],
+    ['sm', 'p-x-2 p-y-1'],
+    ['md', 'p-x-2 p-y-2'],
+    ['lg', 'p-x-4 p-y-2'],
+    ['bd', 'b-1px b-solid b-gray b-op-24'],
+    ['ipt', 'focus:outline-unset'],
+    ['sep', 'c-gray op-24'],
+    ['btn-sm', 'btn sm rd'],
+    ['btn-md', 'btn md rd'],
+    ['btn-lg', 'btn lg rd'],
+    ['ipt-sm', 'ipt sm rd'],
+    ['ipt-md', 'ipt md rd'],
+    ['ipt-lg', 'ipt lg rd'],
+    ['panel', 'rd bg-gray bg-op-8 of-auto bd'],
+    ['icon-text', 'flex items-center flex-gap-2 children:shrink-0'],
   ],
   presets: [
     presetWind4(),

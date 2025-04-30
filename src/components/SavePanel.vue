@@ -1,5 +1,6 @@
 <script setup lang='ts'>
 const active = ref(true)
+
 function getClass() {
   return active.value
     ? 'c-green b-green op-80'
@@ -9,46 +10,29 @@ function getClass() {
 
 <template>
   <div
-    p-y-4 w-full
-    flex="~ col items-center gap-4"
+    flex="~ col gap-4"
+    children:flex="~ items-center gap-2 wrap"
   >
-    <div
-      flex="~ items-center gap-2"
-      w-full
-    >
+    <div>
       <input
-        placeholder="Name"
-        p-x-2 p-y-1 w="3/5"
-        b="1px gray solid op-24"
-        maxlength="20" rounded
-        focus:outline-unset
+        placeholder="Name" maxlength="20"
+        ipt-sm bd
         @v-model="art.name"
       >
       <button
-        b="1px solid op-24" w="2/5"
-        flex="~ items-center gap-2"
-        p-x-2 p-y-1 rounded whitespace-nowrap of-hidden btn
+        bd btn-sm icon-text
         :class="getClass()"
         @click="active = !active"
       >
         <div i-carbon:function />
-        <div m-a>
-          Save Preview
-        </div>
+        Preview
       </button>
     </div>
-    <div
-      flex="~ items-center justify-center gap-2"
-      children:btn children:text-sm
-    >
-      <button
-        text-white p-x-2 p-y-1 rounded bg-gray-700
-      >
+    <div text-sm text-white children:btn-sm>
+      <button bg-gray-700>
         Reset
       </button>
-      <button
-        text-white p-x-2 p-y-1 rounded bg-teal-700
-      >
+      <button bg-teal-700>
         Save
       </button>
     </div>

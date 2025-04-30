@@ -7,6 +7,7 @@
 6. Dragger between preview and editor !done!
 7. data persistence of preview
 8. Router Parameter
-9. history panel
-10. tree structure panel
-11. repect brush, erase brush
+9. history panel !done!
+<!-- 10. tree structure panel -->
+10. repect brush, erase brush
+11. bug: Resizable

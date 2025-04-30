@@ -8,30 +8,24 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    About: typeof import('./src/components/About.vue')['default']
-    CodeHistory: typeof import('./src/components/CodeHistory.vue')['default']
     ColorPanel: typeof import('./src/components/ColorPanel.vue')['default']
     ColorPicker: typeof import('./src/components/ColorPicker.vue')['default']
-    ColorTabbar: typeof import('./src/components/ColorTabbar.vue')['default']
     ConfigPanel: typeof import('./src/components/ConfigPanel.vue')['default']
     Copy: typeof import('./src/components/Copy.vue')['default']
     Download: typeof import('./src/components/Download.vue')['default']
     HistoryPanel: typeof import('./src/components/HistoryPanel.vue')['default']
     Logo: typeof import('./src/components/Logo.vue')['default']
     MathJax: typeof import('./src/components/MathJax.vue')['default']
+    MathJaxPreview: typeof import('./src/components/MathJaxPreview.vue')['default']
     MonacoEditor: typeof import('./src/components/MonacoEditor.vue')['default']
     OpacityPicker: typeof import('./src/components/OpacityPicker.vue')['default']
     Painter: typeof import('./src/components/Painter.vue')['default']
+    Resizable: typeof import('./src/components/Resizable.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Save: typeof import('./src/components/Save.vue')['default']
     SavePanel: typeof import('./src/components/SavePanel.vue')['default']
-    Separator: typeof import('./src/components/Separator.vue')['default']
     Tabbar: typeof import('./src/components/Tabbar.vue')['default']
-    ThemeSwitch: typeof import('./src/components/ThemeSwitch.vue')['default']
     ThemeSwitcher: typeof import('./src/components/ThemeSwitcher.vue')['default']
     ToolBar: typeof import('./src/components/ToolBar.vue')['default']
-    XResizable: typeof import('./src/components/XResizable.vue')['default']
-    YResizable: typeof import('./src/components/YResizable.vue')['default']
   }
 }

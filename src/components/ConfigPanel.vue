@@ -1,35 +1,43 @@
 <script setup lang='ts'>
+import ColorPanel from './ColorPanel.vue'
+import SavePanel from './SavePanel.vue'
+
 const active = ref('color')
+
 function setActive(name: string) {
   active.value = name
+}
+
+interface UIData {
+  icon: string
+  component: Component
+}
+
+const data: Record<string, UIData> = {
+  color: {
+    icon: 'i-carbon:color-palette',
+    component: ColorPanel,
+  },
+  save: {
+    icon: 'i-carbon:save',
+    component: SavePanel,
+  },
 }
 </script>
 
 <template>
-  <div
-    b="1px solid gray op-24"
-    p-4 rounded bg-gray bg-op-8 of-auto
-    flex="~ col"
-  >
-    <Tabbar :names="['color', 'save']" @switch="setActive">
-      <template #color>
-        <div flex="~ items-center gap-2">
-          <div i-carbon:color-palette />
-          <div v-show="true">
-            Color
-          </div>
-        </div>
-      </template>
-      <template #save>
-        <div flex="~ items-center gap-2">
-          <div i-carbon:save />
-          <div v-show="true">
-            Save
-          </div>
-        </div>
-      </template>
-    </Tabbar>
-    <ColorPanel v-if="active === 'color'" />
-    <SavePanel v-if="active === 'save'" />
+  <div panel>
+    <div flex="~ col gap-4" m-4>
+      <Tabbar :names="Object.keys(data)" @switch="setActive">
+        <template
+          v-for="[key, value] in Object.entries(data)"
+          :key="key" #[key]
+        >
+          <div :class="value.icon" />
+          {{ key.charAt(0).toUpperCase() + key.slice(1) }}
+        </template>
+      </Tabbar>
+      <component :is="data[active].component" />
+    </div>
   </div>
 </template>

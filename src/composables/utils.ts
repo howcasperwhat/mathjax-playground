@@ -97,3 +97,13 @@ export function debounce<T extends (...args: any[]) => any>(
     }, delay)
   }
 }
+
+export function shrink(value: number, min: number = 0, max: number = 100) {
+  return Math.max(min, Math.min(max, value))
+}
+
+export function fontSize() {
+  return Number.parseInt(
+    document.documentElement.style.fontSize,
+  ) || 16
+}

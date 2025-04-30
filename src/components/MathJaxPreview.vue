@@ -29,8 +29,7 @@ onMounted(() => {
 
 <template>
   <div
-    rounded bg-gray bg-op-0 of-auto
-    b="1px solid gray op-24"
+    bd rd of-auto
     :style="{
       display: 'flex',
       justifyContent: 'safe center',

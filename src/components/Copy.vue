@@ -1,6 +1,4 @@
 <script setup lang='ts'>
-import { art } from '~/composables/artwork'
-
 const show = ref(true)
 </script>
 

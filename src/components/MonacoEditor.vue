@@ -42,7 +42,7 @@ onMounted(async () => {
         bottom: 16,
       },
       lineNumbersMinChars: 3,
-      fontSize: 16,
+      fontSize: fontSize(),
       lineHeight: 1.6,
       scrollbar: {
         verticalScrollbarSize: 8,
