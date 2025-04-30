@@ -5,73 +5,59 @@ import EditorWorker from 'monaco-editor/esm/vs/editor/editor.worker.js?worker'
 import { createHighlighter } from 'shiki'
 import litemath from '~/data/litemath'
 
-const modelValue = defineModel<string>()
+const model = defineModel<string>({ required: true })
 
-const editor = ref<HTMLElement | null>(null)
-const editorInstance = shallowRef<monaco.editor.IStandaloneCodeEditor | null>(null)
+const element = ref<HTMLElement | null>(null)
+const editor = shallowRef<monaco.editor.IStandaloneCodeEditor | null>(null)
 
 onMounted(async () => {
-  if (editor.value) {
-    window.MonacoEnvironment = {
-      getWorker() {
-        return new EditorWorker()
-      },
-    }
-    // Create the highlighter, it can be reused
-    const highlighter = await createHighlighter({
-      themes: [
-        'vitesse-dark',
-        'vitesse-light',
-      ],
-      langs: [litemath],
-    })
+  window.MonacoEnvironment = { getWorker: () => new EditorWorker() }
 
-    // Register the languageIds first. Only registered languages will be highlighted.
-    monaco.languages.register({ id: 'litemath' })
-    shikiToMonaco(highlighter, monaco)
+  const highlighter = await createHighlighter({
+    themes: [
+      'vitesse-dark',
+      'vitesse-light',
+    ],
+    langs: [litemath],
+  })
+  monaco.languages.register({ id: 'litemath' })
+  shikiToMonaco(highlighter, monaco)
 
-    editorInstance.value = monaco.editor.create(editor.value, {
-      value: modelValue.value || '', // Use modelValue or a default
-      language: 'litemath', // Or use props.language
-      // theme: '', // Or use props.theme
-      automaticLayout: true, // Adjusts layout on container resize
-      minimap: { enabled: false }, // Optional: disable minimap
-      // Add other Monaco options as needed
-      padding: {
-        top: 16,
-        bottom: 16,
-      },
-      lineNumbersMinChars: 3,
-      fontSize: fontSize(),
-      lineHeight: 1.6,
-      scrollbar: {
-        verticalScrollbarSize: 8,
-        horizontalScrollbarSize: 8,
-      },
-      scrollBeyondLastLine: false,
-      contextmenu: false,
-    })
+  editor.value = monaco.editor.create(element.value!, {
+    value: model.value,
+    language: 'litemath',
+    automaticLayout: true,
+    minimap: { enabled: false },
+    padding: {
+      top: 16,
+      bottom: 16,
+    },
+    lineNumbersMinChars: 3,
+    fontSize: fontSize(),
+    lineHeight: 1.6,
+    scrollbar: {
+      verticalScrollbarSize: 8,
+      horizontalScrollbarSize: 8,
+    },
+    scrollBeyondLastLine: false,
+    contextmenu: false,
+  })
 
-    // Listen to content changes and update the modelValue
-    editorInstance.value.onDidChangeModelContent(() => {
-      modelValue.value = editorInstance.value?.getValue()
-    })
+  editor.value.onDidChangeModelContent(() =>
+    model.value = editor.value!.getValue(),
+  )
 
-    watch(isDark, () => {
-      monaco.editor.setTheme(`vitesse-${isDark.value ? 'dark' : 'light'}`)
-    }, { immediate: true })
-  }
+  watch(isDark, () => monaco.editor.setTheme(
+    `vitesse-${isDark.value ? 'dark' : 'light'}`,
+  ), { immediate: true })
 })
 
-onUnmounted(() => {
-  editorInstance.value?.dispose()
-})
-// });
+onUnmounted(() => editor.value?.dispose())
 </script>
 
 <template>
   <div
-    ref="editor"
+    ref="element"
     rounded of-hidden
     b="1px solid gray op-24"
   />

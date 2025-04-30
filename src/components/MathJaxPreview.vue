@@ -39,6 +39,3 @@ onMounted(() => {
     <div ref="container" v-html="html" />
   </div>
 </template>
-
-<style scoped>
-</style>
