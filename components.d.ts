@@ -15,7 +15,6 @@ declare module 'vue' {
     Download: typeof import('./src/components/Download.vue')['default']
     HistoryPanel: typeof import('./src/components/HistoryPanel.vue')['default']
     Logo: typeof import('./src/components/Logo.vue')['default']
-    MathJax: typeof import('./src/components/MathJax.vue')['default']
     MathJaxPreview: typeof import('./src/components/MathJaxPreview.vue')['default']
     MonacoEditor: typeof import('./src/components/MonacoEditor.vue')['default']
     OpacityPicker: typeof import('./src/components/OpacityPicker.vue')['default']

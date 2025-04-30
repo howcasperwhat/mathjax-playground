@@ -14,33 +14,16 @@ onMounted(async () => {
   window.MonacoEnvironment = { getWorker: () => new EditorWorker() }
 
   const highlighter = await createHighlighter({
-    themes: [
-      'vitesse-dark',
-      'vitesse-light',
-    ],
+    themes: ['vitesse-dark', 'vitesse-light'],
     langs: [litemath],
   })
   monaco.languages.register({ id: 'litemath' })
   shikiToMonaco(highlighter, monaco)
+  monaco.languages.registerCompletionItemProvider('litemath', MONACO_COMPLETION)
 
   editor.value = monaco.editor.create(element.value!, {
+    ...MONACO_CONFIG,
     value: model.value,
-    language: 'litemath',
-    automaticLayout: true,
-    minimap: { enabled: false },
-    padding: {
-      top: 16,
-      bottom: 16,
-    },
-    lineNumbersMinChars: 3,
-    fontSize: fontSize(),
-    lineHeight: 1.6,
-    scrollbar: {
-      verticalScrollbarSize: 8,
-      horizontalScrollbarSize: 8,
-    },
-    scrollBeyondLastLine: false,
-    contextmenu: false,
   })
 
   editor.value.onDidChangeModelContent(() =>
