@@ -1,8 +1,8 @@
+// information_for_contributors: [
+//   'This file are modified from https://github.com/microsoft/vscode/blob/main/extensions/markdown-math/syntaxes/md-math.tmLanguage.json',
+//   'This file includes some grammar rules copied from https://github.com/James-Yu/LaTeX-Workshop/blob/master/syntax/TeX.tmLanguage.json',
+// ],
 const litemath = {
-  information_for_contributors: [
-    'This file are modified from https://github.com/microsoft/vscode/blob/main/extensions/markdown-math/syntaxes/md-math.tmLanguage.json',
-    'This file includes some grammar rules copied from https://github.com/James-Yu/LaTeX-Workshop/blob/master/syntax/TeX.tmLanguage.json',
-  ],
   name: 'litemath',
   scopeName: 'text.html.markdown.litemath',
   patterns: [{ include: '#litemath' }],

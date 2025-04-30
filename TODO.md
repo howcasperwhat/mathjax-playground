@@ -10,4 +10,4 @@
 9. history panel !done!
 <!-- 10. tree structure panel -->
 10. repect brush, erase brush
-11. bug: Resizable
+<!-- 11. bug: Resizable -->
