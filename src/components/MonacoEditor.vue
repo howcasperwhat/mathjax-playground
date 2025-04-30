@@ -20,6 +20,9 @@ onMounted(async () => {
   monaco.languages.register({ id: 'litemath' })
   shikiToMonaco(highlighter, monaco)
   monaco.languages.registerCompletionItemProvider('litemath', MONACO_COMPLETION)
+  monaco.languages.setLanguageConfiguration('litemath', {
+    brackets: [['{', '}'], ['[', ']'], ['(', ')'], ['|', '|']],
+  })
 
   editor.value = monaco.editor.create(element.value!, {
     ...MONACO_CONFIG,
