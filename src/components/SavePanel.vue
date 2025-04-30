@@ -1,6 +1,11 @@
 <script setup lang='ts'>
 const active = ref(true)
 
+const name = computed({
+  get: () => art.name.value,
+  set: v => art.name.value = v,
+})
+
 function getClass() {
   return active.value
     ? 'c-green b-green op-80'
@@ -15,9 +20,10 @@ function getClass() {
   >
     <div>
       <input
-        placeholder="Name" maxlength="20"
-        ipt-sm bd
-        @v-model="art.name"
+        v-model="name"
+        placeholder="Name"
+        maxlength="20" ipt-sm
+        bd
       >
       <button
         bd btn-sm icon-text
@@ -29,10 +35,10 @@ function getClass() {
       </button>
     </div>
     <div text-sm text-white children:btn-sm>
-      <button bg-gray-700>
+      <button bg-gray-700 @click="name = ''">
         Reset
       </button>
-      <button bg-teal-700>
+      <button bg-teal-700 @click="art.save(active)">
         Save
       </button>
     </div>

@@ -366,6 +366,11 @@ class ArtWork {
     return usage / ArtWork.MAX_SIZE
   }
 
+  save(preview: boolean) {
+    // eslint-disable-next-line no-console
+    console.log('save', preview)
+  }
+
   preShow(tex: string) {
     // eslint-disable-next-line no-console
     console.log('preShow', tex)
