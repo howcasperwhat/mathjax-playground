@@ -6,9 +6,9 @@ import { transformer } from '../composables/transformer'
 const props = defineProps<{
   tex: string
 }>()
-const emits = defineEmits<{
-  (e: 'rendered', elem: Element): void
-}>()
+// const emits = defineEmits<{
+//   (e: 'rendered', elem: Element): void
+// }>()
 const html = ref(props.tex)
 const container = ref<HTMLElement | null>(null)
 
@@ -21,7 +21,7 @@ onMounted(() => {
     html.value = element.outerHTML
     nextTick(() => {
       art.setElement(container.value!.children[0])
-      emits('rendered', art.element.value!)
+      // emits('rendered', art.elem!)
     })
   }, { immediate: true })
 })

@@ -21,7 +21,7 @@ onMounted(async () => {
   shikiToMonaco(highlighter, monaco)
   monaco.languages.registerCompletionItemProvider('litemath', MONACO_COMPLETION)
   monaco.languages.setLanguageConfiguration('litemath', {
-    brackets: [['{', '}'], ['[', ']'], ['(', ')'], ['|', '|']],
+    brackets: [['{', '}'], ['[', ']'], ['(', ')']],
   })
 
   editor.value = monaco.editor.create(element.value!, {

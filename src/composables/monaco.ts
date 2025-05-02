@@ -1,7 +1,8 @@
+import type { editor } from 'monaco-editor'
 import { languages, Range } from 'monaco-editor'
 import { CHARACTERS, COMMANDS, DELIMITERS, ENVIRONMENTS } from '~/data/completion'
 
-export const MONACO_CONFIG = {
+export const MONACO_CONFIG: editor.IStandaloneEditorConstructionOptions = {
   language: 'litemath',
   automaticLayout: true,
   minimap: { enabled: false },
