@@ -2,8 +2,8 @@
 const active = ref(true)
 
 const name = computed({
-  get: () => art.name.value,
-  set: v => art.name.value = v,
+  get: () => state.name,
+  set: v => state.name = v,
 })
 
 function getClass() {
@@ -38,7 +38,7 @@ function getClass() {
       <button bg-gray-700 @click="name = ''">
         Reset
       </button>
-      <button bg-teal-700 @click="art.save(active)">
+      <button bg-teal-700 @click="state.save(active)">
         Save
       </button>
     </div>

@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
-import { art } from '~/composables/artwork'
-import { transformer } from '../composables/transformer'
-
 const props = defineProps<{
   tex: string
 }>()
@@ -20,8 +16,8 @@ onMounted(() => {
     // console.log('tex changed', props.tex, element)
     html.value = element.outerHTML
     nextTick(() => {
-      art.setElement(container.value!.children[0])
-      // emits('rendered', art.elem!)
+      state.elem = container.value!.children[0] as SVGSVGElement
+      // emits('rendered', state.elem!)
     })
   }, { immediate: true })
 })

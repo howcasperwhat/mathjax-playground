@@ -6,10 +6,13 @@
 // biome-ignore lint: disable
 export {}
 declare global {
+  const DEFAULT_MEMORY: typeof import('./src/composables/constants')['DEFAULT_MEMORY']
+  const DEFAULT_TEX: typeof import('./src/composables/constants')['DEFAULT_TEX']
   const EffectScope: typeof import('vue')['EffectScope']
   const MONACO_COMPLETION: typeof import('./src/composables/monaco')['MONACO_COMPLETION']
   const MONACO_CONFIG: typeof import('./src/composables/monaco')['MONACO_CONFIG']
-  const art: typeof import('./src/composables/artwork')['art']
+  const MockerElement: typeof import('./src/composables/mocker-element')['MockerElement']
+  const ToolType: typeof import('./src/composables/playground-state')['ToolType']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
   const computed: typeof import('vue')['computed']
@@ -101,6 +104,7 @@ declare global {
   const shallowReadonly: typeof import('vue')['shallowReadonly']
   const shallowRef: typeof import('vue')['shallowRef']
   const shrink: typeof import('./src/composables/utils')['shrink']
+  const state: typeof import('./src/composables/playground-state')['state']
   const svgToPngDataUrl: typeof import('./src/composables/utils')['svgToPngDataUrl']
   const syncRef: typeof import('@vueuse/core')['syncRef']
   const syncRefs: typeof import('@vueuse/core')['syncRefs']
@@ -314,6 +318,12 @@ declare global {
   // @ts-ignore
   export type { Component, ComponentPublicInstance, ComputedRef, DirectiveBinding, ExtractDefaultPropTypes, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, MaybeRef, MaybeRefOrGetter, VNode, WritableComputedRef } from 'vue'
   import('vue')
+  // @ts-ignore
+  export type { MockerElement, MockerElementOptions, MockerElementShowOptions } from './src/composables/mocker-element'
+  import('./src/composables/mocker-element')
+  // @ts-ignore
+  export type { ToolType } from './src/composables/playground-state'
+  import('./src/composables/playground-state')
 }
 
 // for vue template auto import
@@ -321,10 +331,13 @@ import { UnwrapRef } from 'vue'
 declare module 'vue' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
+    readonly DEFAULT_MEMORY: UnwrapRef<typeof import('./src/composables/constants')['DEFAULT_MEMORY']>
+    readonly DEFAULT_TEX: UnwrapRef<typeof import('./src/composables/constants')['DEFAULT_TEX']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly MONACO_COMPLETION: UnwrapRef<typeof import('./src/composables/monaco')['MONACO_COMPLETION']>
     readonly MONACO_CONFIG: UnwrapRef<typeof import('./src/composables/monaco')['MONACO_CONFIG']>
-    readonly art: UnwrapRef<typeof import('./src/composables/artwork')['art']>
+    readonly MockerElement: UnwrapRef<typeof import('./src/composables/mocker-element')['MockerElement']>
+    readonly ToolType: UnwrapRef<typeof import('./src/composables/playground-state')['ToolType']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
@@ -416,11 +429,11 @@ declare module 'vue' {
     readonly shallowReadonly: UnwrapRef<typeof import('vue')['shallowReadonly']>
     readonly shallowRef: UnwrapRef<typeof import('vue')['shallowRef']>
     readonly shrink: UnwrapRef<typeof import('./src/composables/utils')['shrink']>
+    readonly state: UnwrapRef<typeof import('./src/composables/playground-state')['state']>
     readonly svgToPngDataUrl: UnwrapRef<typeof import('./src/composables/utils')['svgToPngDataUrl']>
     readonly syncRef: UnwrapRef<typeof import('@vueuse/core')['syncRef']>
     readonly syncRefs: UnwrapRef<typeof import('@vueuse/core')['syncRefs']>
     readonly templateRef: UnwrapRef<typeof import('@vueuse/core')['templateRef']>
-    readonly testProvider: UnwrapRef<typeof import('./src/composables/monaco')['testProvider']>
     readonly throttledRef: UnwrapRef<typeof import('@vueuse/core')['throttledRef']>
     readonly throttledWatch: UnwrapRef<typeof import('@vueuse/core')['throttledWatch']>
     readonly toRaw: UnwrapRef<typeof import('vue')['toRaw']>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const tex = computed({
-  get: () => art.tex.value,
-  set: v => art.tex.value = v,
+  get: () => state.tex,
+  set: v => state.tex = v,
 })
 useStorage('tex', tex)
 </script>

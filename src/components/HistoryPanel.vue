@@ -5,7 +5,7 @@ const query = ref('')
 const preshowing = ref(false)
 
 const saved = computed(() =>
-  Object.entries(art.memory.value).map(([key, value]) => ({
+  Object.entries(state.memory.value).map(([key, value]) => ({
     content: key,
     preview: Boolean(value.preview),
   })),
@@ -19,19 +19,19 @@ const filtered = computed(() => {
 })
 function preshow(tex: string) {
   preshowing.value = true
-  art.preShow(tex)
+  state.preShow(tex)
 }
 function confirm() {
   preshowing.value = false
-  art.confirmShow()
+  state.confirmShow()
 }
 function cancel() {
   preshowing.value = false
-  art.cancelShow()
+  state.cancelShow()
 }
 function remove() {
   preshowing.value = false
-  art.removeShow()
+  state.removeShow()
 }
 </script>
 

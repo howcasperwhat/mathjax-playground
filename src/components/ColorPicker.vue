@@ -8,7 +8,6 @@ const element = ref<HTMLInputElement | null>(null)
 
 function toggle() {
   element.value?.click()
-  art.switchTool()
 }
 
 function change(event: Event) {

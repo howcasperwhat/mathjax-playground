@@ -7,9 +7,9 @@ const show = ref(true)
     <div i-carbon:download @click="show = !show" />
   </button>
   <button v-show="show" icon-btn>
-    <div i-carbon:png @click="art.download('png')" />
+    <div i-carbon:png @click="state.download('png')" />
   </button>
   <button v-show="show" icon-btn>
-    <div i-carbon:svg @click="art.download('svg')" />
+    <div i-carbon:svg @click="state.download('svg')" />
   </button>
 </template>

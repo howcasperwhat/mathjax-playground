@@ -5,18 +5,18 @@
   >
     <div>
       <div i-carbon:paint-brush-alt c-gray />
-      <ColorPicker v-model="art.color.pen" :opacity="art.opacity.pen" />
-      <OpacityPicker v-model="art.opacity.pen" />
+      <ColorPicker v-model="state.color.pen" :opacity="state.opacity.pen" />
+      <OpacityPicker v-model="state.opacity.pen" />
     </div>
     <div>
       <div i-carbon:paint-brush c-gray />
-      <ColorPicker v-model="art.color.brush" :opacity="art.opacity.brush" />
-      <OpacityPicker v-model="art.opacity.brush" />
+      <ColorPicker v-model="state.color.brush" :opacity="state.opacity.brush" />
+      <OpacityPicker v-model="state.opacity.brush" />
     </div>
     <div>
       <div i-carbon:color-palette c-gray />
-      <ColorPicker v-model="art.color.global" :opacity="art.opacity.global" />
-      <OpacityPicker v-model="art.opacity.global" />
+      <ColorPicker v-model="state.color.global" :opacity="state.opacity.global" />
+      <OpacityPicker v-model="state.opacity.global" />
     </div>
   </div>
 </template>

@@ -65,29 +65,12 @@ export const MONACO_COMPLETION: languages.CompletionItemProvider = {
 
     suggestions.push({
       label: '\\begin{...}',
-      kind: languages.CompletionItemKind.Function,
+      kind: languages.CompletionItemKind.Module,
       insertText: `\\begin{\${1|${ENVIRONMENTS.join(',')}|}}\n\t$0\n\\end{$1}`,
       insertTextRules: languages.CompletionItemInsertTextRule.InsertAsSnippet,
       range: new Range(position.lineNumber, position.column - 1, position.lineNumber, position.column),
     })
 
     return { suggestions }
-  },
-}
-
-export const testProvider: languages.CompletionItemProvider = {
-  triggerCharacters: ['\\'],
-  provideCompletionItems(_, position) {
-    // eslint-disable-next-line no-console
-    console.log('Test provider called')
-    return {
-      suggestions: [{
-        label: '\\hello',
-        kind: languages.CompletionItemKind.Text,
-        insertText: 'hello',
-        // 确保 range 替换掉触发字符 '\'
-        range: new Range(position.lineNumber, position.column - 1, position.lineNumber, position.column),
-      }],
-    }
   },
 }
