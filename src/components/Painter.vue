@@ -7,12 +7,12 @@ const show = ref(true)
     <div i-carbon:box @click="show = !show" />
   </button>
   <button v-show="show" icon-btn>
-    <div i-carbon:paint-brush-alt @click="state.tool = ToolType.Pen" />
+    <div i-carbon:paint-brush-alt @click="playState.tool = ToolType.Pen" />
   </button>
   <button v-show="show" icon-btn>
-    <div i-carbon:paint-brush @click="state.tool = ToolType.Brush" />
+    <div i-carbon:paint-brush @click="playState.tool = ToolType.Brush" />
   </button>
   <button v-show="show" icon-btn>
-    <div i-carbon:erase @click="state.tool = ToolType.Eraser" />
+    <div i-carbon:erase @click="playState.tool = ToolType.Eraser" />
   </button>
 </template>

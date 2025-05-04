@@ -38,7 +38,7 @@ function getClass() {
       <button bg-gray-700 @click="name = ''">
         Reset
       </button>
-      <button bg-teal-700 @click="state.save(active)">
+      <button bg-teal-700 @click="playState.save(active)">
         Save
       </button>
     </div>

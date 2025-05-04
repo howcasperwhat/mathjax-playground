@@ -28,7 +28,7 @@ const data: Record<string, UIData> = {
 <template>
   <div panel>
     <div flex="~ col gap-4" m-4>
-      <Tabbar :names="Object.keys(data)" @switch="setActive">
+      <TabState :names="Object.keys(data)" @switch="setActive">
         <template
           v-for="[key, value] in Object.entries(data)"
           :key="key" #[key]
@@ -36,7 +36,7 @@ const data: Record<string, UIData> = {
           <div :class="value.icon" />
           {{ key.charAt(0).toUpperCase() + key.slice(1) }}
         </template>
-      </Tabbar>
+      </TabState>
       <component :is="data[active].component" />
     </div>
   </div>

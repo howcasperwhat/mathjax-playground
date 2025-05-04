@@ -1,3 +1,4 @@
+import type { Reactive } from 'vue'
 import { DEFAULT_MEMORY, DEFAULT_TEX } from './constants'
 import { MockerElement } from './mocker-element'
 
@@ -88,7 +89,7 @@ class PlayGroundState {
     global: 100,
   })
 
-  memory: Ref<Record<string, Memory>> = ref(PlayGroundState.DEFAULT_MEMORY)
+  memory: Reactive<Record<string, Memory>> = reactive(PlayGroundState.DEFAULT_MEMORY)
 
   isBrushedRect(elem: Element | null) {
     return elem
@@ -124,26 +125,11 @@ class PlayGroundState {
     this.elem.setAttribute('stroke', this.color.global)
   }
 
-  whole(element: SVGGraphicsElement) {
-    const r1 = this.elem?.getBoundingClientRect()
-    const r2 = element.getBoundingClientRect()
-    if (!r1 || !r2)
-      return false
-    return r1.width === r2.width
-      && r1.height === r2.height
-      && r1.left === r2.left
-      && r1.top === r2.top
-  }
-
   paint(element: SVGGraphicsElement) {
-    if (this.whole(element))
-      element = this.elem!
     element.setAttribute('fill', this.color.pen)
   }
 
   brush(element: SVGGraphicsElement) {
-    if (this.whole(element))
-      element = this.elem!
     if (this.isBrushedRect(element.previousElementSibling))
       return
     try {
@@ -363,14 +349,12 @@ class PlayGroundState {
     URL.revokeObjectURL(url)
   }
 
-  usage(memory: Record<string, Memory>) {
-    const usage = Object.entries(memory).reduce(
-      (acc, [key, value]) =>
-        acc + key.length + value.tex.length
-        + (value.preview?.length ?? 0),
-      0,
-    )
-    return usage / PlayGroundState.MAX_SIZE
+  usage(name: string) {
+    const memory = this.memory[name]
+    return [name, memory.tex, memory?.preview]
+      .filter(x => x !== undefined)
+      .map(str => new Blob([str]).size)
+      .reduce((acc, size) => acc + size, 0)
   }
 
   save(preview: boolean) {
@@ -397,6 +381,11 @@ class PlayGroundState {
     // eslint-disable-next-line no-console
     console.log('remove')
   }
+
+  remove(name: string) {
+    // eslint-disable-next-line no-console
+    console.log('remove', name)
+  }
 }
 
-export const state = new PlayGroundState()
+export const playState = new PlayGroundState()

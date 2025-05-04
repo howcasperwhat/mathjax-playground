@@ -44,7 +44,6 @@ onUnmounted(() => editor.value?.dispose())
 <template>
   <div
     ref="element"
-    rounded of-hidden
-    b="1px solid gray op-24"
+    bd rd
   />
 </template>

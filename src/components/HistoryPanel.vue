@@ -5,8 +5,8 @@ const query = ref('')
 const preshowing = ref(false)
 
 const saved = computed(() =>
-  Object.entries(state.memory.value).map(([key, value]) => ({
-    content: key,
+  Object.entries(playState.memory).map(([key, value]) => ({
+    name: key,
     preview: Boolean(value.preview),
   })),
 )
@@ -14,24 +14,32 @@ const filtered = computed(() => {
   if (!query.value)
     return saved.value
   return saved.value.filter(tex =>
-    tex.content.toLowerCase().includes(query.value.toLowerCase()),
+    tex.name.toLowerCase().includes(query.value.toLowerCase()),
   )
 })
+function format(usage: number) {
+  const units = ['B', 'KB', 'MB', 'GB']
+  for (let i = 0; i < units.length; i++) {
+    if (usage < 1024 ** (i + 1))
+      return `${(usage / (1024 ** i)).toFixed(2)} ${units[i]}`
+  }
+  return `${(usage / (1024 ** units.length)).toFixed(2)} TB`
+}
 function preshow(tex: string) {
   preshowing.value = true
-  state.preShow(tex)
+  playState.preShow(tex)
 }
 function confirm() {
   preshowing.value = false
-  state.confirmShow()
+  playState.confirmShow()
 }
 function cancel() {
   preshowing.value = false
-  state.cancelShow()
+  playState.cancelShow()
 }
 function remove() {
   preshowing.value = false
-  state.removeShow()
+  playState.removeShow()
 }
 </script>
 
@@ -55,11 +63,12 @@ function remove() {
         :disabled="preshowing"
         bd bg-hex-8884 bg-op-36 btn-md active:bg-op-12
         hover:bg-op-24 icon-text
-        @click="preshow(tex.content)"
+        @click="preshow(tex.name)"
       >
-        <div v-if="tex.preview" i-carbon:function />
-        <div v-else i-carbon:code />
-        <div v-text="tex.content.slice(0, 20)" />
+        <div v-if="tex.preview" i-carbon:function c-blue="700 dark:400" />
+        <div v-else i-carbon:code c-green="700 dark:400" />
+        <div op-80 v-text="tex.name.slice(0, 20)" />
+        <div text-sm text-gray m-l-a v-text="format(playState.usage(tex.name))" />
       </button>
       <button
         v-if="filtered.length > length"
@@ -73,22 +82,19 @@ function remove() {
     </div>
     <div
       v-show="preshowing"
-      flex="~ items-center gap-2 justify-between "
+      flex="~ items-center gap-2"
       text-sm m-x-4 bottom-4 left-0 sticky z-10
+      children:btn-sm children:text-white
     >
-      <div flex="~ items-center gap-2">
-        <button text-white bg-yellow-700 btn-sm @click="remove">
-          Remove
-        </button>
-      </div>
-      <div flex="~ items-center gap-2" children:btn-sm>
-        <button text-white bg-teal-700 @click="confirm">
-          Confirm
-        </button>
-        <button text-white bg-gray-700 @click="cancel">
-          Cancel
-        </button>
-      </div>
+      <button m-r-a bg-yellow-700 @click="remove">
+        Remove
+      </button>
+      <button bg-teal-700 @click="confirm">
+        Confirm
+      </button>
+      <button bg-gray-700 @click="cancel">
+        Cancel
+      </button>
     </div>
   </div>
 </template>
