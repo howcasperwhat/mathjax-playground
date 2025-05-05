@@ -12,7 +12,7 @@ export const MONACO_CONFIG: editor.IStandaloneEditorConstructionOptions = {
   },
   lineNumbersMinChars: 3,
   fontSize: fontSize(),
-  lineHeight: 1.6,
+  lineHeight: 1.8,
   scrollbar: {
     verticalScrollbarSize: 8,
     horizontalScrollbarSize: 8,

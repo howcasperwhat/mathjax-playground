@@ -60,6 +60,7 @@ declare global {
   const makeDestructurable: typeof import('@vueuse/core')['makeDestructurable']
   const markRaw: typeof import('vue')['markRaw']
   const mathjax: typeof import('./src/composables/mathjax')['mathjax']
+  const message: typeof import('./src/composables/message')['message']
   const nextTick: typeof import('vue')['nextTick']
   const onActivated: typeof import('vue')['onActivated']
   const onBeforeMount: typeof import('vue')['onBeforeMount']
@@ -106,7 +107,6 @@ declare global {
   const shallowReadonly: typeof import('vue')['shallowReadonly']
   const shallowRef: typeof import('vue')['shallowRef']
   const shrink: typeof import('./src/composables/utils')['shrink']
-  const state: typeof import('./src/composables/playground-state')['playState']
   const svgToPngDataUrl: typeof import('./src/composables/utils')['svgToPngDataUrl']
   const syncRef: typeof import('@vueuse/core')['syncRef']
   const syncRefs: typeof import('@vueuse/core')['syncRefs']
@@ -385,6 +385,7 @@ declare module 'vue' {
     readonly makeDestructurable: UnwrapRef<typeof import('@vueuse/core')['makeDestructurable']>
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
     readonly mathjax: UnwrapRef<typeof import('./src/composables/mathjax')['mathjax']>
+    readonly message: UnwrapRef<typeof import('./src/composables/message')['message']>
     readonly nextTick: UnwrapRef<typeof import('vue')['nextTick']>
     readonly onActivated: UnwrapRef<typeof import('vue')['onActivated']>
     readonly onBeforeMount: UnwrapRef<typeof import('vue')['onBeforeMount']>

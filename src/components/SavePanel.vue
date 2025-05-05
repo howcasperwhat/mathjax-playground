@@ -2,8 +2,8 @@
 const active = ref(true)
 
 const name = computed({
-  get: () => state.name,
-  set: v => state.name = v,
+  get: () => playState.name,
+  set: v => playState.name = v,
 })
 
 function getClass() {

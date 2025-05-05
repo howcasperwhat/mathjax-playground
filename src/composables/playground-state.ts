@@ -386,6 +386,16 @@ class PlayGroundState {
     // eslint-disable-next-line no-console
     console.log('remove', name)
   }
+
+  exists(name: string) {
+    return Boolean(this.memory[name])
+  }
+
+  add(name: string) {
+    this.memory[name] = {
+      tex: '',
+    }
+  }
 }
 
 export const playState = new PlayGroundState()
