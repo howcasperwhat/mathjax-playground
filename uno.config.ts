@@ -25,6 +25,16 @@ export default defineConfig({
     ['ipt-lg', 'ipt lg rd'],
     ['panel', 'rd bg-gray bg-op-8 of-auto bd'],
     ['icon-text', 'flex items-center flex-gap-2 children:shrink-0'],
+    ['i:tex', 'i-carbon:code c-green-700 dark:c-green-400'],
+    ['i:svg', 'i-carbon:function c-blue-700 dark:c-blue-400'],
+    ['i:workspace', 'i-carbon:3d-mpr-toggle c-red-700 dark:c-red-400'],
+    ['i:default', 'i-carbon:document c-gray-700 dark:c-gray-400'],
+  ],
+  safelist: [
+    'i:tex',
+    'i:svg',
+    'i:workspace',
+    'i:default',
   ],
   presets: [
     presetWind4(),

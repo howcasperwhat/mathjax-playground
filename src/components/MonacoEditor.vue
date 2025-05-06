@@ -5,8 +5,6 @@ import EditorWorker from 'monaco-editor/esm/vs/editor/editor.worker.js?worker'
 import { createHighlighter } from 'shiki'
 import litemath from '~/data/litemath'
 
-const model = defineModel<string>({ required: true })
-
 const element = ref<HTMLElement | null>(null)
 const editor = shallowRef<monaco.editor.IStandaloneCodeEditor | null>(null)
 
@@ -26,16 +24,21 @@ onMounted(async () => {
 
   editor.value = monaco.editor.create(element.value!, {
     ...MONACO_CONFIG,
-    value: model.value,
   })
 
-  editor.value.onDidChangeModelContent(() =>
-    model.value = editor.value!.getValue(),
-  )
+  editor.value.onDidChangeModelContent(() => {
+    playState.tex.value = editor.value?.getValue() ?? ''
+  })
 
   watch(isDark, () => monaco.editor.setTheme(
     `vitesse-${isDark.value ? 'dark' : 'light'}`,
   ), { immediate: true })
+
+  watch(playState.active, () => {
+    editor.value?.setValue(
+      playState.toItem(playState.active.value)?.tex ?? '',
+    )
+  }, { immediate: true })
 })
 
 onUnmounted(() => editor.value?.dispose())

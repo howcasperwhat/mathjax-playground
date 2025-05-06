@@ -1,63 +1,65 @@
 <script setup lang='ts'>
-const props = defineProps<{
-  names: string[]
-  active?: string
-}>()
+const tabs = computed(() => {
+  return Array.from(playState.tabs.value)
+})
 
-const emits = defineEmits<{
-  (e: 'switch', active: string): void
-}>()
+const active = computed(() => {
+  return playState.active.value
+})
+const hover = ref<string>('')
 
-const active = ref(props.active || props.names[0])
-const hover = ref<string | null>(null)
-const ielem = ref<HTMLInputElement | null>(null)
-const ename = ref('')
-const editing = ref(false)
+const inputElement = ref<HTMLInputElement | null>(null)
+const editingName = ref('')
+const isEditing = ref(false)
 
 function editState() {
-  editing.value = true
-  nextTick(() => ielem.value?.focus())
+  isEditing.value = true
+  nextTick(() => inputElement.value?.focus())
 }
 
 function confirmEditState() {
-  if (!playState.exists(ename.value)) {
-    playState.add(ename.value)
-    editing.value = false
+  const name = editingName.value.trim()
+  if (!playState.exists(name)) {
+    // memory
+    playState.add(name)
+    // tabs
+    playState.tabs.value.add(name)
+    // active
+    playState.switchActive(name)
+    isEditing.value = false
   }
   else {
     message.error('State name already exists')
-    ielem.value?.focus()
+    inputElement.value?.focus()
   }
 }
 
 function cancelEditState() {
-  editing.value = false
-  ename.value = ''
-  // eslint-disable-next-line no-console
-  console.log('cancelEditState', ename.value)
+  isEditing.value = false
+  editingName.value = ''
 }
 
 function removeState(name: string) {
-  // eslint-disable-next-line no-console
-  console.log('removeState', name)
+  playState.tabs.value.delete(name)
 }
 </script>
 
 <template>
   <div flex="~ items-center gap-1">
     <button
-      v-for="name in props.names" :key="name"
+      v-for="name in tabs"
+      :key="name"
       :style="{
         opacity: active === name
           ? 1 : hover === name
             ? 0.75 : 0.5,
       }"
       bd bg-hex-8882 btn-sm icon-text
-      @click="emits('switch', active = name)"
+      @click="playState.switchActive(name)"
       @mouseenter="hover = name"
-      @mouseleave="hover = null"
+      @mouseleave="hover = ''"
     >
-      <div i-carbon:3d-mpr-toggle />
+      <div :class="playState.icon(name)" />
       {{ name }}
       <div
         v-show="hover === name"
@@ -67,13 +69,13 @@ function removeState(name: string) {
       </div>
     </button>
     <button
-      v-show="editing"
+      v-show="isEditing"
       bd bg-hex-8882 btn-sm icon-text
     >
       <div i-carbon:3d-mpr-toggle />
       <input
-        ref="ielem"
-        v-model="ename"
+        ref="inputElement"
+        v-model="editingName"
         placeholder="Name"
         maxlength="20"
         p-0 ipt-sm w-20

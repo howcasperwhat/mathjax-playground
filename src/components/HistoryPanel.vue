@@ -2,19 +2,14 @@
 const delta = 20
 const length = ref(delta)
 const query = ref('')
-const preshowing = ref(false)
 
-const saved = computed(() =>
-  Object.entries(playState.memory).map(([key, value]) => ({
-    name: key,
-    preview: Boolean(value.preview),
-  })),
-)
 const filtered = computed(() => {
   if (!query.value)
-    return saved.value
-  return saved.value.filter(tex =>
-    tex.name.toLowerCase().includes(query.value.toLowerCase()),
+    return Object.entries(playState.memory.value)
+  return Object.entries(playState.memory.value).filter(
+    ([name, _]) => name.toLowerCase().includes(
+      query.value.toLowerCase(),
+    ),
   )
 })
 function format(usage: number) {
@@ -25,21 +20,9 @@ function format(usage: number) {
   }
   return `${(usage / (1024 ** units.length)).toFixed(2)} TB`
 }
-function preshow(tex: string) {
-  preshowing.value = true
-  playState.preShow(tex)
-}
-function confirm() {
-  preshowing.value = false
-  playState.confirmShow()
-}
-function cancel() {
-  preshowing.value = false
-  playState.cancelShow()
-}
-function remove() {
-  preshowing.value = false
-  playState.removeShow()
+function show(name: string) {
+  playState.tabs.value.add(name)
+  playState.switchActive(name)
 }
 </script>
 
@@ -59,41 +42,23 @@ function remove() {
         >
       </div>
       <button
-        v-for="tex, _ in filtered.slice(0, length)" :key="_"
-        :disabled="preshowing"
+        v-for="[name, item] in filtered.slice(0, length)"
+        :key="name"
         bd bg-hex-8884 bg-op-36 btn-md active:bg-op-12
         hover:bg-op-24 icon-text
-        @click="preshow(tex.name)"
+        @click="show(name)"
       >
-        <div v-if="tex.preview" i-carbon:function c-blue="700 dark:400" />
-        <div v-else i-carbon:code c-green="700 dark:400" />
-        <div op-80 v-text="tex.name.slice(0, 20)" />
-        <div text-sm text-gray m-l-a v-text="format(playState.usage(tex.name))" />
+        <div :class="playState.icon(item)" />
+        <div op-80 text-ellipsis v-text="name" />
+        <div text-sm text-gray m-l-a v-text="format(playState.usage(name, item))" />
       </button>
       <button
         v-if="filtered.length > length"
-        :disabled="preshowing"
         text-gray bd b-op-80 op-40 w-max btn-sm active:op-80
         hover:op-60 disabled:important-op-20
         @click="length += delta"
       >
         <div v-text="'Load More'" />
-      </button>
-    </div>
-    <div
-      v-show="preshowing"
-      flex="~ items-center gap-2"
-      text-sm m-x-4 bottom-4 left-0 sticky z-10
-      children:btn-sm children:text-white
-    >
-      <button m-r-a bg-yellow-700 @click="remove">
-        Remove
-      </button>
-      <button bg-teal-700 @click="confirm">
-        Confirm
-      </button>
-      <button bg-gray-700 @click="cancel">
-        Cancel
       </button>
     </div>
   </div>

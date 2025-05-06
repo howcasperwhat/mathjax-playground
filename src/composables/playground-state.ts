@@ -1,14 +1,6 @@
-import type { Reactive } from 'vue'
-import { DEFAULT_MEMORY, DEFAULT_TEX } from './constants'
-import { MockerElement } from './mocker-element'
-
-interface ArtElement {
+interface SerchingElement {
   element: SVGGraphicsElement
   depth: number
-}
-interface Memory {
-  tex: string
-  preview?: string
 }
 
 export enum ToolType {
@@ -18,26 +10,15 @@ export enum ToolType {
   Free,
 }
 
-class PlayGroundState {
+export class PlayGroundState {
   static readonly MAX_SIZE = 2e6
   static readonly BRUSH_RECT_CLASS = 'brushed-rect'
   static readonly DEFAULT_NAME = ''
   static readonly DEFAULT_TOOL: ToolType = ToolType.Free
-  static readonly DEFAULT_TEX = DEFAULT_TEX
   static readonly DEFAULT_MEMORY = DEFAULT_MEMORY
 
-  private _name = ref(PlayGroundState.DEFAULT_NAME)
   private _tool = ref(PlayGroundState.DEFAULT_TOOL)
-  private _tex = ref(PlayGroundState.DEFAULT_TEX)
   private _elem: Ref<SVGSVGElement | null> = ref(null)
-
-  get name() {
-    return this._name.value
-  }
-
-  set name(name: string) {
-    this._name.value = name
-  }
 
   get tool() {
     return this._tool.value
@@ -46,14 +27,6 @@ class PlayGroundState {
   set tool(tool: ToolType) {
     const prev = this._tool.value
     this._tool.value = prev === tool ? ToolType.Free : tool
-  }
-
-  get tex() {
-    return this._tex.value
-  }
-
-  set tex(tex: string) {
-    this._tex.value = tex
   }
 
   get elem() {
@@ -89,7 +62,15 @@ class PlayGroundState {
     global: 100,
   })
 
-  memory: Reactive<Record<string, Memory>> = reactive(PlayGroundState.DEFAULT_MEMORY)
+  memory: Ref<Record<string, Memory>> = ref(PlayGroundState.DEFAULT_MEMORY)
+  tabs: Ref<Set<string>> = ref(new Set<string>())
+  active: Ref<string> = ref('')
+  tex: Ref<string> = ref('')
+  svg: Ref<string> = ref('')
+
+  switchActive(name: string) {
+    this.active.value = name
+  }
 
   isBrushedRect(elem: Element | null) {
     return elem
@@ -97,10 +78,10 @@ class PlayGroundState {
       && elem.classList.contains(PlayGroundState.BRUSH_RECT_CLASS)
   }
 
-  search(x: number, y: number): ArtElement[] {
+  search(x: number, y: number): SerchingElement[] {
     if (!this.elem)
       return []
-    const result: ArtElement[] = []
+    const result: SerchingElement[] = []
     const fn = (elem: SVGGraphicsElement, depth: number) => {
       if (this.isBrushedRect(elem))
         return
@@ -260,7 +241,14 @@ class PlayGroundState {
   }
 
   constructor() {
-    useStorage('memory', this.memory)
+    useLocalStorage('memory', this.memory)
+    useLocalStorage('tabs', this.tabs, {
+      serializer: {
+        write: (value: Set<string>) => JSON.stringify(Array.from(value)),
+        read: (value: string) => new Set(JSON.parse(value)),
+      },
+    })
+    useLocalStorage('active', this.active)
 
     watch(this._tool, () => {
       this.cursor = this.free
@@ -349,52 +337,40 @@ class PlayGroundState {
     URL.revokeObjectURL(url)
   }
 
-  usage(name: string) {
-    const memory = this.memory[name]
-    return [name, memory.tex, memory?.preview]
+  usage(name: string, item: Memory) {
+    return [name, item?.tex, item?.svg]
       .filter(x => x !== undefined)
       .map(str => new Blob([str]).size)
       .reduce((acc, size) => acc + size, 0)
   }
 
-  save(preview: boolean) {
-    // eslint-disable-next-line no-console
-    console.log('save', preview)
-  }
-
-  preShow(tex: string) {
-    // eslint-disable-next-line no-console
-    console.log('preShow', tex)
-  }
-
-  confirmShow() {
-    // eslint-disable-next-line no-console
-    console.log('confirmShow')
-  }
-
-  cancelShow() {
-    // eslint-disable-next-line no-console
-    console.log('cancelShow')
-  }
-
-  removeShow() {
-    // eslint-disable-next-line no-console
-    console.log('remove')
-  }
-
-  remove(name: string) {
-    // eslint-disable-next-line no-console
-    console.log('remove', name)
-  }
-
   exists(name: string) {
-    return Boolean(this.memory[name])
+    if (name === '')
+      return true
+    return Boolean(this.memory.value[name])
   }
 
   add(name: string) {
-    this.memory[name] = {
-      tex: '',
-    }
+    return this.memory.value[name] = { tex: '' }
+  }
+
+  icon(nameOrItem: string | Memory) {
+    const item = this.toItem(nameOrItem)
+    const tex = item?.tex !== undefined
+    const svg = item?.svg !== undefined
+    if (tex && svg)
+      return 'i:workspace'
+    if (tex)
+      return 'i:tex'
+    if (svg)
+      return 'i:svg'
+    return 'i:default'
+  }
+
+  toItem(nameOrItem: string | Memory): Memory | undefined {
+    return typeof nameOrItem === 'string'
+      ? this.memory.value[nameOrItem]
+      : nameOrItem
   }
 }
 
