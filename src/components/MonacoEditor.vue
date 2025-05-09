@@ -1,16 +1,20 @@
 <script setup lang='ts'>
 import { shikiToMonaco } from '@shikijs/monaco'
 import * as monaco from 'monaco-editor'
-import EditorWorker from 'monaco-editor/esm/vs/editor/editor.worker.js?worker'
 import { createHighlighter } from 'shiki'
 import litemath from '~/data/litemath'
+
+const props = defineProps<{
+  tex: string
+}>()
+const emits = defineEmits<{
+  (e: 'update', value: string): void
+}>()
 
 const element = ref<HTMLElement | null>(null)
 const editor = shallowRef<monaco.editor.IStandaloneCodeEditor | null>(null)
 
 onMounted(async () => {
-  window.MonacoEnvironment = { getWorker: () => new EditorWorker() }
-
   const highlighter = await createHighlighter({
     themes: ['vitesse-dark', 'vitesse-light'],
     langs: [litemath],
@@ -27,17 +31,21 @@ onMounted(async () => {
   })
 
   editor.value.onDidChangeModelContent(() => {
-    playState.tex.value = editor.value?.getValue() ?? ''
+    // just for monaco-edit rather than setValue
+    if (editor.value?.getValue() === props.tex)
+      return
+    emits('update', editor.value?.getValue() ?? '')
   })
 
   watch(isDark, () => monaco.editor.setTheme(
     `vitesse-${isDark.value ? 'dark' : 'light'}`,
   ), { immediate: true })
 
-  watch(playState.active, () => {
-    editor.value?.setValue(
-      playState.toItem(playState.active.value)?.tex ?? '',
-    )
+  watch(() => props.tex, async () => {
+    // avoid emit->tex-update->setValue->cursor jump
+    if (editor.value?.getValue() === props.tex)
+      return
+    editor.value?.setValue(props.tex)
   }, { immediate: true })
 })
 

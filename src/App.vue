@@ -1,4 +1,36 @@
 <script setup lang="ts">
+const tex = computed({
+  get: () => playState.tex.value,
+  set: value => playState.tex.value = value,
+})
+const svg = computed({
+  get: () => playState.svg.value,
+  set: value => playState.svg.value = value,
+})
+
+// input
+function editMonaco(value: string) {
+  playState.tex.value = value
+  const elem = mathjax.from(value)
+  svg.value = elem.outerHTML
+  // console.log('tex in monaco')
+}
+function editMathJax(value: SVGSVGElement) {
+  playState.elem = value
+}
+
+onMounted(() => {
+  // active
+  watch(playState.active, () => {
+    // console.log('active', playState.active.value)
+    const item = playState.toItem(playState.active.value)
+    tex.value = item?.tex ?? ''
+    svg.value = item?.svg ?? ''
+    if (item?.tex && !item?.svg) {
+      editMonaco(item.tex)
+    }
+  }, { immediate: true })
+})
 </script>
 
 <template>
@@ -10,10 +42,10 @@
         <template #start="lprops">
           <Resizable dir="y" flex="~ col" h-full :style="lprops.style" :perc="32">
             <template #start="tprops">
-              <MathJaxEditor :style="tprops.style" />
+              <MathJaxEditor :svg :style="tprops.style" @update="editMathJax" />
             </template>
             <template #end="bprops">
-              <MonacoEditor :style="bprops.style" />
+              <MonacoEditor :tex :style="bprops.style" @update="editMonaco" />
             </template>
           </Resizable>
         </template>

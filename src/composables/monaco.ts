@@ -1,6 +1,9 @@
 import type { editor } from 'monaco-editor'
 import { languages, Range } from 'monaco-editor'
+import EditorWorker from 'monaco-editor/esm/vs/editor/editor.worker.js?worker'
 import { CHARACTERS, COMMANDS, DELIMITERS, ENVIRONMENTS } from '~/data/completion'
+
+window.MonacoEnvironment = { getWorker: () => new EditorWorker() }
 
 export const MONACO_CONFIG: editor.IStandaloneEditorConstructionOptions = {
   language: 'litemath',

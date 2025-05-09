@@ -40,7 +40,7 @@ function cancelEditState() {
 }
 
 function removeState(name: string) {
-  playState.tabs.value.delete(name)
+  playState.remove(name)
 }
 </script>
 
@@ -63,7 +63,7 @@ function removeState(name: string) {
       {{ name }}
       <div
         v-show="hover === name"
-        @click="removeState(name)"
+        @click.stop="removeState(name)"
       >
         <div i-carbon:close />
       </div>

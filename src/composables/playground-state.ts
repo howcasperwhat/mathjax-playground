@@ -372,6 +372,12 @@ export class PlayGroundState {
       ? this.memory.value[nameOrItem]
       : nameOrItem
   }
+
+  remove(name: string) {
+    this.tabs.value.delete(name)
+    // console.log(Array.from(this.tabs.value).at(0))
+    this.active.value = Array.from(this.tabs.value).at(0) ?? ''
+  }
 }
 
 export const playState = new PlayGroundState()
