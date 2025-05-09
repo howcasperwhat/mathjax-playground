@@ -11,6 +11,7 @@ declare global {
   const MONACO_COMPLETION: typeof import('./src/composables/monaco')['MONACO_COMPLETION']
   const MONACO_CONFIG: typeof import('./src/composables/monaco')['MONACO_CONFIG']
   const MockerElement: typeof import('./src/composables/mocker-element')['MockerElement']
+  const NAME_MAX_LENGTH: typeof import('./src/composables/constants')['NAME_MAX_LENGTH']
   const PlayGroundState: typeof import('./src/composables/playground-state')['PlayGroundState']
   const ToolType: typeof import('./src/composables/playground-state')['ToolType']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
@@ -339,6 +340,7 @@ declare module 'vue' {
     readonly MONACO_COMPLETION: UnwrapRef<typeof import('./src/composables/monaco')['MONACO_COMPLETION']>
     readonly MONACO_CONFIG: UnwrapRef<typeof import('./src/composables/monaco')['MONACO_CONFIG']>
     readonly MockerElement: UnwrapRef<typeof import('./src/composables/mocker-element')['MockerElement']>
+    readonly NAME_MAX_LENGTH: UnwrapRef<typeof import('./src/composables/constants')['NAME_MAX_LENGTH']>
     readonly PlayGroundState: UnwrapRef<typeof import('./src/composables/playground-state')['PlayGroundState']>
     readonly ToolType: UnwrapRef<typeof import('./src/composables/playground-state')['ToolType']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>

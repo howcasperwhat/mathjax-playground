@@ -2,10 +2,10 @@
 const props = defineProps<{
   dir: 'x' | 'y'
   size?: number
-  perc?: number
   min?: number
   max?: number
 }>()
+const perc = defineModel<number>()
 
 const [min, max, dir, size] = [
   computed(() => props.min ?? 0),
@@ -15,7 +15,10 @@ const [min, max, dir, size] = [
 ]
 
 const dragger = ref<HTMLElement | null>(null)
-const percentage = ref(shrink(Math.round(props.perc ?? 50), min.value, max.value))
+const percentage = computed({
+  get: () => shrink(Math.round(perc.value ?? 50), min.value, max.value),
+  set: value => perc.value = value,
+})
 const container = ref<HTMLElement | null>(null)
 
 const sstyle = computed(() => {

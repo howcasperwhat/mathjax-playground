@@ -7,6 +7,12 @@ const svg = computed({
   get: () => playState.svg.value,
   set: value => playState.svg.value = value,
 })
+const perc = ref({
+  x: 72,
+  l: 32,
+  r: 32,
+})
+useLocalStorage('perc', perc)
 
 // input
 function editMonaco(value: string) {
@@ -38,9 +44,9 @@ onMounted(() => {
     <ToolBar w-16 />
     <div flex="~ col gap-4" w="[calc(100vw-7rem)]">
       <NavBar h-8 />
-      <Resizable dir="x" h="[calc(100vh-5rem)]" flex :perc="72">
+      <Resizable v-model="perc.x" dir="x" h="[calc(100vh-5rem)]" flex>
         <template #start="lprops">
-          <Resizable dir="y" flex="~ col" h-full :style="lprops.style" :perc="32">
+          <Resizable v-model="perc.l" dir="y" flex="~ col" h-full :style="lprops.style">
             <template #start="tprops">
               <MathJaxEditor :svg :style="tprops.style" @update="editMathJax" />
             </template>
@@ -50,7 +56,7 @@ onMounted(() => {
           </Resizable>
         </template>
         <template #end="rprops">
-          <Resizable dir="y" flex="~ col" h-full :style="rprops.style" :perc="26">
+          <Resizable v-model="perc.r" dir="y" flex="~ col" h-full :style="rprops.style">
             <template #start="tprops">
               <ConfigPanel :style="tprops.style" />
             </template>

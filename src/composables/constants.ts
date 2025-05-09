@@ -21,3 +21,5 @@ export const DEFAULT_MEMORY: Record<string, Memory> = {
 \\end{eqnarray*}`,
   },
 }
+
+export const NAME_MAX_LENGTH = 30

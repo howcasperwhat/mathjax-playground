@@ -373,10 +373,48 @@ export class PlayGroundState {
       : nameOrItem
   }
 
-  remove(name: string) {
+  remove(name?: string) {
+    name ??= this.active.value
     this.tabs.value.delete(name)
-    // console.log(Array.from(this.tabs.value).at(0))
     this.active.value = Array.from(this.tabs.value).at(0) ?? ''
+  }
+
+  delete(name?: string) {
+    name ??= this.active.value
+    const item = this.memory.value[name]
+    if (!item)
+      return
+    this.tabs.value.delete(name)
+    delete this.memory.value[name]
+    this.active.value = Array.from(this.tabs.value).at(0) ?? ''
+  }
+
+  save(type: 'tex' | 'svg' | 'workspace') {
+    const name = this.active.value
+    const item = this.memory.value[name]
+    if (type === 'tex') {
+      item.tex = this.tex.value
+      item.svg = undefined
+    }
+    else if (type === 'svg') {
+      item.tex = undefined
+      item.svg = this.elem?.outerHTML ?? ''
+    }
+    else if (type === 'workspace') {
+      item.tex = this.tex.value
+      item.svg = this.elem?.outerHTML ?? ''
+    }
+  }
+
+  rename(name: string) {
+    const item = this.memory.value[this.active.value]!
+    if (!item)
+      return
+    this.memory.value[name] = item
+    delete this.memory.value[this.active.value]
+    this.tabs.value.delete(this.active.value)
+    this.tabs.value.add(name)
+    this.active.value = name
   }
 }
 

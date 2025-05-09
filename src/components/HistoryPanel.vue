@@ -29,9 +29,9 @@ function show(name: string) {
 <template>
   <div panel>
     <div
-      flex="~ col items-center gap-2" m-4
+      flex="~ col items-center gap-2"
       children:flex="~ gap-2"
-      children:w-full children-of-hidden
+      text-sm m-4 children:w-full children-of-hidden
     >
       <div p-2 bd rd icon-text>
         <div i-carbon:search />

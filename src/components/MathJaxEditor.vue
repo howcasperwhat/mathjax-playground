@@ -66,6 +66,6 @@ onMounted(() => {
       alignItems: 'safe center',
     }"
   >
-    <div ref="container" v-html="html" />
+    <div ref="container" m-4 v-html="html" />
   </div>
 </template>

@@ -6,16 +6,12 @@ const content = defineModel({ required: true })
   <button
     bd bg-hex-8882 btn-sm icon-text
   >
-    <div i-carbon:3d-mpr-toggle />
+    <div i-carbon:code />
     <input
       v-model="content"
       placeholder="Name"
-      maxlength="20"
+      :maxlength="NAME_MAX_LENGTH"
       ipt-sm bd
     >
   </button>
 </template>
-
-<style scoped>
-
-</style>

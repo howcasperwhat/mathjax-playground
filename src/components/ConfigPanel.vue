@@ -2,33 +2,32 @@
 import ColorPanel from './ColorPanel.vue'
 import SavePanel from './SavePanel.vue'
 
-const active = ref('color')
-
-function setActive(name: string) {
-  active.value = name
-}
-
 interface UIData {
   icon: string
   component: Component
 }
 
 const data: Record<string, UIData> = {
-  color: {
-    icon: 'i-carbon:color-palette',
-    component: ColorPanel,
-  },
   save: {
     icon: 'i-carbon:save',
     component: SavePanel,
   },
+  color: {
+    icon: 'i-carbon:color-palette',
+    component: ColorPanel,
+  },
 }
+
+const active = ref(Object.keys(data).at(0)!)
 </script>
 
 <template>
   <div panel>
-    <div flex="~ col gap-4" m-4>
-      <TabState :names="Object.keys(data)" @switch="setActive">
+    <div flex="~ col gap-4" text-sm m-4>
+      <TabState
+        :names="Object.keys(data)" :active
+        @switch="name => active = name"
+      >
         <template
           v-for="[key, value] in Object.entries(data)"
           :key="key" #[key]

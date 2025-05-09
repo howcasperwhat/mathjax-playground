@@ -72,7 +72,7 @@ function removeState(name: string) {
       v-show="isEditing"
       bd bg-hex-8882 btn-sm icon-text
     >
-      <div i-carbon:3d-mpr-toggle />
+      <div i-carbon:code />
       <input
         ref="inputElement"
         v-model="editingName"
