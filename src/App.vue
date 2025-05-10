@@ -40,7 +40,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div flex="~ gap-4">
+  <div flex="~ gap-4" lt-sm:hidden>
     <ToolBar w-16 />
     <div flex="~ col gap-2" w="[calc(100vw-7rem)]">
       <NavBar h-10 />
@@ -68,10 +68,10 @@ onMounted(() => {
       </Resizable>
     </div>
   </div>
-  <!-- <div
+  <div
     flex="~ items-center justify-center"
     h-full w-full sm:hidden
   >
     This app is not supported on mobile devices. Please try with a bigger screen.
-  </div> -->
+  </div>
 </template>

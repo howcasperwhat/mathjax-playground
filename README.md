@@ -1,4 +1,4 @@
-<h1 align="center">Comment Formula</h1>
+<h1 align="center">MathJax Playground</h1>
 
 > [!WARNING]
 > WIP
