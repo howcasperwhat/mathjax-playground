@@ -6,6 +6,7 @@
 // biome-ignore lint: disable
 export {}
 declare global {
+  const APP_NAME: typeof import('./src/composables/constants')['APP_NAME']
   const DEFAULT_MEMORY: typeof import('./src/composables/constants')['DEFAULT_MEMORY']
   const EffectScope: typeof import('vue')['EffectScope']
   const MONACO_COMPLETION: typeof import('./src/composables/monaco')['MONACO_COMPLETION']
@@ -335,6 +336,7 @@ import { UnwrapRef } from 'vue'
 declare module 'vue' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
+    readonly APP_NAME: UnwrapRef<typeof import('./src/composables/constants')['APP_NAME']>
     readonly DEFAULT_MEMORY: UnwrapRef<typeof import('./src/composables/constants')['DEFAULT_MEMORY']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly MONACO_COMPLETION: UnwrapRef<typeof import('./src/composables/monaco')['MONACO_COMPLETION']>

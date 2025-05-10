@@ -12,7 +12,7 @@ const perc = ref({
   l: 32,
   r: 32,
 })
-useLocalStorage('perc', perc)
+useLocalStorage(`${APP_NAME}_perc`, perc)
 
 // input
 function editMonaco(value: string) {

@@ -241,14 +241,14 @@ export class PlayGroundState {
   }
 
   constructor() {
-    useLocalStorage('memory', this.memory)
-    useLocalStorage('tabs', this.tabs, {
+    useLocalStorage(`${APP_NAME}_memory`, this.memory)
+    useLocalStorage(`${APP_NAME}_tabs`, this.tabs, {
       serializer: {
         write: (value: Set<string>) => JSON.stringify(Array.from(value)),
         read: (value: string) => new Set(JSON.parse(value)),
       },
     })
-    useLocalStorage('active', this.active)
+    useLocalStorage(`${APP_NAME}_active`, this.active)
 
     watch(this._tool, () => {
       this.cursor = this.free
