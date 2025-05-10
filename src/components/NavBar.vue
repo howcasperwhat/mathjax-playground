@@ -45,51 +45,61 @@ function removeState(name: string) {
 </script>
 
 <template>
-  <div flex="~ items-center gap-1">
+  <div flex="~ items-center gap-1" w-full of-auto>
     <button
       v-for="name in tabs"
       :key="name"
+      :title="name"
       :style="{
         opacity: active === name
           ? 1 : hover === name
             ? 0.75 : 0.5,
       }"
-      bd bg-hex-8882 btn-sm icon-text
+      bd bg-hex-8882 min-w-24 btn-sm icon-text
       @click="playState.switchActive(name)"
       @mouseenter="hover = name"
       @mouseleave="hover = ''"
     >
       <div :class="playState.icon(name)" />
-      {{ name }}
+      <div shrink-1 truncate v-text="name" />
       <div
-        v-show="hover === name"
+        flex="~ items-center"
+        rd bg-gray
+        bg-op="0 hover:20 active:40"
         @click.stop="removeState(name)"
       >
         <div i-carbon:close />
       </div>
     </button>
-    <button
+    <div
       v-show="isEditing"
-      bd bg-hex-8882 btn-sm icon-text
+      sm bd rd bg-hex-8882
     >
-      <div i-carbon:code />
       <input
         ref="inputElement"
         v-model="editingName"
         placeholder="Name"
         maxlength="20"
-        p-0 ipt-sm w-20
+        p-0 ipt-sm
         @blur="cancelEditState"
         @keydown.enter="confirmEditState"
         @keydown.esc="cancelEditState"
       >
-    </button>
+    </div>
     <button
-      p-.4 bd btn rd="1/2"
+      rd="1/2"
       op="60 hover:80 active:100"
+      p-.4 bd shrink-0 btn
       @click="editState()"
     >
       <div i-carbon:add />
     </button>
   </div>
 </template>
+
+<style scoped>
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+</style>

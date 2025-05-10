@@ -43,13 +43,13 @@ function show(name: string) {
       </div>
       <button
         v-for="[name, item] in filtered.slice(0, length)"
-        :key="name"
+        :key="name" :title="name"
         bd bg-hex-8884 bg-op-36 btn-md active:bg-op-12
         hover:bg-op-24 icon-text
         @click="show(name)"
       >
         <div :class="playState.icon(item)" />
-        <div op-80 text-ellipsis v-text="name" />
+        <div op-80 shrink-1 truncate v-text="name" />
         <div text-sm text-gray m-l-a v-text="format(playState.usage(name, item))" />
       </button>
       <button

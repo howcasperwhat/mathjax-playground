@@ -20,7 +20,7 @@ onMounted(() => {
 <template>
   <div
     flex="~ col gap-4"
-    children:flex="~ items-center gap-2 wrap"
+    children:flex="~ items-center gap-2 nowrap"
   >
     <div>
       <input
@@ -37,11 +37,11 @@ onMounted(() => {
     >
       <button bg-stone @click="rename(name)">
         <div i-carbon:status-resolved />
-        Rename
+        <div v-text="'Rename'" />
       </button>
       <button bg-red @click="playState.delete()">
         <div i-carbon:trash-can />
-        Delete
+        <div v-text="'Delete'" />
       </button>
     </div>
     <div
@@ -51,15 +51,15 @@ onMounted(() => {
     >
       <button bg-green @click="playState.save('tex')">
         <div i:tex />
-        tex
+        <div v-text="'tex'" />
       </button>
       <button bg-blue @click="playState.save('svg')">
         <div i:svg />
-        svg
+        <div v-text="'svg'" />
       </button>
       <button bg-purple @click="playState.save('workspace')">
         <div i:workspace />
-        workspace
+        <div v-text="'workspace'" />
       </button>
     </div>
   </div>

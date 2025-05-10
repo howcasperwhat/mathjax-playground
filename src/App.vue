@@ -42,8 +42,8 @@ onMounted(() => {
 <template>
   <div flex="~ gap-4">
     <ToolBar w-16 />
-    <div flex="~ col gap-4" w="[calc(100vw-7rem)]">
-      <NavBar h-8 />
+    <div flex="~ col gap-2" w="[calc(100vw-7rem)]">
+      <NavBar h-10 />
       <Resizable v-model="perc.x" dir="x" h="[calc(100vh-5rem)]" flex>
         <template #start="lprops">
           <Resizable v-model="perc.l" dir="y" flex="~ col" h-full :style="lprops.style">
@@ -68,4 +68,10 @@ onMounted(() => {
       </Resizable>
     </div>
   </div>
+  <!-- <div
+    flex="~ items-center justify-center"
+    h-full w-full sm:hidden
+  >
+    This app is not supported on mobile devices. Please try with a bigger screen.
+  </div> -->
 </template>
