@@ -24,6 +24,7 @@ onMounted(async () => {
   monaco.languages.registerCompletionItemProvider('litemath', MONACO_COMPLETION)
   monaco.languages.setLanguageConfiguration('litemath', {
     brackets: [['{', '}'], ['[', ']'], ['(', ')']],
+    comments: { lineComment: '%' },
   })
 
   editor.value = monaco.editor.create(element.value!, {

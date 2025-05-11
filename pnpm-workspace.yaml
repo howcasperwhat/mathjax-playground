@@ -2,9 +2,7 @@ packages: []
 
 catalogs:
   build:
-    '@iconify-json/carbon': ^1.2.8
     '@vitejs/plugin-vue': ^5.2.3
-    jsdom: ^26.0.0
     unocss: ^66.1.0-beta.7
     unplugin: ^2.2.2
     unplugin-auto-import: ^19.1.2
@@ -14,24 +12,9 @@ catalogs:
     vite: ^6.2.3
 
   dev:
-    '@antfu/eslint-config': ^4.11.0
-    '@shikijs/colorized-brackets': ^3.3.0
-    '@shikijs/monaco': ^3.3.0
-    '@types/node': ^22.13.14
-    '@unocss/eslint-plugin': ^66.1.0-beta.7
     '@vue-macros/volar': ^3.0.0-beta.7
-    '@vue/test-utils': ^2.4.6
-    eslint: ^9.23.0
-    eslint-plugin-format: ^1.0.1
-    lint-staged: ^15.5.0
-    lru-cache: ^11.1.0
-    mathjax-full: ^3.2.2
-    monaco-editor: ^0.52.2
-    shiki: ^3.3.0
-    simple-git-hooks: ^2.12.1
     taze: ^19.0.2
     typescript: ^5.8.2
-    vitest: ^3.0.9
     vue-tsc: ^2.2.8
 
   frontend:
@@ -39,8 +22,34 @@ catalogs:
     vue: ^3.5.13
     vue-router: ^4.5.0
 
-  other:
+  icons:
+    '@iconify-json/carbon': ^1.2.8
+
+  lint:
+    '@antfu/eslint-config': ^4.11.0
+    '@unocss/eslint-plugin': ^66.1.0-beta.7
+    eslint: ^9.23.0
+    eslint-plugin-format: ^1.0.1
+
+  script:
     gh-pages: ^6.3.0
+    lint-staged: ^15.5.0
+    simple-git-hooks: ^2.12.1
+
+  testing:
+    '@vue/test-utils': ^2.4.6
+    jsdom: ^26.0.0
+
+    vitest: ^3.0.9
+  types:
+    '@types/node': ^22.13.14
+
+  ui:
+    '@shikijs/colorized-brackets': ^3.3.0
+    '@shikijs/monaco': ^3.3.0
+    mathjax-full: ^3.2.2
+    monaco-editor: ^0.52.2
+    shiki: ^3.3.0
 
 onlyBuiltDependencies:
   - esbuild

@@ -6,15 +6,9 @@ settings:
 
 catalogs:
   build:
-    '@iconify-json/carbon':
-      specifier: ^1.2.8
-      version: 1.2.8
     '@vitejs/plugin-vue':
       specifier: ^5.2.3
       version: 5.2.3
-    jsdom:
-      specifier: ^26.0.0
-      version: 26.0.0
     unocss:
       specifier: ^66.1.0-beta.7
       version: 66.1.0-beta.7
@@ -31,60 +25,15 @@ catalogs:
       specifier: ^0.12.0
       version: 0.12.0
   dev:
-    '@antfu/eslint-config':
-      specifier: ^4.11.0
-      version: 4.11.0
-    '@shikijs/colorized-brackets':
-      specifier: ^3.3.0
-      version: 3.3.0
-    '@shikijs/monaco':
-      specifier: ^3.3.0
-      version: 3.3.0
-    '@types/node':
-      specifier: ^22.13.14
-      version: 22.13.14
-    '@unocss/eslint-plugin':
-      specifier: ^66.1.0-beta.7
-      version: 66.1.0-beta.7
     '@vue-macros/volar':
       specifier: ^3.0.0-beta.7
       version: 3.0.0-beta.7
-    '@vue/test-utils':
-      specifier: ^2.4.6
-      version: 2.4.6
-    eslint:
-      specifier: ^9.23.0
-      version: 9.23.0
-    eslint-plugin-format:
-      specifier: ^1.0.1
-      version: 1.0.1
-    lint-staged:
-      specifier: ^15.5.0
-      version: 15.5.0
-    lru-cache:
-      specifier: ^11.1.0
-      version: 11.1.0
-    mathjax-full:
-      specifier: ^3.2.2
-      version: 3.2.2
-    monaco-editor:
-      specifier: ^0.52.2
-      version: 0.52.2
-    shiki:
-      specifier: ^3.3.0
-      version: 3.3.0
-    simple-git-hooks:
-      specifier: ^2.12.1
-      version: 2.12.1
     taze:
       specifier: ^19.0.2
       version: 19.0.2
     typescript:
       specifier: ^5.8.2
       version: 5.8.2
-    vitest:
-      specifier: ^3.0.9
-      version: 3.0.9
     vue-tsc:
       specifier: ^2.2.8
       version: 2.2.8
@@ -98,10 +47,63 @@ catalogs:
     vue-router:
       specifier: ^4.5.0
       version: 4.5.0
-  other:
+  icons:
+    '@iconify-json/carbon':
+      specifier: ^1.2.8
+      version: 1.2.8
+  lint:
+    '@antfu/eslint-config':
+      specifier: ^4.11.0
+      version: 4.11.0
+    '@unocss/eslint-plugin':
+      specifier: ^66.1.0-beta.7
+      version: 66.1.0-beta.7
+    eslint:
+      specifier: ^9.23.0
+      version: 9.23.0
+    eslint-plugin-format:
+      specifier: ^1.0.1
+      version: 1.0.1
+  script:
     gh-pages:
       specifier: ^6.3.0
       version: 6.3.0
+    lint-staged:
+      specifier: ^15.5.0
+      version: 15.5.0
+    simple-git-hooks:
+      specifier: ^2.12.1
+      version: 2.12.1
+  test:
+    '@vue/test-utils':
+      specifier: ^2.4.6
+      version: 2.4.6
+    jsdom:
+      specifier: ^26.0.0
+      version: 26.0.0
+    vitest:
+      specifier: ^3.0.9
+      version: 3.0.9
+  types:
+    '@types/node':
+      specifier: ^22.13.14
+      version: 22.13.14
+  ui:
+    '@shikijs/colorized-brackets':
+      specifier: ^3.3.0
+      version: 3.3.0
+    '@shikijs/monaco':
+      specifier: ^3.3.0
+      version: 3.3.0
+    mathjax-full:
+      specifier: ^3.2.2
+      version: 3.2.2
+    monaco-editor:
+      specifier: ^0.52.2
+      version: 0.52.2
+    shiki:
+      specifier: ^3.3.0
+      version: 3.3.0
 
 overrides:
   unplugin: ^2.2.2
@@ -122,22 +124,22 @@ importers:
         version: 4.5.0(vue@3.5.13(typescript@5.8.2))
     devDependencies:
       '@antfu/eslint-config':
-        specifier: catalog:dev
+        specifier: catalog:lint
         version: 4.11.0(@typescript-eslint/utils@8.28.0(eslint@9.23.0(jiti@2.4.2))(typescript@5.8.2))(@unocss/eslint-plugin@66.1.0-beta.7(eslint@9.23.0(jiti@2.4.2))(typescript@5.8.2))(@vue/compiler-sfc@3.5.13)(eslint-plugin-format@1.0.1(eslint@9.23.0(jiti@2.4.2)))(eslint@9.23.0(jiti@2.4.2))(typescript@5.8.2)(vitest@3.0.9(@types/debug@4.1.12)(@types/node@22.13.14)(jiti@2.4.2)(jsdom@26.0.0)(tsx@4.19.2)(yaml@2.7.0))
       '@iconify-json/carbon':
-        specifier: catalog:build
+        specifier: catalog:icons
         version: 1.2.8
       '@shikijs/colorized-brackets':
-        specifier: catalog:dev
+        specifier: catalog:ui
         version: 3.3.0
       '@shikijs/monaco':
-        specifier: catalog:dev
+        specifier: catalog:ui
         version: 3.3.0
       '@types/node':
-        specifier: catalog:dev
+        specifier: catalog:types
         version: 22.13.14
       '@unocss/eslint-plugin':
-        specifier: catalog:dev
+        specifier: catalog:lint
         version: 66.1.0-beta.7(eslint@9.23.0(jiti@2.4.2))(typescript@5.8.2)
       '@vitejs/plugin-vue':
         specifier: catalog:build
@@ -146,37 +148,34 @@ importers:
         specifier: catalog:dev
         version: 3.0.0-beta.7(typescript@5.8.2)(vue-tsc@2.2.8(typescript@5.8.2))(vue@3.5.13(typescript@5.8.2))
       '@vue/test-utils':
-        specifier: catalog:dev
+        specifier: catalog:test
         version: 2.4.6
       eslint:
-        specifier: catalog:dev
+        specifier: catalog:lint
         version: 9.23.0(jiti@2.4.2)
       eslint-plugin-format:
-        specifier: catalog:dev
+        specifier: catalog:lint
         version: 1.0.1(eslint@9.23.0(jiti@2.4.2))
       gh-pages:
-        specifier: catalog:other
+        specifier: catalog:script
         version: 6.3.0
       jsdom:
-        specifier: catalog:build
+        specifier: catalog:test
         version: 26.0.0
       lint-staged:
-        specifier: catalog:dev
+        specifier: catalog:script
         version: 15.5.0
-      lru-cache:
-        specifier: catalog:dev
-        version: 11.1.0
       mathjax-full:
-        specifier: catalog:dev
+        specifier: catalog:ui
         version: 3.2.2
       monaco-editor:
-        specifier: catalog:dev
+        specifier: catalog:ui
         version: 0.52.2
       shiki:
-        specifier: catalog:dev
+        specifier: catalog:ui
         version: 3.3.0
       simple-git-hooks:
-        specifier: catalog:dev
+        specifier: catalog:script
         version: 2.12.1
       taze:
         specifier: catalog:dev
@@ -203,7 +202,7 @@ importers:
         specifier: ^6.2.3
         version: 6.2.3(@types/node@22.13.14)(jiti@2.4.2)(tsx@4.19.2)(yaml@2.7.0)
       vitest:
-        specifier: catalog:dev
+        specifier: catalog:test
         version: 3.0.9(@types/debug@4.1.12)(@types/node@22.13.14)(jiti@2.4.2)(jsdom@26.0.0)(tsx@4.19.2)(yaml@2.7.0)
       vue-tsc:
         specifier: catalog:dev
