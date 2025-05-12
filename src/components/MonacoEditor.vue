@@ -56,6 +56,5 @@ onUnmounted(() => editor.value?.dispose())
 <template>
   <div
     ref="element"
-    bd rd
   />
 </template>

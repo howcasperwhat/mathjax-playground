@@ -21,10 +21,10 @@ function update(delta: number) {
     >
     <div
       flex="~ col"
-      text-xs b-b-0 b-r-0 b-t-0 bd
+      text-xs bd b-b-0 b-r-0 b-t-0
     >
       <button
-        b-l-0 b-r-0 b-t-0 bd btn
+        bd b-l-0 b-r-0 b-t-0 btn
         @click="update(1)"
       >
         <div i-carbon:caret-up />

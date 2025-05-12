@@ -73,7 +73,7 @@ onMounted(() => {
     >
       <div
         ref="dragger"
-        m-auto rd bg-gray op-50
+        m-auto rd bg-gray op-40
         :style="{
           width: dir === 'x' ? '25%' : '20%',
           height: dir === 'y' ? '25%' : '20%',

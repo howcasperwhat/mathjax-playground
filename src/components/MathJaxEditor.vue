@@ -59,11 +59,11 @@ onMounted(() => {
 
 <template>
   <div
-    bd rd of-auto
+    of-auto
     :style="{
-      display: 'flex',
-      justifyContent: 'safe center',
-      alignItems: 'safe center',
+      'display': 'flex',
+      'justify-content': 'safe center',
+      'align-items': 'safe center',
     }"
   >
     <div ref="container" m-4 v-html="html" />

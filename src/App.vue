@@ -42,11 +42,14 @@ onMounted(() => {
 <template>
   <div flex="~ gap-4" lt-sm:hidden>
     <ToolBar w-16 />
-    <div flex="~ col gap-2" w="[calc(100vw-7rem)]">
-      <NavBar h-10 />
+    <div flex="~ col" w="[calc(100vw-7rem)]">
+      <NavBar h-10 z-100 />
       <Resizable v-model="perc.x" dir="x" h="[calc(100vh-5rem)]" flex>
         <template #start="lprops">
-          <Resizable v-model="perc.l" dir="y" flex="~ col" h-full :style="lprops.style">
+          <Resizable
+            v-model="perc.l" dir="y" flex="~ col"
+            :style="lprops.style" panel h-full z-50
+          >
             <template #start="tprops">
               <MathJaxEditor :svg :style="tprops.style" @update="editMathJax" />
             </template>
@@ -56,7 +59,10 @@ onMounted(() => {
           </Resizable>
         </template>
         <template #end="rprops">
-          <Resizable v-model="perc.r" dir="y" flex="~ col" h-full :style="rprops.style">
+          <Resizable
+            v-model="perc.r" dir="y" flex="~ col"
+            :style="rprops.style" panel h-full
+          >
             <template #start="tprops">
               <ConfigPanel :style="tprops.style" />
             </template>

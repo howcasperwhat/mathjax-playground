@@ -45,17 +45,14 @@ function removeState(name: string) {
 </script>
 
 <template>
-  <div flex="~ items-center gap-1" w-full of-auto>
+  <div flex="~ items-center gap-1" m-x-xl w-full of-auto>
     <button
       v-for="name in tabs"
       :key="name"
       :title="name"
-      :style="{
-        opacity: active === name
-          ? 1 : hover === name
-            ? 0.75 : 0.5,
-      }"
-      bd bg-hex-8882 min-w-24 btn-sm icon-text
+      :style="{ 'margin-bottom': active === name ? '-.25rem' : '-.75rem' }"
+
+      bd rd-xl rd-b-0 h-full min-w-24 relative z-100 btn-sm icon-text
       @click="playState.switchActive(name)"
       @mouseenter="hover = name"
       @mouseleave="hover = ''"

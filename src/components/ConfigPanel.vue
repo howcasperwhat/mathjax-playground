@@ -22,7 +22,7 @@ const active = ref(Object.keys(data).at(0)!)
 </script>
 
 <template>
-  <div panel>
+  <div of-auto>
     <div flex="~ col gap-4" text-sm m-4>
       <TabState
         :names="Object.keys(data)" :active

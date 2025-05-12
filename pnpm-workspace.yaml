@@ -47,6 +47,7 @@ catalogs:
   ui:
     '@shikijs/colorized-brackets': ^3.3.0
     '@shikijs/monaco': ^3.3.0
+    floating-vue: ^5.2.2
     mathjax-full: ^3.2.2
     monaco-editor: ^0.52.2
     shiki: ^3.3.0

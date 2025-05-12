@@ -27,13 +27,14 @@ function show(name: string) {
 </script>
 
 <template>
-  <div panel>
+  <div of-auto>
     <div
       flex="~ col items-center gap-2"
       children:flex="~ gap-2"
-      text-sm m-4 children:w-full children-of-hidden
+      text-sm m-4 children:bd children:rd-full
+      children:icon-text children:w-full children-of-hidden
     >
-      <div p-2 bd rd icon-text>
+      <div p-2>
         <div i-carbon:search />
         <input
           v-model="query" maxlength="36"
@@ -44,8 +45,7 @@ function show(name: string) {
       <button
         v-for="[name, item] in filtered.slice(0, length)"
         :key="name" :title="name"
-        bd bg-hex-8884 bg-op-36 btn-md active:bg-op-12
-        hover:bg-op-24 icon-text
+        btn-md hover:bg-hex-8881
         @click="show(name)"
       >
         <div :class="playState.icon(item)" />
