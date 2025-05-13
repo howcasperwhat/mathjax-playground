@@ -7,35 +7,39 @@ const emits = defineEmits<{
 }>()
 
 const container = ref<HTMLElement | null>(null)
+const parent = ref<HTMLElement | null>(null)
 const html = ref('')
 
 const isGrabbing = shallowRef(false)
+const [cx, cy] = [ref(0), ref(0)]
+const [dx, dy] = [ref(0), ref(0)]
 function handleDragingScroll() {
-  let x = 0
-  let y = 0
-  const SCROLLBAR_THICKNESS = 20
+  let [x, y] = [0, 0]
 
-  useEventListener(container, 'mousedown', (e) => {
-    // prevent dragging when clicking on scrollbar
-    const rect = container.value!.getBoundingClientRect()
-    const distRight = rect.right - e.clientX
-    const distBottom = rect.bottom - e.clientY
-    if (distRight <= SCROLLBAR_THICKNESS || distBottom <= SCROLLBAR_THICKNESS) {
-      return
-    }
-
+  useEventListener(parent, 'mousedown', (e) => {
+    [x, y] = [e.pageX, e.pageY]
     isGrabbing.value = true
-    x = container.value!.scrollLeft + e.pageX
-    y = container.value!.scrollTop + e.pageY
   })
-  useEventListener('mouseleave', () => isGrabbing.value = false)
-  useEventListener('mouseup', () => isGrabbing.value = false)
+  useEventListener('mouseleave', () => {
+    isGrabbing.value = false
+    cx.value += dx.value
+    cy.value += dy.value
+    dx.value = 0
+    dy.value = 0
+  })
+  useEventListener('mouseup', () => {
+    isGrabbing.value = false
+    cx.value += dx.value
+    cy.value += dy.value
+    dx.value = 0
+    dy.value = 0
+  })
   useEventListener('mousemove', (e) => {
     if (!isGrabbing.value)
       return
     e.preventDefault()
-    container.value!.scrollLeft = x - e.pageX
-    container.value!.scrollTop = y - e.pageY
+    dx.value = e.pageX - x
+    dy.value = e.pageY - y
   })
 }
 onMounted(() => {
@@ -54,7 +58,7 @@ onMounted(() => {
 
 <template>
   <div
-    of-auto
+    ref="parent" of-auto
     style="
       display: flex;
       justify-content: safe center;
@@ -64,9 +68,11 @@ onMounted(() => {
         linear-gradient(to bottom, rgba(128, 128, 128, 0.1) 1px, transparent 1px);
       background-size: 20px 20px;
     "
+    :class="isGrabbing ? 'cursor-grabbing' : ''"
   >
     <div
-      ref="container" m-4 :class="isGrabbing ? 'cursor-grabbing' : ''"
+      ref="container" m-4
+      :style="`transform: translate(${cx + dx}px, ${cy + dy}px);`"
       v-html="html"
     />
   </div>
