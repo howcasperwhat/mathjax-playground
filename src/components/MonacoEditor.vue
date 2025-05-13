@@ -11,6 +11,7 @@ const emits = defineEmits<{
   (e: 'update', value: string): void
 }>()
 
+const isCollapsed = ref(false)
 const element = ref<HTMLElement | null>(null)
 const editor = shallowRef<monaco.editor.IStandaloneCodeEditor | null>(null)
 
@@ -55,6 +56,25 @@ onUnmounted(() => editor.value?.dispose())
 
 <template>
   <div
-    ref="element"
-  />
+    flex="~ col"
+    b="solid stone:10"
+    b-r-1 b-t-1 rd-tr-xl transition-transform duration-300 of-hidden
+    :class="isCollapsed ? 'translate-x--99%' : ''"
+    @mouseenter="isCollapsed = false"
+  >
+    <div
+      flex="~ items-center justify-end"
+      text-lg p-4 bg-base b-b="1px solid stone:10"
+    >
+      <button
+        c-stone op-75 btn
+        @click="isCollapsed = true"
+      >
+        <div i-carbon:previous-outline />
+      </button>
+    </div>
+    <div
+      ref="element" h-full w-full
+    />
+  </div>
 </template>

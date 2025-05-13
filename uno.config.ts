@@ -13,7 +13,6 @@ export default defineConfig({
     'btn': 'text-[1em] inline-block cursor-pointer select-none disabled:cursor-not-allowed disabled:op-20 whitespace-nowrap of-hidden',
     'ipt': 'focus:outline-unset',
     'sep': 'c-gray op-24',
-    'panel': 'rd-xl of-auto bd',
 
     'icon-text': 'flex items-center flex-gap-2 children:shrink-0',
     'icon-btn': 'btn opacity-75 transition duration-200 ease-in-out hover:opacity-100 hover:text-hex-18f active:opacity-100 active:text-hex-c66',

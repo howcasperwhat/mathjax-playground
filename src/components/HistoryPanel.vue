@@ -31,7 +31,7 @@ function show(name: string) {
     <div
       flex="~ col items-center gap-2"
       children:flex="~ gap-2"
-      text-sm m-4 children:bd children:rd-full
+      children:bd children:rd-full
       children:icon-text children:w-full children-of-hidden
     >
       <div p-2>

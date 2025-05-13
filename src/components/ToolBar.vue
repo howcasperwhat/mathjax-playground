@@ -1,6 +1,6 @@
 <template>
   <div
-    p-4 panel rd-4 h-max
+    p-x-4 p-y-6 bd rd-full h-max
     max-h="[calc(100vh-2rem)]"
     grid="~ flow-row items-center justify-center gap-4"
     children:flex="~ items-center justify-center"

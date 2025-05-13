@@ -1,75 +1,22 @@
 <script setup lang="ts">
-const tex = computed({
-  get: () => playState.tex.value,
-  set: value => playState.tex.value = value,
-})
-const svg = computed({
-  get: () => playState.svg.value,
-  set: value => playState.svg.value = value,
-})
 const perc = ref({
   x: 72,
   l: 32,
   r: 32,
 })
 useLocalStorage(`${APP_NAME}_perc`, perc)
-
-// input
-function editMonaco(value: string) {
-  playState.tex.value = value
-  const elem = mathjax.from(value)
-  svg.value = elem.outerHTML
-  // console.log('tex in monaco')
-}
-function editMathJax(value: SVGSVGElement) {
-  playState.elem = value
-}
-
-onMounted(() => {
-  // active
-  watch(playState.active, () => {
-    // console.log('active', playState.active.value)
-    const item = playState.toItem(playState.active.value)
-    tex.value = item?.tex ?? ''
-    svg.value = item?.svg ?? ''
-    if (item?.tex && !item?.svg) {
-      editMonaco(item.tex)
-    }
-  }, { immediate: true })
-})
 </script>
 
 <template>
   <div flex="~ gap-4" lt-sm:hidden>
     <ToolBar w-16 />
     <div flex="~ col" w="[calc(100vw-7rem)]">
-      <NavBar h-10 z-100 />
-      <Resizable v-model="perc.x" dir="x" h="[calc(100vh-5rem)]" flex>
+      <Resizable v-model="perc.x" dir="x" h="[calc(100vh-2rem)]" flex>
         <template #start="lprops">
-          <Resizable
-            v-model="perc.l" dir="y" flex="~ col"
-            :style="lprops.style" panel h-full z-50
-          >
-            <template #start="tprops">
-              <MathJaxEditor :svg :style="tprops.style" @update="editMathJax" />
-            </template>
-            <template #end="bprops">
-              <MonacoEditor :tex :style="bprops.style" @update="editMonaco" />
-            </template>
-          </Resizable>
+          <MainPanel h-full :style="lprops.style" />
         </template>
         <template #end="rprops">
-          <Resizable
-            v-model="perc.r" dir="y" flex="~ col"
-            :style="rprops.style" panel h-full
-          >
-            <template #start="tprops">
-              <ConfigPanel :style="tprops.style" />
-            </template>
-            <template #end="bprops">
-              <HistoryPanel :style="bprops.style" />
-            </template>
-          </Resizable>
+          <ConfigPanel h-full :style="rprops.style" />
         </template>
       </Resizable>
     </div>

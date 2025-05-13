@@ -66,14 +66,14 @@ onMounted(() => {
   <div ref="container">
     <slot name="start" :style="sstyle" />
     <div
-      flex :style="{
+      :style="{
         width: dir === 'x' ? `${size}rem` : '100%',
         height: dir === 'y' ? `${size}rem` : '100%',
-      }"
+      }" flex
     >
       <div
         ref="dragger"
-        m-auto rd bg-gray op-40
+        m-auto rd bg-stone op-32
         :style="{
           width: dir === 'x' ? '25%' : '20%',
           height: dir === 'y' ? '25%' : '20%',
