@@ -19,6 +19,7 @@ declare module 'vue' {
     MathJaxEditor: typeof import('./src/components/MathJaxEditor.vue')['default']
     MonacoEditor: typeof import('./src/components/MonacoEditor.vue')['default']
     NavBar: typeof import('./src/components/NavBar.vue')['default']
+    NoMobile: typeof import('./src/components/NoMobile.vue')['default']
     OpacityPicker: typeof import('./src/components/OpacityPicker.vue')['default']
     Painter: typeof import('./src/components/Painter.vue')['default']
     Resizable: typeof import('./src/components/Resizable.vue')['default']
@@ -28,6 +29,7 @@ declare module 'vue' {
     SidePanel: typeof import('./src/components/SidePanel.vue')['default']
     TabState: typeof import('./src/components/TabState.vue')['default']
     ThemeSwitcher: typeof import('./src/components/ThemeSwitcher.vue')['default']
+    Togglable: typeof import('./src/components/Togglable.vue')['default']
     ToolBar: typeof import('./src/components/ToolBar.vue')['default']
   }
 }

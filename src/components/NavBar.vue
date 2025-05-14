@@ -6,7 +6,7 @@ const tabs = computed(() => {
 const active = computed(() => {
   return playState.active.value
 })
-const hover = ref<string>('')
+const hover = ref('')
 
 const inputElement = ref<HTMLInputElement | null>(null)
 const editingName = ref('')
@@ -46,16 +46,20 @@ function removeState(name: string) {
 
 <template>
   <div
-    flex="~ items-center" w-full of-auto
-    children:flex="~ items-center" children:h-full
+    flex="~ items-center"
+    w-full select-none of-auto children:h-full
   >
-    <div v-for="name in tabs" :key="name" h-full>
+    <template v-for="name in tabs" :key="name">
       <button
-        :key="name"
         :title="name"
-
-        bd rd-xl rd-b-0 h-full min-w-24 transition-margin-200 btn-sm icon-text
-        :style="{ 'margin-bottom': active === name ? '-.5rem' : '-1.25rem' }"
+        bd rd-xl rd-b-0 min-w-24 transition-margin-300
+        btn-sm icon-text
+        :class="active === name
+          ? 'm-b--2 op-100'
+          : hover === name
+            ? 'm-b--4 op-80'
+            : 'm-b--6 op-60'
+        "
         @click="playState.switchActive(name)"
         @mouseenter="hover = name"
         @mouseleave="hover = ''"
@@ -71,11 +75,12 @@ function removeState(name: string) {
           <div i-carbon:close />
         </div>
       </button>
-      <div h-full w-1 b-b="1px solid stone op-24" />
-    </div>
+      <div b-b="1px solid stone op-16" shrink-0 w-1 />
+    </template>
     <div
       v-show="isEditing"
       m-b--.5rem sm bd rd-t-xl
+      flex="~ items-center"
     >
       <input
         ref="inputElement"
@@ -90,7 +95,8 @@ function removeState(name: string) {
     </div>
     <div
       v-show="!isEditing"
-      b-b="1px solid stone op-24"
+      b-b="1px solid stone op-16"
+      flex="~ items-center"
     >
       <button
         rd="1/2"
@@ -101,7 +107,7 @@ function removeState(name: string) {
         <div i-carbon:add />
       </button>
     </div>
-    <div w-full b-b="1px solid stone op-24" />
+    <div grow-1 b-b="1px solid stone op-16" />
   </div>
 </template>
 

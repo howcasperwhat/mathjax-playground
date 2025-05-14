@@ -15,11 +15,11 @@ const active = ref(props.active)
   <div flex="~ items-center">
     <button
       v-for="name, _ in props.names" :key="_"
-      :style="{
-        'opacity': active === name ? 0.8 : 0.5,
-        'border-bottom-color': active === name ? 'gray' : 'transparent',
-      }"
-      m-x-0.5 p-x-1.5 rd-0 btn-sm b-b="2px solid"
+      :class="active === name
+        ? 'op-100 b-b-stone'
+        : 'op-60 b-b-transparent'
+      "
+      m-x-0.5 p-x-1.5 rd-0 btn-sm color-base b-b="2px solid"
       @click="emits('switch', active = name)"
     >
       <slot :name />

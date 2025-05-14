@@ -74,11 +74,10 @@ onMounted(() => {
       <div
         ref="dragger"
         m-auto rd bg-stone op-32
-        :style="{
-          width: dir === 'x' ? '25%' : '20%',
-          height: dir === 'y' ? '25%' : '20%',
-          cursor: dir === 'x' ? 'ew-resize' : 'ns-resize',
-        }"
+        :class="dir === 'x'
+          ? 'w-1/4 h-1/5 cursor-ew-resize'
+          : 'w-1/5 h-1/4 cursor-ns-resize'
+        "
       />
     </div>
     <slot name="end" :style="estyle" />

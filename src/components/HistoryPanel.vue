@@ -31,8 +31,8 @@ function show(name: string) {
     <div
       flex="~ col items-center gap-2"
       children:flex="~ gap-2"
-      children:bd children:rd-full
-      children:icon-text children:w-full children-of-hidden
+
+      children:bd color-base children:rd-full children:icon-text children:w-full children-of-hidden
     >
       <div p-2>
         <div i-carbon:search />
@@ -49,7 +49,7 @@ function show(name: string) {
         @click="show(name)"
       >
         <div :class="playState.icon(item)" />
-        <div op-80 shrink-1 truncate v-text="name" />
+        <div shrink-1 truncate v-text="name" />
         <div text-sm text-gray m-l-a v-text="format(playState.usage(name, item))" />
       </button>
       <button

@@ -13,7 +13,6 @@ function editMonaco(value: string) {
   playState.tex.value = value
   const elem = mathjax.from(value)
   svg.value = elem.outerHTML
-  // console.log('tex in monaco')
 }
 function editMathJax(value: SVGSVGElement) {
   playState.elem = value
@@ -22,13 +21,11 @@ function editMathJax(value: SVGSVGElement) {
 onMounted(() => {
   // active
   watch(playState.active, () => {
-    // console.log('active', playState.active.value)
     const item = playState.toItem(playState.active.value)
     tex.value = item?.tex ?? ''
     svg.value = item?.svg ?? ''
-    if (item?.tex && !item?.svg) {
+    if (item?.tex && !item?.svg)
       editMonaco(item.tex)
-    }
   }, { immediate: true })
 })
 </script>

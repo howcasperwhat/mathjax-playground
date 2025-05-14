@@ -18,7 +18,7 @@ function change(event: Event) {
 
 <template>
   <div lh-0 relative>
-    <button p-0 bd btn-sm @click="toggle">
+    <button p-0 bd btn-sm @mousedown="toggle">
       <svg
         width="1.2rem" height="1.2rem"
         viewBox="0 0 32 32"

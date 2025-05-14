@@ -8,7 +8,7 @@ useLocalStorage(`${APP_NAME}_perc`, perc)
 </script>
 
 <template>
-  <div flex="~ gap-4" lt-sm:hidden>
+  <div flex="~ gap-4">
     <ToolBar w-16 />
     <div flex="~ col" w="[calc(100vw-7rem)]">
       <Resizable v-model="perc.x" dir="x" h="[calc(100vh-2rem)]" flex>
@@ -21,10 +21,5 @@ useLocalStorage(`${APP_NAME}_perc`, perc)
       </Resizable>
     </div>
   </div>
-  <div
-    flex="~ items-center justify-center"
-    h-full w-full sm:hidden
-  >
-    This app is not supported on mobile devices. Please try with a bigger screen.
-  </div>
+  <NoMobile />
 </template>

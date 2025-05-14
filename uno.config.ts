@@ -12,7 +12,7 @@ export default defineConfig({
   shortcuts: {
     'btn': 'text-[1em] inline-block cursor-pointer select-none disabled:cursor-not-allowed disabled:op-20 whitespace-nowrap of-hidden',
     'ipt': 'focus:outline-unset',
-    'sep': 'c-gray op-24',
+    'sep': 'c-gray op-16',
 
     'icon-text': 'flex items-center flex-gap-2 children:shrink-0',
     'icon-btn': 'btn opacity-75 transition duration-200 ease-in-out hover:opacity-100 hover:text-hex-18f active:opacity-100 active:text-hex-c66',
@@ -22,7 +22,7 @@ export default defineConfig({
     'md': 'p-x-2 p-y-2',
     'lg': 'p-x-4 p-y-2',
 
-    'bd': 'b-1px b-solid b-stone b-op-24',
+    'bd': 'b-1px b-solid b-stone b-op-16',
 
     'btn-sm': 'btn sm rd',
     'btn-md': 'btn md rd',

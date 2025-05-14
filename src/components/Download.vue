@@ -3,13 +3,13 @@ const show = ref(true)
 </script>
 
 <template>
-  <button toggle-btn>
-    <div i-carbon:download @click="show = !show" />
+  <button toggle-btn @click="show = !show">
+    <div i-carbon:download />
   </button>
-  <button v-show="show" icon-btn>
+  <button v-show="show" v-tooltip.right="'Download PNG'" icon-btn>
     <div i-carbon:png @click="playState.download('png')" />
   </button>
-  <button v-show="show" icon-btn>
+  <button v-show="show" v-tooltip.right="'Download SVG'" icon-btn>
     <div i-carbon:svg @click="playState.download('svg')" />
   </button>
 </template>
