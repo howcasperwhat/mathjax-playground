@@ -1,9 +1,5 @@
 <script setup lang="ts">
-const perc = ref({
-  x: 72,
-  l: 32,
-  r: 32,
-})
+const perc = ref(72)
 useLocalStorage(`${APP_NAME}_perc`, perc)
 </script>
 
@@ -11,7 +7,11 @@ useLocalStorage(`${APP_NAME}_perc`, perc)
   <div flex="~ gap-4">
     <ToolBar w-16 />
     <div flex="~ col" w="[calc(100vw-7rem)]">
-      <Resizable v-model="perc.x" dir="x" h="[calc(100vh-2rem)]" flex>
+      <Resizable
+        v-model="perc" dir="x"
+        :min="20" :max="80"
+        h="[calc(100vh-2rem)]" flex
+      >
         <template #start="lprops">
           <MainPanel h-full :style="lprops.style" />
         </template>

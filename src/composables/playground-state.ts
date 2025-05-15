@@ -46,8 +46,14 @@ export class PlayGroundState {
   }
 
   private _mocker = new MockerElement({
-    show: { backgroundColor: '#fcc70533' },
-    hide: { backgroundColor: 'transparent' },
+    show: {
+      backgroundColor: '#fcc70533',
+      border: '1px solid #fcc70566',
+    },
+    hide: {
+      backgroundColor: 'transparent',
+      border: 'none',
+    },
   })
 
   color = reactive({
@@ -289,6 +295,7 @@ export class PlayGroundState {
         this._mocker.hide()
         return
       }
+      const { top, left } = this.elem.getBoundingClientRect()
       const rect = this
         .search(event.clientX, event.clientY)
         .sort((a, b) => a.depth - b.depth)
@@ -296,7 +303,7 @@ export class PlayGroundState {
         ?.element
         .getBoundingClientRect()
       !rect
-        ? this._mocker.hide()
+        ? this._mocker.hide(top, left)
         : this._mocker.show({
             w: `${rect.width}px`,
             h: `${rect.height}px`,

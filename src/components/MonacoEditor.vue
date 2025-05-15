@@ -11,9 +11,21 @@ const emits = defineEmits<{
   (e: 'update', value: string): void
 }>()
 
-const isCollapsed = ref(false)
+const isHidden = ref(false)
+const isExpanded = ref(false)
 const element = ref<HTMLElement | null>(null)
 const editor = shallowRef<monaco.editor.IStandaloneCodeEditor | null>(null)
+
+function getClass() {
+  const classes = []
+  if (isHidden.value)
+    classes.push('translate-x--99%')
+  if (isExpanded.value)
+    classes.push('w-[calc(100%-1rem)] h-[calc(100%-4rem)]')
+  else
+    classes.push('w-[calc(100%-5rem)] h-50%')
+  return classes.join(' ')
+}
 
 onMounted(async () => {
   const highlighter = await createHighlighter({
@@ -44,7 +56,6 @@ onMounted(async () => {
   ), { immediate: true })
 
   watch(() => props.tex, async () => {
-    // avoid emit->tex-update->setValue->cursor jump
     if (editor.value?.getValue() === props.tex)
       return
     editor.value?.setValue(props.tex)
@@ -56,21 +67,32 @@ onUnmounted(() => editor.value?.dispose())
 
 <template>
   <div
-    flex="~ col"
-    b="solid stone:10"
-    b-r-1 b-t-1 rd-tr-xl transition-transform duration-300 of-hidden
-    :class="isCollapsed ? 'translate-x--99%' : ''"
-    @mouseenter="isCollapsed = false"
+    flex="~ col" b="solid stone:10"
+    bd rd-tr-xl b-b-none b-l-none shadow
+    transition="~ property-[height,transform,width]"
+    duration-300
+    :class="getClass()"
+    @mouseenter="isHidden = false"
   >
     <div
-      flex="~ items-center justify-end"
-      text-lg p-4 bg-base b-b="1px solid stone:10"
+      flex="~ items-center justify-end gap-4"
+      text-lg p-4 rd-tr-xl bg-base
+      b-b="1px solid stone:10"
     >
       <button
-        c-stone op-75 btn
-        @click="isCollapsed = true"
+        v-tooltip.top="'Hide Editor'"
+        c-stone op="80 hover:100" btn
+        @click="isHidden = true"
       >
-        <div i-carbon:previous-outline />
+        <div i-carbon:right-panel-open />
+      </button>
+      <button
+        v-tooltip.top="`${isExpanded ? 'Collapse' : 'Expand'} Editor`"
+        c-stone op="80 hover:100" btn
+        @click="isExpanded = !isExpanded"
+      >
+        <div v-if="isExpanded" i-carbon:minimize />
+        <div v-else i-carbon:maximize />
       </button>
     </div>
     <div

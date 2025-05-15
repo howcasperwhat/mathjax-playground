@@ -36,13 +36,11 @@ onMounted(() => {
       <NavBar h-3rem />
       <MathJaxEditor
         :svg h="[calc(100%-3rem)]"
-        bd
         rd-b-xl b-t-none @update="editMathJax"
       />
     </div>
     <MonacoEditor
       bottom-2 left-2 absolute
-      w="90%" h="50%"
       :tex @update="editMonaco"
     />
   </div>

@@ -16,10 +16,12 @@ const active = ref(props.active)
     <button
       v-for="name, _ in props.names" :key="_"
       :class="active === name
-        ? 'op-100 b-b-stone'
+        ? 'op-100! b-b-stone'
         : 'op-60 b-b-transparent'
       "
-      m-x-0.5 p-x-1.5 rd-0 btn-sm color-base b-b="2px solid"
+
+      b-b="2px solid"
+      text-lg m-x-0.5 p-x-1.5 p-y-1 color-base btn hover:op-80
       @click="emits('switch', active = name)"
     >
       <slot :name />

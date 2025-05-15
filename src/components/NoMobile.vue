@@ -12,8 +12,8 @@ const show = computed(() => {
   <div
     v-show="show"
     flex="~ col items-center justify-center"
-    p-8 bg-neutral bg-op-4 h-full w-full
-    inset-0 bottom-0 left-0 right-0 top-0 fixed
+    p-8 bg-neutral bg-op-4 h-full w-full inset-0
+    bottom-0 left-0 right-0 top-0 fixed z-20
     backdrop-blur-8
   >
     <h1 text-2xl op-80>

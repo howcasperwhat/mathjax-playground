@@ -91,7 +91,7 @@ onMounted(() => {
 
 <template>
   <div
-    ref="parent" of-hidden
+    ref="parent" bd of-hidden
     style="
       display: flex;
       justify-content: safe center;
@@ -116,12 +116,13 @@ onMounted(() => {
       childrem:flex="~ col items-center justify-center"
       children:children:flex="~ items-center justify-center"
       text-stone m-4 children:bd bottom-0 right-0 absolute
-      children:rd-full children:children:h-10 children:children:w-10
+      children:rd-full children:shadow children:backdrop-blur-8
+      children:children:h-10 children:children:w-10
     >
       <div>
         <button
           v-tooltip.left="'Zoom In'"
-          rd-t-full btn hover:bg-stone:8
+          rd-t-full hover:bg-stone:8 btn
           @click="scale(1)"
         >
           <div i-carbon:zoom-in />
@@ -132,7 +133,7 @@ onMounted(() => {
         />
         <button
           v-tooltip.left="'Zoom Out'"
-          rd-b-full btn hover:bg-stone:8
+          rd-b-full hover:bg-stone:8 btn
           @click="scale(-1)"
         >
           <div i-carbon:zoom-out />

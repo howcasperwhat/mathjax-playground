@@ -47,18 +47,19 @@ function removeState(name: string) {
 <template>
   <div
     flex="~ items-center"
-    w-full select-none of-auto children:h-full
+    w-full select-none of-auto
+    color-base children:h-full
   >
     <template v-for="name in tabs" :key="name">
       <button
         :title="name"
-        bd rd-xl rd-b-0 min-w-24 transition-margin-300
-        btn-sm icon-text
+        bd rd-xl rd-b-0 min-w-24 shadow
+        transition-margin-300 btn-sm icon-text
         :class="active === name
-          ? 'm-b--2 op-100'
+          ? 'm-b--2 b-stone:24'
           : hover === name
-            ? 'm-b--4 op-80'
-            : 'm-b--6 op-60'
+            ? 'm-b--4 b-stone:20'
+            : 'm-b--6 b-stone:16'
         "
         @click="playState.switchActive(name)"
         @mouseenter="hover = name"
@@ -75,7 +76,7 @@ function removeState(name: string) {
           <div i-carbon:close />
         </div>
       </button>
-      <div b-b="1px solid stone op-16" shrink-0 w-1 />
+      <div b-b="1px solid stone:16" shrink-0 w-1 />
     </template>
     <div
       v-show="isEditing"
@@ -95,19 +96,19 @@ function removeState(name: string) {
     </div>
     <div
       v-show="!isEditing"
-      b-b="1px solid stone op-16"
+      b-b="1px solid stone:16"
       flex="~ items-center"
     >
       <button
-        rd="1/2"
         op="60 hover:80 active:100"
-        m-t-.25rem p-.4 bd btn
+        rd="1/2" m-t-.25rem p-.4
+        bd shadow btn
         @click="editState()"
       >
         <div i-carbon:add />
       </button>
     </div>
-    <div grow-1 b-b="1px solid stone op-16" />
+    <div grow-1 b-b="1px solid stone:16" />
   </div>
 </template>
 

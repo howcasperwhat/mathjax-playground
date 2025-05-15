@@ -11,6 +11,12 @@ body {
   --at-apply: color-base;
 }
 
+button:focus,
+input:focus,
+textarea:focus {
+  outline: none;
+}
+
 /* Toggle Theme */
 ::view-transition-old(root),
 ::view-transition-new(root) {
@@ -46,7 +52,7 @@ body {
 .v-popper--theme-tooltip .v-popper__arrow-inner,
 .v-popper--theme-dropdown .v-popper__arrow-inner {
   visibility: visible;
-  --at-apply: border-white dark: border-#111;
+  --at-apply: border-white dark-border-#111;
 }
 
 .v-popper--theme-tooltip .v-popper__arrow-outer,
