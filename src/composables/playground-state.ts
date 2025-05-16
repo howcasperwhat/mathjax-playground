@@ -271,7 +271,7 @@ export class PlayGroundState {
       this.initColor()
     }, { immediate: true })
 
-    document.addEventListener('keydown', (event) => {
+    useEventListener('keydown', (event) => {
       switch (event.key) {
         case 'Escape':
           this.tool = ToolType.Free
@@ -280,7 +280,7 @@ export class PlayGroundState {
           break
       }
     })
-    document.addEventListener('click', (event) => {
+    useEventListener('click', (event) => {
       if (this.free || !this.elem)
         return
       this.process(this
@@ -290,7 +290,7 @@ export class PlayGroundState {
         ?.element,
       )
     })
-    document.addEventListener('mousemove', (event) => {
+    useEventListener('mousemove', (event) => {
       if (this.free || !this.elem) {
         this._mocker.hide()
         return

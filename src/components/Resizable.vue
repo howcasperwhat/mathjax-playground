@@ -51,7 +51,7 @@ onMounted(() => {
     document.removeEventListener('mousemove', onMouseMove)
     document.removeEventListener('mouseup', onMouseUp)
   }
-  elem.addEventListener('mousedown', (e) => {
+  useEventListener(elem, 'mousedown', (e) => {
     e.preventDefault()
     document.body.style.cursor = dir.value === 'x'
       ? 'ew-resize'
