@@ -52,7 +52,7 @@ textarea:focus {
 .v-popper--theme-tooltip .v-popper__arrow-inner,
 .v-popper--theme-dropdown .v-popper__arrow-inner {
   visibility: visible;
-  --at-apply: border-white dark-border-#111;
+  --at-apply: border-white dark-border-#121212;
 }
 
 .v-popper--theme-tooltip .v-popper__arrow-outer,

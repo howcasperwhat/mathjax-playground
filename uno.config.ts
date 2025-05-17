@@ -37,9 +37,9 @@ export default defineConfig({
     'i:default': 'i-carbon:document c-gray-700 dark:c-gray-400',
 
     'color-base': 'color-neutral-800 dark:color-neutral-300',
-    'bg-base': 'bg-white dark:bg-#111',
+    'bg-base': 'bg-white dark:bg-#121212',
     'border-base': 'border-#8882',
-    'bg-tooltip': 'bg-white:75 dark:bg-#111:75 backdrop-blur-8',
+    'bg-tooltip': 'bg-white:75 dark:bg-#121212:75 backdrop-blur-8',
   },
   safelist: [
     'i:tex',

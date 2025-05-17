@@ -15,6 +15,6 @@
         class="stroke" stroke-opacity="0.8" mask="url(#cutout)" />
   <use href="#carbon:function" />
   <style>
-  .stroke{stroke:#111;}.fill{fill:#111}@media (prefers-color-scheme:dark){.stroke{stroke:#eee;}.fill{fill:#eee}}
+  .stroke{stroke:#121212;}.fill{fill:#121212}@media (prefers-color-scheme:dark){.stroke{stroke:#eee;}.fill{fill:#eee}}
   </style>
 </svg>

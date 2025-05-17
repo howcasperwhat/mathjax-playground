@@ -19,9 +19,9 @@ const editor = shallowRef<monaco.editor.IStandaloneCodeEditor | null>(null)
 function getClass() {
   const classes = []
   if (isHidden.value)
-    classes.push('translate-x--99%')
+    classes.push('translate-y-[calc(100%-4rem)]')
   if (isExpanded.value)
-    classes.push('w-[calc(100%-1rem)] h-[calc(100%-4rem)]')
+    classes.push('w-[calc(100%-1rem)] h-[calc(100%-1rem)]')
   else
     classes.push('w-[calc(100%-5rem)] h-50%')
   return classes.join(' ')
@@ -68,28 +68,32 @@ onUnmounted(() => editor.value?.dispose())
 <template>
   <div
     flex="~ col" b="solid stone:10"
-    bd rd-tr-xl b-b-none b-l-none shadow
+    bd rd-t-xl b-b-none shadow
     transition="~ property-[height,transform,width]"
     duration-300
     :class="getClass()"
-    @mouseenter="isHidden = false"
   >
     <div
       flex="~ items-center justify-end gap-4"
-      text-lg p-4 rd-tr-xl bg-base
+      text-lg p-4 rd-t-xl bg-base
       b-b="1px solid stone:10"
+      @click="isHidden = false"
     >
+      <div m-r-a p-1 rd-xl bg-stone:16>
+        <div i:tex />
+      </div>
       <button
-        v-tooltip.top="'Hide Editor'"
+        v-tooltip.top="`${isHidden ? 'Show' : 'Hide'} Editor`"
         c-stone op="80 hover:100" btn
-        @click="isHidden = true"
+        @click.stop="isHidden = !isHidden"
       >
-        <div i-carbon:right-panel-open />
+        <div v-if="isHidden" i-carbon:bottom-panel-open />
+        <div v-else i-carbon:bottom-panel-close />
       </button>
       <button
         v-tooltip.top="`${isExpanded ? 'Collapse' : 'Expand'} Editor`"
         c-stone op="80 hover:100" btn
-        @click="isExpanded = !isExpanded"
+        @click.stop="isExpanded = !isExpanded"
       >
         <div v-if="isExpanded" i-carbon:minimize />
         <div v-else i-carbon:maximize />

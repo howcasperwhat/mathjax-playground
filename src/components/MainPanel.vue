@@ -31,17 +31,24 @@ onMounted(() => {
 </script>
 
 <template>
-  <div relative of-hidden>
-    <div flex="~ col" h-full>
-      <NavBar h-3rem />
-      <MathJaxEditor
-        :svg h="[calc(100%-3rem)]"
-        rd-b-xl b-t-none @update="editMathJax"
+  <div flex="~ col" h-full>
+    <NavBar h-3rem />
+    <div
+      h="[calc(100%-3rem)]"
+      bd rd-b-xl b-t-none shadow relative of-hidden
+      style="
+        background-image:
+          linear-gradient(to right, rgba(128, 128, 128, 0.1) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(128, 128, 128, 0.1) 1px, transparent 1px);
+        background-size: 20px 20px;
+        background-position: 10px 10px;
+      "
+    >
+      <MathJaxEditor :svg @update="editMathJax" />
+      <MonacoEditor
+        bottom-2 left-2 absolute
+        :tex @update="editMonaco"
       />
     </div>
-    <MonacoEditor
-      bottom-2 left-2 absolute
-      :tex @update="editMonaco"
-    />
   </div>
 </template>

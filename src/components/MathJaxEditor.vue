@@ -91,18 +91,20 @@ onMounted(() => {
 
 <template>
   <div
-    ref="parent" bd of-hidden
+    ref="parent"
     style="
       display: flex;
       justify-content: safe center;
       align-items: safe start;
-      background-image:
-        linear-gradient(to right, rgba(128, 128, 128, 0.1) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(128, 128, 128, 0.1) 1px, transparent 1px);
-      background-size: 20px 20px;
     "
     :class="isGrabbing ? 'cursor-grabbing' : ''"
   >
+    <div
+
+      text-lg m-2 p-1 rd-xl bg-stone:16 left-0 top-0 absolute backdrop-blur-8
+    >
+      <div i:svg />
+    </div>
     <div
       ref="container"
       :style="`transform:
@@ -115,7 +117,7 @@ onMounted(() => {
       flex="~ col items-center justify-center gap-2"
       childrem:flex="~ col items-center justify-center"
       children:children:flex="~ items-center justify-center"
-      text-stone m-4 children:bd bottom-0 right-0 absolute
+      text-stone m-4 children:bd bottom-2rem right-0 absolute
       children:rd-full children:shadow children:backdrop-blur-8
       children:children:h-10 children:children:w-10
     >
