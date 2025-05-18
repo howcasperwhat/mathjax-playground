@@ -28,13 +28,12 @@ const active = ref(Object.keys(data).at(0)!)
 
 <template>
   <div
-    flex="~ col gap-4" p-y-4
-    bd rd-xl shadow children:p-x-4
+    flex="~ col gap-4"
+    p-y-4 bd rd-xl h-full shadow children:p-x-4
   >
     <TabState
       :names="Object.keys(data)" :active
-      h-8
-      @switch="name => active = name"
+      h-8 @switch="name => active = name"
     >
       <template
         v-for="[key, value] in Object.entries(data)"

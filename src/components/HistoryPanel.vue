@@ -2,6 +2,7 @@
 const delta = 20
 const length = ref(delta)
 const query = ref('')
+const el = ref<HTMLInputElement | null>(null)
 
 const filtered = computed(() => {
   if (!query.value)
@@ -27,21 +28,41 @@ function show(name: string) {
 </script>
 
 <template>
-  <div of-auto>
-    <div
-      flex="~ col items-center gap-2"
-      children:flex="~ gap-2"
-
-      children:bd color-base children:rd-full children:icon-text children:w-full children-of-hidden
-    >
-      <div p-2>
-        <div i-carbon:search />
+  <div flex="~ col gap-2" of-auto>
+    <div flex="~ items-center gap-2" shrink-0 z-1 bg-base>
+      <button bd rd-full flex shrink-0 h-8 w-8>
+        <div i-carbon:add text-lg m-a />
+      </button>
+      <label
+        flex="~ items-center gap-1"
+        focus-within="w-60"
+        :class="query ? 'w-60' : 'w-8'"
+        p-1.5 bd rd-full h-8 w-8 transition-width duration-300 of-hidden
+      >
+        <div i-carbon:search shrink-0 />
         <input
+          ref="el"
           v-model="query" maxlength="36"
           type="text" placeholder="Search..."
-          ipt @input="length = delta"
+          ipt w-full @input="length = delta"
         >
-      </div>
+        <button
+
+          rd-full flex shrink-0 h-6 w-6 color-base btn
+          :class="query ? '' : 'op0'"
+          @click="query = ''"
+        >
+          <div i-carbon:close m-a />
+        </button>
+      </label>
+    </div>
+    <div
+      flex="~ col gap-2"
+      children:flex="~ gap-2"
+      children:bd color-base
+      children:rd-full children:icon-text
+      children:w-full children:of-hidden
+    >
       <button
         v-for="[name, item] in filtered.slice(0, length)"
         :key="name" :title="name"

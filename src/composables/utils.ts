@@ -54,10 +54,9 @@ export async function svgToPngDataUrl(svg: string) {
       }
     }
     imgPreview.src = svgDataUrl
+  }).finally(() => {
+    document.body.removeChild(imgPreview)
   })
-    .finally(() => {
-      document.body.removeChild(imgPreview)
-    })
 }
 
 export async function copyPng(dataUrl: string): Promise<boolean> {

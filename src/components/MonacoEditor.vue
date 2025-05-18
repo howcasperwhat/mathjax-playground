@@ -70,13 +70,13 @@ onUnmounted(() => editor.value?.dispose())
     flex="~ col" b="solid stone:10"
     bd rd-t-xl b-b-none shadow
     transition="~ property-[height,transform,width]"
-    duration-300
+    duration-300 z-monaco children:w-full
     :class="getClass()"
   >
     <div
       flex="~ items-center justify-end gap-4"
-      text-lg p-4 rd-t-xl bg-base
-      b-b="1px solid stone:10"
+      text-lg p-x-4 rd-t-xl h-4rem bg-base
+      b-b="1px solid stone:16"
       @click="isHidden = false"
     >
       <div m-r-a p-1 rd-xl bg-stone:16>
@@ -99,8 +99,6 @@ onUnmounted(() => editor.value?.dispose())
         <div v-else i-carbon:maximize />
       </button>
     </div>
-    <div
-      ref="element" h-full w-full
-    />
+    <div ref="element" h="[calc(100%-4rem)]" />
   </div>
 </template>

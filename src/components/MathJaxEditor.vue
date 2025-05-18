@@ -91,7 +91,7 @@ onMounted(() => {
 
 <template>
   <div
-    ref="parent"
+    ref="parent" h-full w-full relative z-mathjax
     style="
       display: flex;
       justify-content: safe center;
@@ -101,7 +101,7 @@ onMounted(() => {
   >
     <div
 
-      text-lg m-2 p-1 rd-xl bg-stone:16 left-0 top-0 absolute backdrop-blur-8
+      text-lg m-4 p-1 rd-xl bg-stone:16 left-0 top-0 absolute z-10 z-mathjax-tool backdrop-blur-8
     >
       <div i:svg />
     </div>
@@ -117,9 +117,8 @@ onMounted(() => {
       flex="~ col items-center justify-center gap-2"
       childrem:flex="~ col items-center justify-center"
       children:children:flex="~ items-center justify-center"
-      text-stone m-4 children:bd bottom-2rem right-0 absolute
-      children:rd-full children:shadow children:backdrop-blur-8
-      children:children:h-10 children:children:w-10
+
+      text-stone m-4 children:bd bottom-0 right-0 absolute z-mathjax-tool children:rd-full children:shadow children:backdrop-blur-8 children:children:h-10 children:children:w-10
     >
       <div>
         <button
@@ -142,7 +141,11 @@ onMounted(() => {
         </button>
       </div>
       <div>
-        <button v-tooltip.left="'Reset Position and Zoom'" btn @click="reset">
+        <button
+          v-tooltip.left="'Reset Position and Zoom'"
+          hover:bg-stone:8 btn
+          @click="reset"
+        >
           <div i-carbon:reset />
         </button>
       </div>

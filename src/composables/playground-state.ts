@@ -113,112 +113,64 @@ export class PlayGroundState {
   }
 
   paint(element: SVGGraphicsElement) {
+    if (element === this.elem)
+      return message.error('Cannot operate on the root element')
     element.setAttribute('fill', this.color.pen)
   }
 
   brush(element: SVGGraphicsElement) {
+    if (element === this.elem)
+      return message.error('Cannot operate on the root element')
     if (this.isBrushedRect(element.previousElementSibling))
       return
-    try {
-      const bbox = element.getBBox()
 
-      // 2. get the parent element of the SVG element
-      const parentElement = element.parentElement
-      if (!parentElement) {
-        /* ... error handling ... */
-        return
-      }
-      if (!(parentElement instanceof SVGGraphicsElement || parentElement instanceof SVGSVGElement)) {
-        /* ... error handling ... */
-        return
-      }
+    const [C, P] = [element, element.parentElement] as SVGGraphicsElement[]
 
-      // 3. calculate the transformation matrix (element-to-parent)
-      const elementCTM = element.getCTM()
-      const parentCTM = parentElement.getCTM()
-      if (!elementCTM || !parentCTM) {
-        /* ... error handling ... */
-        return
-      }
-      const parentInverseCTM = parentCTM.inverse()
-      if (!parentInverseCTM) {
-        /* ... error handling ... */
-        return
-      }
-      const relativeMatrix = parentInverseCTM.multiply(elementCTM)
+    // https://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html#getCTM
+    // [[a, c, e], [b, d, f], [0, 0, 1]]
+    // a: scaleX, d: scaleY | b: skewY, c: skewX (tanθ) | e: translateX, f: translateY
 
-      // 4. calculate the position (x, y) relative to the parent element
-      const svgRoot = element.ownerSVGElement
-      if (!svgRoot) {
-        /* ... error handling ... */
-        return
-      }
-      const svgPoint = svgRoot.createSVGPoint()
-      let boxX: number, boxY: number
-      if (svgPoint) {
-        svgPoint.x = bbox.x
-        svgPoint.y = bbox.y
-        const transformedPoint = svgPoint.matrixTransform(relativeMatrix)
-        boxX = transformedPoint.x
-        boxY = transformedPoint.y
-      }
-      else {
-        console.warn('SVGPoint not supported, cannot calculate position.')
-        return
-      }
+    const CRM = C.getCTM()!
+    const PRM = P.getCTM()!
+    const RPM = PRM.inverse()
+    if (!RPM)
+      return message.error('Parent Element is not invertible')
+    const CPM = RPM.multiply(CRM)
 
-      // 5. calculate the size (width, height) - reverse from screen size to parent coordinate system
-      const screenBBox = element.getBoundingClientRect() // final pixel size
+    // https://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html#getBBox
+    // DOMRect that before transform (if has transform)
+    const CBox = C.getBBox()
+    // Transform to the parent coordinate system
+    const x = CPM.a * CBox.x + CPM.c * CBox.y + CPM.e
+    const y = CPM.b * CBox.x + CPM.d * CBox.y + CPM.f
 
-      // get the screen transformation matrix of the parent element to get the local scaling
-      const parentScreenCTM = (parentElement as SVGGraphicsElement).getScreenCTM()
-      if (!parentScreenCTM) {
-        console.warn('cannot get parent screen CTM, cannot calculate size.')
-        return
-      }
+    const CRect = element.getBoundingClientRect()
+    const PSM = P.getScreenCTM()!
+    // The unit length of the base coordinate of
+    // the parent element in the screen coordinate system
+    const wu = Math.sqrt(PSM.a * PSM.a + PSM.c * PSM.c)
+    const hu = Math.sqrt(PSM.b * PSM.b + PSM.d * PSM.d)
+    if (wu === 0 || hu === 0)
+      return message.error('scale factor is zero, cannot calculate size.')
+    // width and height in the parent coordinate system
+    const w = CRect.width / wu
+    const h = CRect.height / hu
 
-      // calculate the effective scaling factor of the parent coordinate system (considering rotation/tilt)
-      // use Math.abs to handle negative d value caused by scale(1,-1), we need the magnitude of scaling
-      const parentScaleX = Math.sqrt(parentScreenCTM.a * parentScreenCTM.a + parentScreenCTM.c * parentScreenCTM.c)
-      const parentScaleY = Math.sqrt(parentScreenCTM.b * parentScreenCTM.b + parentScreenCTM.d * parentScreenCTM.d)
-
-      // prevent division by zero error
-      if (parentScaleX === 0 || parentScaleY === 0) {
-        console.warn('scale factor is zero, cannot calculate size.')
-        return
-      }
-
-      // convert screen pixel size back to parent coordinate system units
-      const boxWidth = screenBBox.width / parentScaleX
-      const boxHeight = screenBBox.height / parentScaleY
-
-      // 6. create a rectangle
-      const box = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-
-      // 7. set attributes
-      box.setAttribute('x', `${boxX}`)
-      box.setAttribute('y', `${boxY}`)
-      box.setAttribute('width', `${boxWidth}`)
-      box.setAttribute('height', `${boxHeight}`)
-      box.setAttribute('class', 'brushed-rect')
-
-      // 8. set styles
-      box.setAttribute('stroke', this.color.brush)
-      // width of the stroke '1' is 1 unit in the parent coordinate system. If you want it to be visually 1 pixel:
-      // const strokeWidthInParentUnits = 1 / Math.max(parentScaleX, parentScaleY); // get the larger scale factor
-      // box.setAttribute('stroke-width', `${strokeWidthInParentUnits}`);
-      box.setAttribute('stroke-width', '1')
-      box.setAttribute('fill', this.color.brush)
-
-      // 9. insert into DOM
-      element.before(box)
-    }
-    catch (e) {
-      console.error('error when handling brush', e)
-    }
+    const box = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+    box.setAttribute('x', `${x}`)
+    box.setAttribute('y', `${y}`)
+    box.setAttribute('width', `${w}`)
+    box.setAttribute('height', `${h}`)
+    box.setAttribute('class', PlayGroundState.BRUSH_RECT_CLASS)
+    box.setAttribute('fill', this.color.brush)
+    element.before(box)
   }
 
   erase(element: SVGGraphicsElement) {
+    if (element === this.elem) {
+      message.error('Cannot operate on the root element')
+      return
+    }
     element.removeAttribute('fill')
     if (this.isBrushedRect(element.previousElementSibling))
       element.previousElementSibling!.remove()
