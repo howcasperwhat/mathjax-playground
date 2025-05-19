@@ -25,6 +25,7 @@ declare module 'vue' {
     Resizable: typeof import('./src/components/Resizable.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Save: typeof import('./src/components/Save.vue')['default']
     SavePanel: typeof import('./src/components/SavePanel.vue')['default']
     SidePanel: typeof import('./src/components/SidePanel.vue')['default']
     TabState: typeof import('./src/components/TabState.vue')['default']

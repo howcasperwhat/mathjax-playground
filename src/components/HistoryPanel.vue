@@ -5,9 +5,10 @@ const query = ref('')
 const el = ref<HTMLInputElement | null>(null)
 
 const filtered = computed(() => {
+  const reversed = [...Object.entries(playState.memory.value)].reverse()
   if (!query.value)
-    return Object.entries(playState.memory.value)
-  return Object.entries(playState.memory.value).filter(
+    return reversed
+  return reversed.filter(
     ([name, _]) => name.toLowerCase().includes(
       query.value.toLowerCase(),
     ),
@@ -25,19 +26,63 @@ function show(name: string) {
   playState.tabs.value.add(name)
   playState.switchActive(name)
 }
+
+const inputElement = ref<HTMLInputElement | null>(null)
+const editingName = ref('')
+const isEditing = ref(false)
+
+function editState() {
+  isEditing.value = !isEditing.value
+  isEditing.value && nextTick(
+    () => inputElement.value?.focus(),
+  )
+}
+
+function confirmEditState() {
+  const name = editingName.value.trim()
+  if (!playState.exists(name)) {
+    // memory
+    playState.add(name)
+    // tabs
+    playState.tabs.value.add(name)
+    // active
+    playState.switchActive(name)
+    isEditing.value = false
+  }
+  else {
+    message.error('State name already exists')
+    inputElement.value?.focus()
+  }
+}
+
+function cancelEditState() {
+  isEditing.value = false
+  editingName.value = ''
+}
 </script>
 
 <template>
   <div flex="~ col gap-2" of-auto>
-    <div flex="~ items-center gap-2" shrink-0 z-1 bg-base>
-      <button bd rd-full flex shrink-0 h-8 w-8>
-        <div i-carbon:add text-lg m-a />
+    <div
+      flex="~ items-center gap-2"
+      p-b-2 shrink-0 top-0 sticky
+      z-1 bg-base
+    >
+      <button
+        bd rd-full flex shrink-0 h-8
+        w-8 children:text-lg children:m-a
+        hover:bg-stone:8 btn
+        @click="editState"
+      >
+        <div v-if="isEditing" i-carbon:subtract />
+        <div v-else i-carbon:add />
       </button>
       <label
+
         flex="~ items-center gap-1"
         focus-within="w-60"
         :class="query ? 'w-60' : 'w-8'"
-        p-1.5 bd rd-full h-8 w-8 transition-width duration-300 of-hidden
+        p-1.5 bd rd-full h-8 w-8 transition-width duration-300 of-hidden hover:bg-stone:8
       >
         <div i-carbon:search shrink-0 />
         <input
@@ -63,6 +108,19 @@ function show(name: string) {
       children:rd-full children:icon-text
       children:w-full children:of-hidden
     >
+      <div v-show="isEditing" p-2>
+        <div i:tex />
+        <input
+          ref="inputElement"
+          v-model="editingName"
+          placeholder="name"
+          maxlength="20"
+          p-0 ipt-sm
+          @blur="cancelEditState"
+          @keydown.enter="confirmEditState"
+          @keydown.esc="cancelEditState"
+        >
+      </div>
       <button
         v-for="[name, item] in filtered.slice(0, length)"
         :key="name" :title="name"

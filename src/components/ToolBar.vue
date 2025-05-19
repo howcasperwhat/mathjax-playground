@@ -13,6 +13,8 @@
     <hr sep>
     <Download />
     <hr sep>
+    <Save />
+    <hr sep>
     <ThemeSwitcher />
   </div>
 </template>
