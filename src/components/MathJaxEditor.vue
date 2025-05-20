@@ -35,7 +35,6 @@ function setupDraggable() {
   let [x, y] = [0, 0]
 
   useEventListener(parent, 'mousedown', (e) => {
-    e.preventDefault()
     void ([x, y] = [e.pageX, e.pageY])
     isGrabbing.value = true
   })
@@ -91,7 +90,8 @@ onMounted(() => {
 
 <template>
   <div
-    ref="parent" h-full w-full relative z-mathjax
+    ref="parent" h-full w-full
+    select-none relative z-mathjax
     style="
       display: flex;
       justify-content: safe center;
@@ -99,12 +99,6 @@ onMounted(() => {
     "
     :class="isGrabbing ? 'cursor-grabbing' : ''"
   >
-    <div
-
-      text-lg m-4 p-1 rd-xl bg-stone:16 left-0 top-0 absolute z-10 z-mathjax-tool backdrop-blur-8
-    >
-      <div i:svg />
-    </div>
     <div
       ref="container"
       :style="`transform:

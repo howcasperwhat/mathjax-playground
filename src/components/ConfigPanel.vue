@@ -1,7 +1,6 @@
 <script setup lang='ts'>
 import ColorPanel from './ColorPanel.vue'
-import HistoryPanel from './HistoryPanel.vue'
-import SavePanel from './SavePanel.vue'
+import MemoryPanel from './MemoryPanel.vue'
 
 interface UIData {
   icon: string
@@ -9,13 +8,9 @@ interface UIData {
 }
 
 const data: Record<string, UIData> = {
-  history: {
+  memory: {
     icon: 'i-carbon:ibm-knowledge-catalog',
-    component: HistoryPanel,
-  },
-  save: {
-    icon: 'i-carbon:save',
-    component: SavePanel,
+    component: MemoryPanel,
   },
   color: {
     icon: 'i-carbon:color-palette',

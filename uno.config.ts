@@ -11,7 +11,7 @@ import {
 export default defineConfig({
   shortcuts: {
     'btn': 'inline-block cursor-pointer select-none disabled:cursor-not-allowed disabled:op-20 whitespace-nowrap of-hidden',
-    'ipt': 'focus:outline-unset',
+    'ipt': 'focus:outline-unset min-w-0',
     'sep': 'color-base op-16',
 
     'icon-text': 'flex items-center flex-gap-2 children:shrink-0',

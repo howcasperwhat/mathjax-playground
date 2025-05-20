@@ -70,12 +70,16 @@ export class PlayGroundState {
 
   memory: Ref<Record<string, Memory>> = ref(PlayGroundState.DEFAULT_MEMORY)
   tabs: Ref<Set<string>> = ref(new Set<string>())
-  active: Ref<string> = ref('')
+  private _active: Ref<string> = ref('')
   tex: Ref<string> = ref('')
   svg: Ref<string> = ref('')
 
-  switchActive(name: string) {
-    this.active.value = name
+  get active() {
+    return this._active.value
+  }
+
+  set active(name: string) {
+    this._active.value = name
   }
 
   isBrushedRect(elem: Element | null) {
@@ -206,7 +210,7 @@ export class PlayGroundState {
         read: (value: string) => new Set(JSON.parse(value)),
       },
     })
-    useLocalStorage(`${APP_NAME}_active`, this.active)
+    useLocalStorage(`${APP_NAME}_active`, this._active)
 
     watch(this._tool, () => {
       this.cursor = this.free
@@ -333,23 +337,23 @@ export class PlayGroundState {
   }
 
   remove(name?: string) {
-    name ??= this.active.value
+    name ??= this._active.value
     this.tabs.value.delete(name)
-    this.active.value = Array.from(this.tabs.value).at(0) ?? ''
+    this._active.value = Array.from(this.tabs.value).at(0) ?? ''
   }
 
   delete(name?: string) {
-    name ??= this.active.value
+    name ??= this._active.value
     const item = this.memory.value[name]
     if (!item)
       return
     this.tabs.value.delete(name)
     delete this.memory.value[name]
-    this.active.value = Array.from(this.tabs.value).at(0) ?? ''
+    this._active.value = Array.from(this.tabs.value).at(0) ?? ''
   }
 
   save(type: 'tex' | 'svg' | 'workspace') {
-    const name = this.active.value
+    const name = this._active.value
     const item = this.memory.value[name]
     if (type === 'tex') {
       item.tex = this.tex.value
@@ -365,15 +369,15 @@ export class PlayGroundState {
     }
   }
 
-  rename(name: string) {
-    const item = this.memory.value[this.active.value]!
+  rename(o: string, n: string) {
+    const item = this.memory.value[o]!
     if (!item)
       return
-    this.memory.value[name] = item
-    delete this.memory.value[this.active.value]
-    this.tabs.value.delete(this.active.value)
-    this.tabs.value.add(name)
-    this.active.value = name
+    this.memory.value[n] = item
+    delete this.memory.value[this._active.value]
+    this.tabs.value.delete(this._active.value)
+    this.tabs.value.add(n)
+    this._active.value = n
   }
 }
 

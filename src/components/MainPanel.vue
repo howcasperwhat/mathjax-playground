@@ -20,8 +20,8 @@ function editMathJax(value: SVGSVGElement) {
 
 onMounted(() => {
   // active
-  watch(playState.active, () => {
-    const item = playState.toItem(playState.active.value)
+  watch(() => playState.active, () => {
+    const item = playState.toItem(playState.active)
     tex.value = item?.tex ?? ''
     svg.value = item?.svg ?? ''
     if (item?.tex && !item?.svg)
