@@ -13,7 +13,7 @@ const emits = defineEmits<{
 
 const isHidden = ref(false)
 const isExpanded = ref(false)
-const element = ref<HTMLElement | null>(null)
+const el = useTemplateRef<HTMLElement>('el')
 const editor = shallowRef<monaco.editor.IStandaloneCodeEditor | null>(null)
 
 function getClass() {
@@ -40,7 +40,7 @@ onMounted(async () => {
     comments: { lineComment: '%' },
   })
 
-  editor.value = monaco.editor.create(element.value!, {
+  editor.value = monaco.editor.create(el.value!, {
     ...MONACO_CONFIG,
   })
 
@@ -99,6 +99,6 @@ onUnmounted(() => editor.value?.dispose())
         <div v-else i-carbon:maximize />
       </button>
     </div>
-    <div ref="element" h="[calc(100%-4rem)]" />
+    <div ref="el" h="[calc(100%-4rem)]" />
   </div>
 </template>

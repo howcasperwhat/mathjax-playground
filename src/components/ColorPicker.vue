@@ -4,10 +4,10 @@ defineProps <{
 }>()
 
 const model = defineModel<string>({ required: true })
-const element = ref<HTMLInputElement | null>(null)
+const el = useTemplateRef<HTMLInputElement>('el')
 
 function toggle() {
-  element.value?.click()
+  el.value?.click()
 }
 
 function change(event: Event) {
@@ -31,7 +31,7 @@ function change(event: Event) {
       </svg>
     </button>
     <input
-      ref="element" type="color"
+      ref="el" type="color"
       left="50%" top="50%"
       op-0 h-0 w-0 absolute
       :value="model" @input="change"

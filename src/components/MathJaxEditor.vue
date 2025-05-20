@@ -6,8 +6,8 @@ const emits = defineEmits<{
   (e: 'update', value: SVGSVGElement): void
 }>()
 
-const container = ref<HTMLElement | null>(null)
-const parent = ref<HTMLElement | null>(null)
+const container = useTemplateRef<HTMLElement>('container')
+const parent = useTemplateRef<HTMLElement>('parent')
 const html = ref('')
 
 const INITIAL_STATE = {

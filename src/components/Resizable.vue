@@ -14,12 +14,12 @@ const [min, max, dir, size] = [
   computed(() => props.size ?? 1),
 ]
 
-const dragger = ref<HTMLElement | null>(null)
+const dragger = useTemplateRef<HTMLElement>('dragger')
 const percentage = computed({
   get: () => shrink(Math.round(perc.value ?? 50), min.value, max.value),
   set: value => perc.value = value,
 })
-const container = ref<HTMLElement | null>(null)
+const container = useTemplateRef<HTMLElement>('container')
 
 const sstyle = computed(() => {
   return dir.value === 'x'
