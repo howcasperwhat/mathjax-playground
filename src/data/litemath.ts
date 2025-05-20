@@ -78,7 +78,7 @@ const litemath = {
           name: 'constant.numeric.litemath.tex',
         },
         {
-          match: '[\\\\\\\\\\=\\&\\+\\*/_\\^-]',
+          match: '[\\\\\\\\\\=\\&\\+\\*/_\\^!\'-]',
           name: 'keyword.operator.litemath',
         },
         {
