@@ -4,10 +4,6 @@ const tabs = computed(() => {
 })
 
 const hover = ref('')
-
-function removeState(name: string) {
-  playState.remove(name)
-}
 </script>
 
 <template>
@@ -42,7 +38,7 @@ function removeState(name: string) {
         <div
           m-l-a rd bg-gray
           bg-op="0 hover:20 active:40"
-          @click.stop="removeState(name)"
+          @click.stop="playState.remove(name)"
         >
           <div i-carbon:close />
         </div>

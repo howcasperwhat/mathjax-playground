@@ -13,8 +13,6 @@ declare module 'vue' {
     ConfigPanel: typeof import('./src/components/ConfigPanel.vue')['default']
     Copy: typeof import('./src/components/Copy.vue')['default']
     Download: typeof import('./src/components/Download.vue')['default']
-    HistoryButton: typeof import('./src/components/HistoryButton.vue')['default']
-    HistoryPanel: typeof import('./src/components/HistoryPanel.vue')['default']
     Logo: typeof import('./src/components/Logo.vue')['default']
     MainPanel: typeof import('./src/components/MainPanel.vue')['default']
     MathJaxEditor: typeof import('./src/components/MathJaxEditor.vue')['default']
@@ -30,11 +28,8 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Save: typeof import('./src/components/Save.vue')['default']
-    SavePanel: typeof import('./src/components/SavePanel.vue')['default']
-    SidePanel: typeof import('./src/components/SidePanel.vue')['default']
     TabState: typeof import('./src/components/TabState.vue')['default']
     ThemeSwitcher: typeof import('./src/components/ThemeSwitcher.vue')['default']
-    Togglable: typeof import('./src/components/Togglable.vue')['default']
     ToolBar: typeof import('./src/components/ToolBar.vue')['default']
   }
 }
