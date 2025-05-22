@@ -2,7 +2,8 @@
 const delta = 20
 const length = ref(delta)
 const query = ref('')
-const queryElement = useTemplateRef<HTMLInputElement>('queryElement')
+const el = useTemplateRef<HTMLInputElement>('el')
+const container = useTemplateRef<HTMLDivElement>('container')
 
 const filtered = computed(() => {
   const reversed = Object.entries(playState.memory.value).reverse()
@@ -17,10 +18,14 @@ const filtered = computed(() => {
 
 const editing = ref(false)
 const deleting = ref(false)
+onClickOutside(container, () => {
+  editing.value = false
+  deleting.value = false
+})
 </script>
 
 <template>
-  <div flex="~ col gap-2" of-auto>
+  <div ref="container" flex="~ col gap-2" of-auto>
     <div
       flex="~ items-center gap-2"
       p-b-2 shrink-0 top-0 sticky
@@ -57,7 +62,7 @@ const deleting = ref(false)
       >
         <div i-carbon:search shrink-0 />
         <input
-          ref="queryElement"
+          ref="el"
           v-model="query" maxlength="36"
           type="text" placeholder="Search..."
           ipt w-full @input="length = delta"

@@ -33,9 +33,7 @@ function getTooltip() {
 }
 
 function handle() {
-  if (deleting)
-    return _delete()
-  _show()
+  deleting ? _delete() : _show()
 }
 
 function _show() {
@@ -56,7 +54,7 @@ function prepare() {
 }
 function confirm() {
   const [o, n] = [name, content.value.trim()]
-  o !== n && playState.exists(n)
+  playState.exists(n)
     ? message.error('State name already exists')
     : playState.rename(o, n)
   cancel()

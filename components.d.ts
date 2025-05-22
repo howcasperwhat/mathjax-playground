@@ -28,6 +28,7 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Save: typeof import('./src/components/Save.vue')['default']
+    SavePanel: typeof import('./src/components/SavePanel.vue')['default']
     TabState: typeof import('./src/components/TabState.vue')['default']
     ThemeSwitcher: typeof import('./src/components/ThemeSwitcher.vue')['default']
     ToolBar: typeof import('./src/components/ToolBar.vue')['default']
