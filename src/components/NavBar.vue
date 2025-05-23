@@ -3,33 +3,79 @@ const tabs = computed(() => {
   return Array.from(playState.tabs.value)
 })
 
+const container = useTemplateRef<HTMLDivElement>('container')
 const hover = ref('')
+const src = ref(-1)
+const tar = ref(-1)
+
+function dragstart(name: string, idx: number) {
+  playState.active = name
+  src.value = idx
+}
+function dragend() {
+  tar.value -= +(src.value < tar.value)
+  playState.move(src.value, tar.value)
+  src.value = -1
+  tar.value = -1
+}
+
+function dragoverSep(e: DragEvent, idx: number) {
+  e.preventDefault()
+  e.dataTransfer && (e.dataTransfer.dropEffect = 'move')
+  tar.value = idx
+}
+function dragoverBtn(e: DragEvent, idx: number) {
+  e.preventDefault()
+  e.dataTransfer && (e.dataTransfer.dropEffect = 'move')
+  const target = e.currentTarget as HTMLButtonElement
+  const { left, width } = target.getBoundingClientRect()
+  tar.value = +(e.clientX - left > width / 2) + idx
+}
+function dragleave() {
+  tar.value = -1
+}
+function getClass(idx: number) {
+  if (tar.value === idx)
+    return 'bg-stone:75'
+  return ''
+}
 </script>
 
 <template>
   <div
+    ref="container"
     flex="~ items-center"
-    w-full select-none of-auto
-    color-base children:h-full
+
+    w-full select-none relative z-tabs of-x-auto of-y-hidden color-base children:h-full
   >
-    <div text-lg m-b--2 p-2 bd rd-t-xl b-b-none flex shadow>
+    <div text-lg p-2 bd rd-t-xl b-b-none flex shadow translate-y-1>
       <div m-a p-1 rd-xl bg-stone:16>
         <div i:svg />
       </div>
     </div>
-    <div b-b="1px solid stone:16" shrink-0 w-1 />
-    <template v-for="name in tabs" :key="name">
+    <div
+      b-b="1px solid stone:16"
+      h="[calc(100%-1.5rem)]!" m-t-a shrink-0 w-1
+      :class="getClass(0)"
+      @dragover="e => dragoverSep(e, 0)"
+      @dragleave="dragleave()"
+    />
+    <template v-for="name, idx in tabs" :key="name">
       <button
-        :title="name"
+        :title="name" draggable="true"
         bd rd-xl rd-b-0 min-w-24 shadow
-        transition-margin-300 btn-sm icon-text
+        transition-transform-300 btn-sm icon-text
         :class="playState.active === name
-          ? 'm-b--2 b-stone:24'
+          ? 'translate-y-1 b-stone:24'
           : hover === name
-            ? 'm-b--4 b-stone:20'
-            : 'm-b--6 b-stone:16'
+            ? 'translate-y-2 b-stone:20'
+            : 'translate-y-3 b-stone:16'
         "
         @click="playState.active = name"
+        @dragstart="dragstart(name, idx)"
+        @dragend="dragend()"
+        @dragover="e => dragoverBtn(e, idx)"
+        @dragleave="dragleave()"
         @mouseenter="hover = name"
         @mouseleave="hover = ''"
       >
@@ -43,9 +89,19 @@ const hover = ref('')
           <div i-carbon:close />
         </div>
       </button>
-      <div b-b="1px solid stone:16" shrink-0 w-1 />
+      <div
+        b-b="1px solid stone:16"
+        h="[calc(100%-1.5rem)]!" m-t-a shrink-0 w-1
+        :class="getClass(idx + 1)"
+        @dragover="e => dragoverSep(e, idx + 1)"
+        @dragleave="dragleave()"
+      />
     </template>
-    <div flex-1 b-b="1px solid stone:16" />
+    <div
+      flex-1 h-full b-b="1px solid stone:16"
+      @dragover="e => dragoverSep(e, tabs.length)"
+      @dragleave="dragleave()"
+    />
   </div>
 </template>
 

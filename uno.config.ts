@@ -41,6 +41,7 @@ export default defineConfig({
     'border-base': 'border-#8882',
     'bg-tooltip': 'bg-white:75 dark:bg-#121212:75 backdrop-blur-8',
 
+    'z-tabs': 'z-5',
     'z-mathjax': 'z-10',
     'z-mathjax-tool': 'z-15',
     'z-monaco': 'z-20',

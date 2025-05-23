@@ -379,6 +379,23 @@ export class PlayGroundState {
     this.tabs.value.add(n)
     this._active.value = n
   }
+
+  move(src: number, tar: number) {
+    const len = this.tabs.value.size
+    if (src < 0 || tar < 0 || src > len || tar > len || src === tar)
+      return
+    const tabs = Array.from(this.tabs.value)
+    const result = []
+    for (let i = 0; i < tabs.length; i++) {
+      if (i === tar)
+        result.push(tabs[src])
+      else if (i === src)
+        result.push(tabs[tar])
+      else
+        result.push(tabs[i])
+    }
+    this.tabs.value = new Set(result)
+  }
 }
 
 export const playState = new PlayGroundState()
