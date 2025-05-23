@@ -385,12 +385,13 @@ export class PlayGroundState {
     if (src < 0 || tar < 0 || src > len || tar > len || src === tar)
       return
     const tabs = Array.from(this.tabs.value)
-    const result = [
-      tabs.slice(0, src),
-      tabs.slice(src + 1, tar + 1),
-      tabs[src],
-      tabs.slice(tar + 1, len),
-    ].flat()
+    const result = []
+    for (let i = 0; i <= len; i++) {
+      if (i === src)
+        continue
+      i === tar && result.push(tabs[src])
+      i < len && result.push(tabs[i])
+    }
     this.tabs.value = new Set(result)
   }
 }

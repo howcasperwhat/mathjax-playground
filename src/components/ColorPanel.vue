@@ -1,6 +1,6 @@
 <template>
   <div
-    flex="~ gap-4 wrap"
+    flex="~ col gap-4"
     children:flex="~ items-center gap-2"
   >
     <div>

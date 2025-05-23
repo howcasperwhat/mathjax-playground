@@ -13,7 +13,6 @@ function dragstart(name: string, idx: number) {
   src.value = idx
 }
 function dragend() {
-  tar.value -= +(src.value < tar.value)
   playState.move(src.value, tar.value)
   src.value = -1
   tar.value = -1
@@ -45,8 +44,8 @@ function getClass(idx: number) {
   <div
     ref="container"
     flex="~ items-center"
-
-    w-full select-none relative z-tabs of-x-auto of-y-hidden color-base children:h-full
+    w-full select-none relative z-tabs of-x-auto
+    of-y-hidden color-base children:h-full
   >
     <div text-lg p-2 bd rd-t-xl b-b-none flex shadow translate-y-1>
       <div m-a p-1 rd-xl bg-stone:16>
