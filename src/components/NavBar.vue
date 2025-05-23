@@ -36,7 +36,7 @@ function dragleave() {
 }
 function getClass(idx: number) {
   if (tar.value === idx)
-    return 'bg-stone:75'
+    return 'bg-linear-to-t from-stone:40 to-transparent'
   return ''
 }
 </script>
@@ -54,8 +54,7 @@ function getClass(idx: number) {
       </div>
     </div>
     <div
-      b-b="1px solid stone:16"
-      h="[calc(100%-1.5rem)]!" m-t-a shrink-0 w-1
+      b-b="1px solid stone:16" shrink-0 w-1
       :class="getClass(0)"
       @dragover="e => dragoverSep(e, 0)"
       @dragleave="dragleave()"
@@ -90,8 +89,7 @@ function getClass(idx: number) {
         </div>
       </button>
       <div
-        b-b="1px solid stone:16"
-        h="[calc(100%-1.5rem)]!" m-t-a shrink-0 w-1
+        b-b="1px solid stone:16" shrink-0 w-1
         :class="getClass(idx + 1)"
         @dragover="e => dragoverSep(e, idx + 1)"
         @dragleave="dragleave()"
