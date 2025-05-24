@@ -1,6 +1,6 @@
 <script setup lang='ts'>
-import ColorPanel from './ColorPanel.vue'
-import MemoryPanel from './MemoryPanel.vue'
+import MemoryView from './MemoryView.vue'
+import SettingView from './SettingView.vue'
 
 interface UIData {
   icon: string
@@ -8,13 +8,13 @@ interface UIData {
 }
 
 const data: Record<string, UIData> = {
-  memory: {
-    icon: 'i-carbon:ibm-knowledge-catalog',
-    component: MemoryPanel,
+  storage: {
+    icon: 'i-carbon:block-storage',
+    component: MemoryView,
   },
-  color: {
-    icon: 'i-carbon:color-palette',
-    component: ColorPanel,
+  setting: {
+    icon: 'i-carbon:settings',
+    component: SettingView,
   },
 }
 

@@ -16,7 +16,7 @@ useLocalStorage(`${APP_NAME}_perc`, perc)
           <MainPanel h-full :style="lprops.style" />
         </template>
         <template #end="rprops">
-          <ConfigPanel h-full :style="rprops.style" />
+          <SidePanel h-full :style="rprops.style" />
         </template>
       </Resizable>
     </div>

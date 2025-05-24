@@ -34,7 +34,7 @@ export default defineConfig({
     'i:tex': 'i-carbon:code c-green-700 dark:c-green-400',
     'i:svg': 'i-carbon:function c-blue-700 dark:c-blue-400',
     'i:workspace': 'i-carbon:3d-mpr-toggle c-purple-700 dark:c-purple-400',
-    'i:default': 'i-carbon:document c-gray-700 dark:c-gray-400',
+    'i:default': 'i-carbon:document c-stone-700 dark:c-stone-400',
 
     'color-base': 'color-neutral-800 dark:color-neutral-300',
     'bg-base': 'bg-white dark:bg-#121212',

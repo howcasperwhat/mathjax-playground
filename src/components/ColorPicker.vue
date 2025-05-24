@@ -13,6 +13,7 @@ function toggle() {
 function change(event: Event) {
   const target = event.target as HTMLInputElement
   model.value = target.value
+  playState.initColor()
 }
 </script>
 
@@ -33,8 +34,9 @@ function change(event: Event) {
     <input
       ref="el" type="color"
       left="50%" top="50%"
-      op-0 h-0 w-0 absolute
-      :value="model" @input="change"
+
+      :value="model" op-0
+      scheme-light h-0 w-0 absolute dark:scheme-dark @input="change"
     >
   </div>
 </template>
