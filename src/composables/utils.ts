@@ -9,53 +9,27 @@ export function dataUrlToBlob(dataurl: string) {
 }
 
 export async function svgToPngDataUrl(svg: string) {
-  const scaleFactor = 16
+  const scaleFactor = 8
 
   const canvas = document.createElement('canvas')
-  const imgPreview = document.createElement('img')
-  imgPreview.setAttribute('style', 'position: absolute; top: -9999px')
-  document.body.appendChild(imgPreview)
+  const image = document.createElement('img')
   const canvasCtx = canvas.getContext('2d')!
 
-  const svgBlob: Blob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' })
-  const svgDataUrl = URL.createObjectURL(svgBlob)
-
   return new Promise<string>((resolve) => {
-    imgPreview.onload = async () => {
-      const img = new Image()
-      const dimensions: { width: number, height: number } = await getDimensions(imgPreview.src)
-
+    image.crossOrigin = 'anonymous'
+    image.onload = async () => {
       Object.assign(canvas, {
-        width: dimensions.width * scaleFactor,
-        height: dimensions.height * scaleFactor,
+        width: image.naturalWidth * scaleFactor,
+        height: image.naturalHeight * scaleFactor,
       })
-
-      img.crossOrigin = 'anonymous'
-      img.src = imgPreview.src
-      img.onload = () => {
-        canvasCtx.drawImage(img, 0, 0, canvas.width, canvas.height)
-        const imgData = canvas.toDataURL('image/png')
-        resolve(imgData)
-      }
-
-      function getDimensions(
-        src: string,
-      ): Promise<{ width: number, height: number }> {
-        return new Promise((resolve) => {
-          const _img = new Image()
-          _img.src = src
-          _img.onload = () => {
-            resolve({
-              width: _img.naturalWidth,
-              height: _img.naturalHeight,
-            })
-          }
-        })
-      }
+      canvasCtx.drawImage(image, 0, 0, canvas.width, canvas.height)
+      resolve(canvas.toDataURL('image/png'))
     }
-    imgPreview.src = svgDataUrl
-  }).finally(() => {
-    document.body.removeChild(imgPreview)
+    image.src = URL.createObjectURL(
+      new Blob([svg], {
+        type: 'image/svg+xml;charset=utf-8',
+      }),
+    )
   })
 }
 
@@ -72,16 +46,15 @@ export async function copyPng(dataUrl: string): Promise<boolean> {
   }
 }
 
-export async function copyText(text?: string) {
-  if (text) {
-    try {
-      await navigator.clipboard.writeText(text)
-      return true
-    }
-    catch {
-    }
+export async function copyText(text: string) {
+  try {
+    await navigator.clipboard.writeText(text)
+    return true
   }
-  return false
+  catch (e) {
+    console.error('Failed to copy text error', e)
+    return false
+  }
 }
 
 export function debounce<T extends (...args: any[]) => any>(
@@ -103,6 +76,8 @@ export function shrink(value: number, min: number = 0, max: number = 100) {
 
 export function fontSize() {
   return Number.parseInt(
-    document.documentElement.style.fontSize,
+    window.getComputedStyle(
+      document.documentElement,
+    ).fontSize,
   ) || 16
 }

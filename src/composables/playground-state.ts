@@ -68,9 +68,9 @@ export class PlayGroundState {
     global: 100,
   })
 
+  private _active: Ref<string> = ref('')
   memory: Ref<Record<string, Memory>> = ref(PlayGroundState.DEFAULT_MEMORY)
   tabs: Ref<Set<string>> = ref(new Set<string>())
-  private _active: Ref<string> = ref('')
   tex: Ref<string> = ref('')
   svg: Ref<string> = ref('')
 
@@ -116,13 +116,13 @@ export class PlayGroundState {
     this.elem.setAttribute('stroke', this.color.global)
   }
 
-  paint(element: SVGGraphicsElement) {
+  paintForeground(element: SVGGraphicsElement) {
     if (element === this.elem)
       return message.error('Cannot operate on the root element')
     element.setAttribute('fill', this.color.pen)
   }
 
-  brush(element: SVGGraphicsElement) {
+  paintBackground(element: SVGGraphicsElement) {
     if (element === this.elem)
       return message.error('Cannot operate on the root element')
     if (this.isBrushedRect(element.previousElementSibling))
@@ -170,6 +170,19 @@ export class PlayGroundState {
     element.before(box)
   }
 
+  eraseForeground(element: SVGGraphicsElement) {
+    if (element === this.elem)
+      return message.error('Cannot operate on the root element')
+    element.removeAttribute('fill')
+  }
+
+  eraseBackground(element: SVGGraphicsElement) {
+    if (element === this.elem)
+      return message.error('Cannot operate on the root element')
+    if (this.isBrushedRect(element.previousElementSibling))
+      element.previousElementSibling!.remove()
+  }
+
   erase(element: SVGGraphicsElement) {
     if (element === this.elem) {
       message.error('Cannot operate on the root element')
@@ -185,10 +198,10 @@ export class PlayGroundState {
       return
     switch (this.tool) {
       case ToolType.Pen:
-        this.paint(element)
+        this.paintForeground(element)
         break
       case ToolType.Brush:
-        this.brush(element)
+        this.paintBackground(element)
         break
       case ToolType.Eraser:
         this.erase(element)
