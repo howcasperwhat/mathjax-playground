@@ -24,7 +24,7 @@ const active = ref(Object.keys(data).at(0)!)
 <template>
   <div
     flex="~ col gap-4"
-    p-y-4 bd rd-xl h-full shadow children:p-x-4
+    py-4 bd rd-xl h-full shadow children:px-4
   >
     <TabState
       :names="Object.keys(data)" :active
@@ -38,7 +38,7 @@ const active = ref(Object.keys(data).at(0)!)
       </template>
     </TabState>
     <div
-      text-sm m-l-2 rd-full op-75 h-4 w-max
+      text-sm ml-2 rd-full op-75 h-4 w-max
       v-text="active.toUpperCase()"
     />
     <component :is="data[active].component" />

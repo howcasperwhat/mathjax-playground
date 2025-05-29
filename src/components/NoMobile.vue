@@ -19,14 +19,14 @@ const show = computed(() => {
     <h1 text-2xl op-80>
       Mobile is Not Supported
     </h1>
-    <p m-y-2 text-center op-60>
+    <p my-2 text-center op-60>
       The layout is not optimized for mobile devices.
       <br>
       Please use a desktop browser or wider screen.
     </p>
     <button
       op="60 hover:80"
-      m-t-8 bd rd btn-sm hover:bg-stone:20 icon-text
+      mt-8 bd rd btn-sm hover:bg-stone:20 icon-text
       @click="anyway = true"
     >
       <div i-carbon:windy-strong />

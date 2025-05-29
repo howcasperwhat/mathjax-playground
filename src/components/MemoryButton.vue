@@ -87,7 +87,7 @@ function cancel() {
     <div v-else shrink-1 truncate>
       {{ name }}
     </div>
-    <div text-sm text-gray m-l-a>
+    <div text-sm text-gray ml-a>
       {{ format(playState.usage(name, item)) }}
     </div>
   </button>

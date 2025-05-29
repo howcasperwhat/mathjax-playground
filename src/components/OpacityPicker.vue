@@ -16,7 +16,7 @@ function update(delta: number) {
   <div flex="~ items-center" bd rd>
     <input
       :value="model" maxlength="3"
-      p-x-1 text-align-center ipt w-12
+      px-1 text-align-center ipt w-12
       @input.prevent="input"
     >
     <div

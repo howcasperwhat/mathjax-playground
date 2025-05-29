@@ -1,7 +1,7 @@
 <template>
   <div
 
-    max-h="[calc(100vh-2rem)]" p-x-4 p-y-6 bd rd-full h-max shadow of-y-auto
+    max-h="[calc(100vh-2rem)]" px-4 py-6 bd rd-full h-max shadow of-y-auto
     grid="~ flow-row items-center justify-center gap-4"
     children:flex="~ items-center justify-center"
   >

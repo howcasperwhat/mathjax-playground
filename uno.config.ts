@@ -18,9 +18,9 @@ export default defineConfig({
     'icon-btn': 'btn opacity-75 transition duration-200 ease-in-out hover:opacity-100 hover:text-hex-18f active:opacity-100 active:text-hex-c66',
     'toggle-btn': 'inline-block cursor-pointer select-none opacity-80 transition duration-200 ease-in-out hover:opacity-90 active:opacity-100 c-gray',
 
-    'sm': 'p-x-2 p-y-1',
-    'md': 'p-x-2 p-y-2',
-    'lg': 'p-x-4 p-y-2',
+    'sm': 'px-2 py-1',
+    'md': 'px-2 py-2',
+    'lg': 'px-4 py-2',
 
     'bd': 'b-1px b-solid b-stone:16',
 

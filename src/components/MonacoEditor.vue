@@ -75,11 +75,11 @@ onUnmounted(() => editor.value?.dispose())
   >
     <div
       flex="~ items-center justify-end gap-4"
-      text-lg p-x-4 rd-t-xl h-4rem bg-base
+      text-lg px-4 rd-t-xl h-4rem bg-base
       b-b="1px solid stone:16"
       @click="isHidden = false"
     >
-      <div m-r-a p-1 rd-xl bg-stone:16>
+      <div mr-a p-1 rd-xl bg-stone:16>
         <div i:tex />
       </div>
       <button

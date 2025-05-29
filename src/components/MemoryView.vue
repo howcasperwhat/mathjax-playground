@@ -28,7 +28,7 @@ onClickOutside(container, () => {
   <div ref="container" flex="~ col gap-2" of-auto>
     <div
       flex="~ items-center gap-2"
-      p-b-2 shrink-0 top-0 sticky
+      pb-2 shrink-0 top-0 sticky
       z-1 bg-base
     >
       <button
@@ -91,7 +91,7 @@ onClickOutside(container, () => {
       />
       <button
         v-if="filtered.length > length"
-        text-stone p-x-2 p-y-1 w-max btn
+        text-stone px-2 py-1 w-max btn
         op="80 hover:100"
         @click="length += delta"
       >

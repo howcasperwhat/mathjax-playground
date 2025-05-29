@@ -80,7 +80,7 @@ function getClass(idx: number) {
         <div :class="playState.icon(name)" />
         <div shrink-1 truncate v-text="name" />
         <div
-          m-l-a rd bg-gray
+          ml-a rd bg-gray
           bg-op="0 hover:20 active:40"
           @click.stop="playState.remove(name)"
         >
