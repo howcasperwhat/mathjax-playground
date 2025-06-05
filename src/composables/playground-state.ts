@@ -1,6 +1,40 @@
-interface SerchingElement {
+export interface SerchingElement {
   element: SVGGraphicsElement
   depth: number
+}
+
+export class ColorSettings {
+  light: string
+  dark: string
+  color: string
+  opacity: number
+
+  constructor(light: string = '#000', dark: string = '#fff') {
+    this.light = hexify(light, '#000')
+    this.dark = hexify(dark, '#fff')
+    this.color = isDark.value ? this.dark : this.light
+    this.opacity = 100
+  }
+
+  get hex() {
+    return hexify(this.color, isDark.value ? this.dark : this.light, this.opacity)
+  }
+
+  // get color() {
+  //   return hexify(this._color, isDark.value ? this.dark : this.light)
+  // }
+
+  // set color(value: string) {
+  //   this._color = value
+  // }
+
+  // get opacity() {
+  //   return shrink(this._opacity)
+  // }
+
+  // set opacity(value: number) {
+  //   this._opacity = value
+  // }
 }
 
 export enum ToolType {
@@ -37,14 +71,6 @@ export class PlayGroundState {
     this._elem.value = elem
   }
 
-  get cursor() {
-    return document.body.style.cursor
-  }
-
-  set cursor(value: string) {
-    document.body.style.cursor = value
-  }
-
   private _mocker = new MockerElement({
     show: {
       backgroundColor: '#fcc70533',
@@ -56,17 +82,9 @@ export class PlayGroundState {
     },
   })
 
-  color = reactive({
-    pen: '',
-    brush: '',
-    global: '',
-  })
-
-  opacity = reactive({
-    pen: 100,
-    brush: 100,
-    global: 100,
-  })
+  pen = reactive(new ColorSettings())
+  brush = reactive(new ColorSettings())
+  global = reactive(new ColorSettings())
 
   private _active: Ref<string> = ref('')
   memory: Ref<Record<string, Memory>> = ref(PlayGroundState.DEFAULT_MEMORY)
@@ -106,20 +124,20 @@ export class PlayGroundState {
     return result
   }
 
-  initColor() {
+  init() {
     if (!this.elem)
       return
     const g = this.elem.lastChild! as SVGGElement
     g.removeAttribute('fill')
     g.removeAttribute('stroke')
-    this.elem.setAttribute('fill', this.color.global)
-    this.elem.setAttribute('stroke', this.color.global)
+    this.elem.setAttribute('fill', this.global.hex)
+    this.elem.setAttribute('stroke', this.global.hex)
   }
 
   paintForeground(element: SVGGraphicsElement) {
     if (element === this.elem)
       return message.error('Cannot operate on the root element')
-    element.setAttribute('fill', this.color.pen)
+    element.setAttribute('fill', this.pen.hex)
   }
 
   paintBackground(element: SVGGraphicsElement) {
@@ -166,7 +184,7 @@ export class PlayGroundState {
     box.setAttribute('width', `${w}`)
     box.setAttribute('height', `${h}`)
     box.setAttribute('class', PlayGroundState.BRUSH_RECT_CLASS)
-    box.setAttribute('fill', this.color.brush)
+    box.setAttribute('fill', this.brush.hex)
     element.before(box)
   }
 
@@ -174,6 +192,7 @@ export class PlayGroundState {
     if (element === this.elem)
       return message.error('Cannot operate on the root element')
     element.removeAttribute('fill')
+    element.removeAttribute('fill-opacity')
   }
 
   eraseBackground(element: SVGGraphicsElement) {
@@ -226,19 +245,16 @@ export class PlayGroundState {
     useLocalStorage(`${APP_NAME}_active`, this._active)
 
     watch(this._tool, () => {
-      this.cursor = this.free
+      document.body.style.cursor = this.free
         ? 'auto'
         : 'crosshair'
     })
-    watch(this._elem, () => {
-      this.initColor()
-    })
     watch(isDark, () => {
-      this.color.pen = isDark.value ? '#000000' : '#ffffff'
-      this.color.brush = isDark.value ? '#ffffff' : '#000000'
-      this.color.global = isDark.value ? '#ffffff' : '#000000'
-      this.initColor()
-    }, { immediate: true })
+      for (const settings of [this.pen, this.brush, this.global])
+        settings.color = isDark.value ? settings.dark : settings.light
+    })
+    watch(this._elem, () => this.init())
+    watch(this.global, () => this.init())
 
     useEventListener('keydown', (event) => {
       switch (event.key) {
@@ -395,15 +411,18 @@ export class PlayGroundState {
 
   move(src: number, tar: number) {
     const len = this.tabs.value.size
-    if (src < 0 || tar < 0 || src > len || tar > len || src === tar)
+    if (src < 0 || tar < 0 || src >= len || tar >= len || src === tar)
       return
     const tabs = Array.from(this.tabs.value)
     const result = []
-    for (let i = 0; i <= len; i++) {
+    for (let i = 0; i < len; i++) {
       if (i === src)
         continue
-      i === tar && result.push(tabs[src])
-      i < len && result.push(tabs[i])
+      if (i === tar && src > tar)
+        result.push(tabs[src])
+      result.push(tabs[i])
+      if (i === tar && src < tar)
+        result.push(tabs[src])
     }
     this.tabs.value = new Set(result)
   }

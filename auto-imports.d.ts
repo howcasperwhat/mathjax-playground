@@ -7,6 +7,7 @@
 export {}
 declare global {
   const APP_NAME: typeof import('./src/composables/constants')['APP_NAME']
+  const ColorSettings: typeof import('./src/composables/playground-state')['ColorSettings']
   const DEFAULT_MEMORY: typeof import('./src/composables/constants')['DEFAULT_MEMORY']
   const EffectScope: typeof import('vue')['EffectScope']
   const MONACO_COMPLETION: typeof import('./src/composables/monaco')['MONACO_COMPLETION']
@@ -50,6 +51,7 @@ declare global {
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
   const h: typeof import('vue')['h']
+  const hexify: typeof import('./src/composables/utils')['hexify']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
   const inject: typeof import('vue')['inject']
   const injectLocal: typeof import('@vueuse/core')['injectLocal']
@@ -324,7 +326,7 @@ declare global {
   export type { MockerElement, MockerElementOptions, MockerElementShowOptions } from './src/composables/mocker-element'
   import('./src/composables/mocker-element')
   // @ts-ignore
-  export type { ToolType, PlayGroundState } from './src/composables/playground-state'
+  export type { ColorSettings, ToolType, PlayGroundState, SerchingElement } from './src/composables/playground-state'
   import('./src/composables/playground-state')
   // @ts-ignore
   export type { Memory } from './src/composables/types'
@@ -337,6 +339,7 @@ declare module 'vue' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
     readonly APP_NAME: UnwrapRef<typeof import('./src/composables/constants')['APP_NAME']>
+    readonly ColorSettings: UnwrapRef<typeof import('./src/composables/playground-state')['ColorSettings']>
     readonly DEFAULT_MEMORY: UnwrapRef<typeof import('./src/composables/constants')['DEFAULT_MEMORY']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly MONACO_COMPLETION: UnwrapRef<typeof import('./src/composables/monaco')['MONACO_COMPLETION']>
@@ -380,6 +383,7 @@ declare module 'vue' {
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
+    readonly hexify: UnwrapRef<typeof import('./src/composables/utils')['hexify']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
     readonly injectLocal: UnwrapRef<typeof import('@vueuse/core')['injectLocal']>

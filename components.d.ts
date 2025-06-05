@@ -8,7 +8,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    ColorPicker: typeof import('./src/components/ColorPicker.vue')['default']
+    Colorist: typeof import('./src/components/Colorist.vue')['default']
     Copy: typeof import('./src/components/Copy.vue')['default']
     Download: typeof import('./src/components/Download.vue')['default']
     Logo: typeof import('./src/components/Logo.vue')['default']

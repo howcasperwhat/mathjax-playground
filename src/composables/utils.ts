@@ -74,6 +74,19 @@ export function shrink(value: number, min: number = 0, max: number = 100) {
   return Math.max(min, Math.min(max, value))
 }
 
+export function hexify(color: string, _default: string, opacity: number = 100) {
+  let hex = color.startsWith('#') ? color : `#${color}`
+  if (!/^#(?:[0-9a-f]{3}|[0-9a-f]{6})$/i.test(color))
+    hex = _default
+  hex = color
+  opacity = shrink(opacity, 0, 100)
+  if (hex.length === 4)
+    hex = `#${hex[1]}${hex[1]}${hex[2]}${hex[2]}${hex[3]}${hex[3]}`
+  if (opacity < 100)
+    return `${hex}${Math.round((opacity / 100) * 255).toString(16).padStart(2, '0')}`
+  return hex
+}
+
 export function fontSize() {
   return Number.parseInt(
     window.getComputedStyle(
