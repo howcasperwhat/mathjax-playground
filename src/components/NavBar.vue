@@ -8,7 +8,8 @@ const hover = ref('')
 const src = ref(-1)
 const moving = ref(false)
 
-function dragstart(name: string, idx: number) {
+function dragstart(e: DragEvent, name: string, idx: number) {
+  e.dataTransfer && (e.dataTransfer.effectAllowed = 'move')
   playState.active = name
   src.value = idx
   moving.value = false
@@ -24,12 +25,6 @@ function dragenter(idx: number) {
   setTimeout(() => {
     moving.value = false
   }, 300)
-}
-function dragover(e: DragEvent) {
-  e.preventDefault()
-  if (e.dataTransfer) {
-    e.dataTransfer.dropEffect = 'move'
-  }
 }
 function dragend() {
   src.value = -1
@@ -63,10 +58,10 @@ function dragend() {
               : 'translate-y-3 b-stone:16'
           "
           @click="playState.active = name"
-          @dragstart.stop="dragstart(name, idx)"
+          @dragstart.stop="e => dragstart(e, name, idx)"
           @dragend.stop="dragend()"
-          @dragenter.stop="dragenter(idx)"
-          @dragover.prevent="e => dragover(e)"
+          @dragenter.stop.prevent="dragenter(idx)"
+          @dragover.stop.prevent=""
           @mouseenter="(src === -1) && (hover = name)"
           @mouseleave="(src === -1) && (hover = '')"
         >
