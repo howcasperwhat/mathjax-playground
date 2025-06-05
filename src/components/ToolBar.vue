@@ -26,9 +26,6 @@ div {
 }
 
 div::-webkit-scrollbar {
-  display: none;
-  width: 0;
-  height: 0;
-  background: transparent;
+  --at-apply: hidden w-0 h-0 bg-transparent;
 }
 </style>

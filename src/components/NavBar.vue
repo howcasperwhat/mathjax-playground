@@ -89,15 +89,11 @@ function dragend() {
 
 <style scoped>
 ::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+  --at-apply: hidden w-0 h-0 bg-transparent;
 }
 
 .tab-leave-to {
-  min-width: 0;
-  width: 0;
-  padding: 0;
-  border: 0;
+  --at-apply: min-w-0 w-0 p-0 b-0;
   interpolate-size: allow-keywords;
 }
 </style>
