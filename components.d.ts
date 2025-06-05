@@ -20,7 +20,6 @@ declare module 'vue' {
     MonacoEditor: typeof import('./src/components/MonacoEditor.vue')['default']
     NavBar: typeof import('./src/components/NavBar.vue')['default']
     NoMobile: typeof import('./src/components/NoMobile.vue')['default']
-    OpacityPicker: typeof import('./src/components/OpacityPicker.vue')['default']
     Painter: typeof import('./src/components/Painter.vue')['default']
     Resizable: typeof import('./src/components/Resizable.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

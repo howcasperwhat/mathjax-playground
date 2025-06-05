@@ -42,6 +42,7 @@ function dragend() {
     flex="~ items-center"
     w-full select-none relative z-tabs of-x-auto
     of-y-hidden color-base children:h-full
+    children:transition-all-300
   >
     <div text-lg p-2 bd rd-t-xl b-b-none flex shadow translate-y-1>
       <div m-a p-1 rd-xl bg-stone:16>
@@ -49,12 +50,12 @@ function dragend() {
       </div>
     </div>
     <div b-b="1px solid stone:16" shrink-0 w-1 />
-    <TransitionGroup>
+    <TransitionGroup name="tab">
       <template v-for="name, idx in tabs" :key="name">
         <button
           :title="name" draggable="true"
           bd rd-xl rd-b-0 min-w-24 shadow
-          transition-transform-300 btn-sm bg-base icon-text
+          btn-sm bg-base icon-text
           :class="playState.active === name
             ? 'translate-y-1 b-stone:24'
             : hover === name
@@ -90,5 +91,13 @@ function dragend() {
 ::-webkit-scrollbar {
   width: 0;
   height: 0;
+}
+
+.tab-leave-to {
+  min-width: 0;
+  width: 0;
+  padding: 0;
+  border: 0;
+  interpolate-size: allow-keywords;
 }
 </style>
