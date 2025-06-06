@@ -6,7 +6,7 @@ const el = useTemplateRef<HTMLInputElement>('el')
 const container = useTemplateRef<HTMLDivElement>('container')
 
 const filtered = computed(() => {
-  const reversed = Object.entries(playState.memory.value).reverse()
+  const reversed = Object.entries(appState.memory.value).reverse()
   if (!query.value)
     return reversed
   return reversed.filter(

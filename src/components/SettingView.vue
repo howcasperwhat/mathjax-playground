@@ -8,15 +8,15 @@
   >
     <div>
       <div i-carbon:paint-brush-alt c-gray />
-      <Colorist v-model="playState.pen" />
+      <Colorist v-model="appState.pen" />
     </div>
     <div>
       <div i-carbon:paint-brush c-gray />
-      <Colorist v-model="playState.brush" />
+      <Colorist v-model="appState.brush" />
     </div>
     <div>
       <div i-carbon:color-palette c-gray />
-      <Colorist v-model="playState.global" />
+      <Colorist v-model="appState.global" />
     </div>
   </div>
 </template>

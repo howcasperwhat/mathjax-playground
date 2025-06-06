@@ -7,9 +7,9 @@ const show = ref(true)
     <div i-carbon:download />
   </button>
   <button v-show="show" v-tooltip.right="'Download PNG'" icon-btn>
-    <div i-carbon:png @click="playState.download('png')" />
+    <div i-carbon:png @click="appState.download('png')" />
   </button>
   <button v-show="show" v-tooltip.right="'Download SVG'" icon-btn>
-    <div i-carbon:svg @click="playState.download('svg')" />
+    <div i-carbon:svg @click="appState.download('svg')" />
   </button>
 </template>

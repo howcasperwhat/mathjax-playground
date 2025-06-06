@@ -7,15 +7,16 @@
 export {}
 declare global {
   const APP_NAME: typeof import('./src/composables/constants')['APP_NAME']
-  const ColorSettings: typeof import('./src/composables/playground-state')['ColorSettings']
+  const AppState: typeof import('./src/composables/state')['AppState']
+  const ColorSettings: typeof import('./src/composables/state')['ColorSettings']
   const DEFAULT_MEMORY: typeof import('./src/composables/constants')['DEFAULT_MEMORY']
   const EffectScope: typeof import('vue')['EffectScope']
+  const GhostElement: typeof import('./src/composables/ghost')['GhostElement']
   const MONACO_COMPLETION: typeof import('./src/composables/monaco')['MONACO_COMPLETION']
   const MONACO_CONFIG: typeof import('./src/composables/monaco')['MONACO_CONFIG']
-  const MockerElement: typeof import('./src/composables/mocker-element')['MockerElement']
   const NAME_MAX_LENGTH: typeof import('./src/composables/constants')['NAME_MAX_LENGTH']
-  const PlayGroundState: typeof import('./src/composables/playground-state')['PlayGroundState']
-  const ToolType: typeof import('./src/composables/playground-state')['ToolType']
+  const ToolType: typeof import('./src/composables/state')['ToolType']
+  const appState: typeof import('./src/composables/state')['appState']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
   const computed: typeof import('vue')['computed']
@@ -50,6 +51,7 @@ declare global {
   const fontSize: typeof import('./src/composables/utils')['fontSize']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
+  const getMaybeTransformedBBox: typeof import('./src/composables/utils')['getMaybeTransformedBBox']
   const h: typeof import('vue')['h']
   const hexify: typeof import('./src/composables/utils')['hexify']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
@@ -88,7 +90,6 @@ declare global {
   const onUpdated: typeof import('vue')['onUpdated']
   const onWatcherCleanup: typeof import('vue')['onWatcherCleanup']
   const pausableWatch: typeof import('@vueuse/core')['pausableWatch']
-  const playState: typeof import('./src/composables/playground-state')['playState']
   const provide: typeof import('vue')['provide']
   const provideLocal: typeof import('@vueuse/core')['provideLocal']
   const reactify: typeof import('@vueuse/core')['reactify']
@@ -323,11 +324,11 @@ declare global {
   export type { Component, Slot, Slots, ComponentPublicInstance, ComputedRef, DirectiveBinding, ExtractDefaultPropTypes, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, MaybeRef, MaybeRefOrGetter, VNode, WritableComputedRef } from 'vue'
   import('vue')
   // @ts-ignore
-  export type { MockerElement, MockerElementOptions, MockerElementShowOptions } from './src/composables/mocker-element'
-  import('./src/composables/mocker-element')
+  export type { GhostElement, GhostElementOptions, GhostElementShowOptions } from './src/composables/ghost'
+  import('./src/composables/ghost')
   // @ts-ignore
-  export type { ColorSettings, ToolType, PlayGroundState, SerchingElement } from './src/composables/playground-state'
-  import('./src/composables/playground-state')
+  export type { ColorSettings, ToolType, AppState, SerchingElement } from './src/composables/state'
+  import('./src/composables/state')
   // @ts-ignore
   export type { Memory } from './src/composables/types'
   import('./src/composables/types')
@@ -339,15 +340,16 @@ declare module 'vue' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
     readonly APP_NAME: UnwrapRef<typeof import('./src/composables/constants')['APP_NAME']>
-    readonly ColorSettings: UnwrapRef<typeof import('./src/composables/playground-state')['ColorSettings']>
+    readonly AppState: UnwrapRef<typeof import('./src/composables/state')['AppState']>
+    readonly ColorSettings: UnwrapRef<typeof import('./src/composables/state')['ColorSettings']>
     readonly DEFAULT_MEMORY: UnwrapRef<typeof import('./src/composables/constants')['DEFAULT_MEMORY']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
+    readonly GhostElement: UnwrapRef<typeof import('./src/composables/ghost')['GhostElement']>
     readonly MONACO_COMPLETION: UnwrapRef<typeof import('./src/composables/monaco')['MONACO_COMPLETION']>
     readonly MONACO_CONFIG: UnwrapRef<typeof import('./src/composables/monaco')['MONACO_CONFIG']>
-    readonly MockerElement: UnwrapRef<typeof import('./src/composables/mocker-element')['MockerElement']>
     readonly NAME_MAX_LENGTH: UnwrapRef<typeof import('./src/composables/constants')['NAME_MAX_LENGTH']>
-    readonly PlayGroundState: UnwrapRef<typeof import('./src/composables/playground-state')['PlayGroundState']>
-    readonly ToolType: UnwrapRef<typeof import('./src/composables/playground-state')['ToolType']>
+    readonly ToolType: UnwrapRef<typeof import('./src/composables/state')['ToolType']>
+    readonly appState: UnwrapRef<typeof import('./src/composables/state')['appState']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
@@ -382,6 +384,7 @@ declare module 'vue' {
     readonly fontSize: UnwrapRef<typeof import('./src/composables/utils')['fontSize']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
+    readonly getMaybeTransformedBBox: UnwrapRef<typeof import('./src/composables/utils')['getMaybeTransformedBBox']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly hexify: UnwrapRef<typeof import('./src/composables/utils')['hexify']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
@@ -420,7 +423,6 @@ declare module 'vue' {
     readonly onUpdated: UnwrapRef<typeof import('vue')['onUpdated']>
     readonly onWatcherCleanup: UnwrapRef<typeof import('vue')['onWatcherCleanup']>
     readonly pausableWatch: UnwrapRef<typeof import('@vueuse/core')['pausableWatch']>
-    readonly playState: UnwrapRef<typeof import('./src/composables/playground-state')['playState']>
     readonly provide: UnwrapRef<typeof import('vue')['provide']>
     readonly provideLocal: UnwrapRef<typeof import('@vueuse/core')['provideLocal']>
     readonly reactify: UnwrapRef<typeof import('@vueuse/core')['reactify']>

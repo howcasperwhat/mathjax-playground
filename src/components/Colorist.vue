@@ -13,11 +13,11 @@ function input(event: Event) {
   const value = target.value
   setting.value.opacity = shrink(Number.parseInt(value) || 0)
   target.value = setting.value.opacity.toString()
-  playState.init()
+  appState.init()
 }
 function update(delta: number) {
   setting.value.opacity = shrink(setting.value.opacity + delta)
-  playState.init()
+  appState.init()
 }
 </script>
 

@@ -37,11 +37,11 @@ function handle() {
 }
 
 function _show() {
-  playState.tabs.value.add(name)
-  playState.active = name
+  appState.tabs.value.add(name)
+  appState.active = name
 }
 function _delete() {
-  playState.delete(name)
+  appState.delete(name)
 }
 
 function prepare() {
@@ -54,9 +54,9 @@ function prepare() {
 }
 function confirm() {
   const [o, n] = [name, content.value.trim()]
-  playState.exists(n)
+  appState.exists(n)
     ? message.error('State name already exists')
-    : playState.rename(o, n)
+    : appState.rename(o, n)
   cancel()
 }
 function cancel() {
@@ -73,7 +73,7 @@ function cancel() {
     @click="handle"
     @dblclick="prepare"
   >
-    <div :class="playState.icon(item)" />
+    <div :class="appState.icon(item)" />
     <input
       v-if="editing" ref="el"
       v-model="content"
@@ -88,7 +88,7 @@ function cancel() {
       {{ name }}
     </div>
     <div text-sm text-gray ml-a>
-      {{ format(playState.usage(name, item)) }}
+      {{ format(appState.usage(name, item)) }}
     </div>
   </button>
 </template>

@@ -9,19 +9,19 @@ const show = ref(true)
   <div v-show="show" flex="~ col gap-4">
     <button
       v-tooltip.right="'Save As TEX'" icon-btn
-      @click="playState.save('tex')"
+      @click="appState.save('tex')"
     >
       <div i:tex />
     </button>
     <button
       v-tooltip.right="'Save As SVG'" icon-btn
-      @click="playState.save('svg')"
+      @click="appState.save('svg')"
     >
       <div i:svg />
     </button>
     <button
       v-tooltip.right="'Save As Workspace'" icon-btn
-      @click="playState.save('workspace')"
+      @click="appState.save('workspace')"
     >
       <div i:workspace />
     </button>

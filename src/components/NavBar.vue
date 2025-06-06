@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 const tabs = computed(() => {
-  return Array.from(playState.tabs.value)
+  return Array.from(appState.tabs.value)
 })
 
 const container = useTemplateRef<HTMLDivElement>('container')
@@ -10,7 +10,7 @@ const moving = ref(false)
 
 function dragstart(e: DragEvent, name: string, idx: number) {
   e.dataTransfer && (e.dataTransfer.effectAllowed = 'move')
-  playState.active = name
+  appState.active = name
   src.value = idx
   moving.value = false
 }
@@ -19,7 +19,7 @@ function dragenter(idx: number) {
     return
   if (src.value === idx)
     return
-  playState.move(src.value, idx)
+  appState.move(src.value, idx)
   src.value = idx
   moving.value = true
   setTimeout(() => {
@@ -51,13 +51,13 @@ function dragend() {
           :title="name" draggable="true"
           bd rd-xl rd-b-0 min-w-24 shadow
           btn-sm bg-base icon-text
-          :class="playState.active === name
+          :class="appState.active === name
             ? 'translate-y-1 b-stone:24'
             : hover === name
               ? 'translate-y-2 b-stone:20'
               : 'translate-y-3 b-stone:16'
           "
-          @click="playState.active = name"
+          @click="appState.active = name"
           @dragstart.stop="e => dragstart(e, name, idx)"
           @dragend.stop="dragend()"
           @dragenter.stop.prevent="dragenter(idx)"
@@ -65,12 +65,12 @@ function dragend() {
           @mouseenter="(src === -1) && (hover = name)"
           @mouseleave="(src === -1) && (hover = '')"
         >
-          <div :class="playState.icon(name)" />
+          <div :class="appState.icon(name)" />
           <div shrink-1 truncate v-text="name" />
           <div
             ml-a rd bg-gray
             bg-op="0 hover:20 active:40"
-            @click.stop="playState.remove(name)"
+            @click.stop="appState.remove(name)"
           >
             <div i-carbon:close />
           </div>

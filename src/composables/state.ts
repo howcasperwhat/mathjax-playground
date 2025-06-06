@@ -19,22 +19,6 @@ export class ColorSettings {
   get hex() {
     return hexify(this.color, isDark.value ? this.dark : this.light, this.opacity)
   }
-
-  // get color() {
-  //   return hexify(this._color, isDark.value ? this.dark : this.light)
-  // }
-
-  // set color(value: string) {
-  //   this._color = value
-  // }
-
-  // get opacity() {
-  //   return shrink(this._opacity)
-  // }
-
-  // set opacity(value: number) {
-  //   this._opacity = value
-  // }
 }
 
 export enum ToolType {
@@ -44,14 +28,14 @@ export enum ToolType {
   Free,
 }
 
-export class PlayGroundState {
+export class AppState {
   static readonly MAX_SIZE = 2e6
   static readonly BRUSH_RECT_CLASS = 'brushed-rect'
   static readonly DEFAULT_NAME = ''
   static readonly DEFAULT_TOOL: ToolType = ToolType.Free
   static readonly DEFAULT_MEMORY = DEFAULT_MEMORY
 
-  private _tool = ref(PlayGroundState.DEFAULT_TOOL)
+  private _tool = ref(AppState.DEFAULT_TOOL)
   private _elem: Ref<SVGSVGElement | null> = ref(null)
 
   get tool() {
@@ -71,7 +55,7 @@ export class PlayGroundState {
     this._elem.value = elem
   }
 
-  private _mocker = new MockerElement({
+  private _ghost = new GhostElement({
     show: {
       backgroundColor: '#fcc70533',
       border: '1px solid #fcc70566',
@@ -87,7 +71,7 @@ export class PlayGroundState {
   global = reactive(new ColorSettings())
 
   private _active: Ref<string> = ref('')
-  memory: Ref<Record<string, Memory>> = ref(PlayGroundState.DEFAULT_MEMORY)
+  memory: Ref<Record<string, Memory>> = ref(AppState.DEFAULT_MEMORY)
   tabs: Ref<Set<string>> = ref(new Set<string>())
   tex: Ref<string> = ref('')
   svg: Ref<string> = ref('')
@@ -103,7 +87,7 @@ export class PlayGroundState {
   isBrushedRect(elem: Element | null) {
     return elem
       && elem.tagName === 'rect'
-      && elem.classList.contains(PlayGroundState.BRUSH_RECT_CLASS)
+      && elem.classList.contains(AppState.BRUSH_RECT_CLASS)
   }
 
   search(x: number, y: number): SerchingElement[] {
@@ -146,44 +130,14 @@ export class PlayGroundState {
     if (this.isBrushedRect(element.previousElementSibling))
       return
 
-    const [C, P] = [element, element.parentElement] as SVGGraphicsElement[]
-
-    // https://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html#getCTM
-    // [[a, c, e], [b, d, f], [0, 0, 1]]
-    // a: scaleX, d: scaleY | b: skewY, c: skewX (tanθ) | e: translateX, f: translateY
-
-    const CRM = C.getCTM()!
-    const PRM = P.getCTM()!
-    const RPM = PRM.inverse()
-    if (!RPM)
-      return message.error('Parent Element is not invertible')
-    const CPM = RPM.multiply(CRM)
-
-    // https://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html#getBBox
-    // DOMRect that before transform (if has transform)
-    const CBox = C.getBBox()
-    // Transform to the parent coordinate system
-    const x = CPM.a * CBox.x + CPM.c * CBox.y + CPM.e
-    const y = CPM.b * CBox.x + CPM.d * CBox.y + CPM.f
-
-    const CRect = element.getBoundingClientRect()
-    const PSM = P.getScreenCTM()!
-    // The unit length of the base coordinate of
-    // the parent element in the screen coordinate system
-    const wu = Math.sqrt(PSM.a * PSM.a + PSM.c * PSM.c)
-    const hu = Math.sqrt(PSM.b * PSM.b + PSM.d * PSM.d)
-    if (wu === 0 || hu === 0)
-      return message.error('scale factor is zero, cannot calculate size.')
-    // width and height in the parent coordinate system
-    const w = CRect.width / wu
-    const h = CRect.height / hu
+    const { x, y, w, h } = getMaybeTransformedBBox(element)
 
     const box = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
     box.setAttribute('x', `${x}`)
     box.setAttribute('y', `${y}`)
     box.setAttribute('width', `${w}`)
     box.setAttribute('height', `${h}`)
-    box.setAttribute('class', PlayGroundState.BRUSH_RECT_CLASS)
+    box.setAttribute('class', AppState.BRUSH_RECT_CLASS)
     box.setAttribute('fill', this.brush.hex)
     element.before(box)
   }
@@ -277,7 +231,7 @@ export class PlayGroundState {
     })
     useEventListener('mousemove', (event) => {
       if (this.free || !this.elem) {
-        this._mocker.hide()
+        this._ghost.hide()
         return
       }
       const { top, left } = this.elem.getBoundingClientRect()
@@ -288,8 +242,8 @@ export class PlayGroundState {
         ?.element
         .getBoundingClientRect()
       !rect
-        ? this._mocker.hide(top, left)
-        : this._mocker.show({
+        ? this._ghost.hide(top, left)
+        : this._ghost.show({
             w: `${rect.width}px`,
             h: `${rect.height}px`,
             x: `${rect.left}px`,
@@ -428,4 +382,4 @@ export class PlayGroundState {
   }
 }
 
-export const playState = new PlayGroundState()
+export const appState = new AppState()

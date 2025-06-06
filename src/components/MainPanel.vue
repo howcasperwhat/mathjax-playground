@@ -1,27 +1,27 @@
 <script setup lang="ts">
 const tex = computed({
-  get: () => playState.tex.value,
-  set: value => playState.tex.value = value,
+  get: () => appState.tex.value,
+  set: value => appState.tex.value = value,
 })
 const svg = computed({
-  get: () => playState.svg.value,
-  set: value => playState.svg.value = value,
+  get: () => appState.svg.value,
+  set: value => appState.svg.value = value,
 })
 
 // input
 function editMonaco(value: string) {
-  playState.tex.value = value
+  appState.tex.value = value
   const elem = mathjax.from(value)
   svg.value = elem.outerHTML
 }
 function editMathJax(value: SVGSVGElement) {
-  playState.elem = value
+  appState.elem = value
 }
 
 onMounted(() => {
   // active
-  watch(() => playState.active, () => {
-    const item = playState.toItem(playState.active)
+  watch(() => appState.active, () => {
+    const item = appState.toItem(appState.active)
     tex.value = item?.tex ?? ''
     svg.value = item?.svg ?? ''
     if (item?.tex && !item?.svg)

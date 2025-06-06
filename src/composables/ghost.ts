@@ -1,18 +1,18 @@
 type Style = Partial<CSSStyleDeclaration>
 
-export interface MockerElementOptions {
+export interface GhostElementOptions {
   show?: Style
   hide?: Style
 }
 
-export interface MockerElementShowOptions {
+export interface GhostElementShowOptions {
   w: string
   h: string
   x: string
   y: string
 }
 
-export class MockerElement {
+export class GhostElement {
   private readonly TRANSITION_DURATION = 0.1
   private readonly TRANSITION_EASING = 'linear'
   private readonly TRANSITION_PROPERTIES = [
@@ -29,7 +29,7 @@ export class MockerElement {
   private _showStyle?: Style
   private _hideStyle?: Style
 
-  constructor(options?: MockerElementOptions) {
+  constructor(options?: GhostElementOptions) {
     this._showStyle = options?.show
     this._hideStyle = options?.hide
     this._elem = document.createElement('div')
@@ -48,7 +48,7 @@ export class MockerElement {
     this.state = 'hide'
   }
 
-  public show(options: MockerElementShowOptions) {
+  public show(options: GhostElementShowOptions) {
     Object.assign(this._elem.style, this._showStyle)
     Object.assign(this._elem.style, {
       width: options.w,

@@ -6,10 +6,10 @@ const content = ref('')
 
 function confirm() {
   const name = content.value.trim()
-  if (!playState.exists(name)) {
-    playState.add(name) // memory
-    playState.tabs.value.add(name) // tabs
-    playState.active = name // active
+  if (!appState.exists(name)) {
+    appState.add(name) // memory
+    appState.tabs.value.add(name) // tabs
+    appState.active = name // active
     editing.value = false
   }
   else {

@@ -7,9 +7,9 @@ const show = ref(true)
     <div i-carbon:copy />
   </button>
   <button v-show="show" v-tooltip.right="'Copy PNG To Clipboard'" icon-btn>
-    <div i-carbon:png @click="playState.copy('png')" />
+    <div i-carbon:png @click="appState.copy('png')" />
   </button>
   <button v-show="show" v-tooltip.right="'Copy SVG To Clipboard'" icon-btn>
-    <div i-carbon:svg @click="playState.copy('svg')" />
+    <div i-carbon:svg @click="appState.copy('svg')" />
   </button>
 </template>
