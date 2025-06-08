@@ -1,11 +1,10 @@
 {
   "recommendations": [
-    "antfu.vite",
     "antfu.iconify",
     "antfu.unocss",
     "antfu.goto-alias",
-    "vue.volar",
+    "antfu.pnpm-catalog-lens",
     "dbaeumer.vscode-eslint",
-    "EditorConfig.EditorConfig"
+    "vue.volar"
   ]
 }
