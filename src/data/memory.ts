@@ -94,7 +94,3 @@ export const DEFAULT_MEMORY: Record<string, Memory> = {
 \\end{eqnarray*}`,
   },
 }
-
-export const NAME_MAX_LENGTH = 30
-
-export const APP_NAME = 'mathjax-playground'

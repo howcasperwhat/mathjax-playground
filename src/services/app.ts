@@ -1,3 +1,5 @@
+import { DEFAULT_MEMORY } from '../data/memory'
+
 export interface SerchingElement {
   element: SVGGraphicsElement
   depth: number
@@ -189,14 +191,14 @@ export class AppState {
   }
 
   constructor() {
-    useLocalStorage(`${APP_NAME}_memory`, this.memory)
-    useLocalStorage(`${APP_NAME}_tabs`, this.tabs, {
+    useAppLocalStorage('memory', this.memory)
+    useAppLocalStorage('tabs', this.tabs, {
       serializer: {
         write: (value: Set<string>) => JSON.stringify(Array.from(value)),
         read: (value: string) => new Set(JSON.parse(value)),
       },
     })
-    useLocalStorage(`${APP_NAME}_active`, this._active)
+    useAppLocalStorage('active', this._active)
 
     watch(this._tool, () => {
       document.body.style.cursor = this.free

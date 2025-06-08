@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const perc = ref(72)
-useLocalStorage(`${APP_NAME}_perc`, perc)
+useAppLocalStorage('perc', perc)
 </script>
 
 <template>

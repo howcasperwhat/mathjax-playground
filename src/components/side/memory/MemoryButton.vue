@@ -77,7 +77,7 @@ function cancel() {
     <input
       v-if="editing" ref="el"
       v-model="content"
-      :maxlength="NAME_MAX_LENGTH"
+      :maxlength="30"
       placeholder="Name"
       p-0 ipt-sm b-0 bd flex-1
       @blur="cancel"

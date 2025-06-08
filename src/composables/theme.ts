@@ -1,5 +1,7 @@
 export const isDark = useDark()
+
 export const toggleDark = useToggle(isDark)
+
 export function toggleTheme(event?: MouseEvent) {
   // @ts-expect-error: Experimental API
   const isAppearanceTransition = document.startViewTransition

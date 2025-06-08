@@ -6,17 +6,14 @@
 // biome-ignore lint: disable
 export {}
 declare global {
-  const APP_NAME: typeof import('./src/composables/constants')['APP_NAME']
-  const AppState: typeof import('./src/composables/state')['AppState']
-  const ColorSettings: typeof import('./src/composables/state')['ColorSettings']
-  const DEFAULT_MEMORY: typeof import('./src/composables/constants')['DEFAULT_MEMORY']
+  const AppState: typeof import('./src/services/app')['AppState']
+  const ColorSettings: typeof import('./src/services/app')['ColorSettings']
   const EffectScope: typeof import('vue')['EffectScope']
-  const GhostElement: typeof import('./src/composables/ghost')['GhostElement']
-  const MONACO_COMPLETION: typeof import('./src/composables/monaco')['MONACO_COMPLETION']
-  const MONACO_CONFIG: typeof import('./src/composables/monaco')['MONACO_CONFIG']
-  const NAME_MAX_LENGTH: typeof import('./src/composables/constants')['NAME_MAX_LENGTH']
-  const ToolType: typeof import('./src/composables/state')['ToolType']
-  const appState: typeof import('./src/composables/state')['appState']
+  const GhostElement: typeof import('./src/services/ghost')['GhostElement']
+  const MONACO_COMPLETION: typeof import('./src/services/monaco')['MONACO_COMPLETION']
+  const MONACO_CONFIG: typeof import('./src/services/monaco')['MONACO_CONFIG']
+  const ToolType: typeof import('./src/services/app')['ToolType']
+  const appState: typeof import('./src/services/app')['appState']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
   const computed: typeof import('vue')['computed']
@@ -26,8 +23,8 @@ declare global {
   const computedWithControl: typeof import('@vueuse/core')['computedWithControl']
   const controlledComputed: typeof import('@vueuse/core')['controlledComputed']
   const controlledRef: typeof import('@vueuse/core')['controlledRef']
-  const copyPng: typeof import('./src/composables/utils')['copyPng']
-  const copyText: typeof import('./src/composables/utils')['copyText']
+  const copyPng: typeof import('./src/utils/clipboard')['copyPng']
+  const copyText: typeof import('./src/utils/clipboard')['copyText']
   const createApp: typeof import('vue')['createApp']
   const createEventHook: typeof import('@vueuse/core')['createEventHook']
   const createGlobalState: typeof import('@vueuse/core')['createGlobalState']
@@ -39,8 +36,7 @@ declare global {
   const createTemplatePromise: typeof import('@vueuse/core')['createTemplatePromise']
   const createUnrefFn: typeof import('@vueuse/core')['createUnrefFn']
   const customRef: typeof import('vue')['customRef']
-  const dataUrlToBlob: typeof import('./src/composables/utils')['dataUrlToBlob']
-  const debounce: typeof import('./src/composables/utils')['debounce']
+  const dataUrlToBlob: typeof import('./src/utils/transform')['dataUrlToBlob']
   const debouncedRef: typeof import('@vueuse/core')['debouncedRef']
   const debouncedWatch: typeof import('@vueuse/core')['debouncedWatch']
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
@@ -48,12 +44,12 @@ declare global {
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
   const extendRef: typeof import('@vueuse/core')['extendRef']
-  const fontSize: typeof import('./src/composables/utils')['fontSize']
+  const fontSize: typeof import('./src/utils/attr')['fontSize']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
-  const getMaybeTransformedBBox: typeof import('./src/composables/utils')['getMaybeTransformedBBox']
+  const getMaybeTransformedBBox: typeof import('./src/utils/svg')['getMaybeTransformedBBox']
   const h: typeof import('vue')['h']
-  const hexify: typeof import('./src/composables/utils')['hexify']
+  const hexify: typeof import('./src/utils/transform')['hexify']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
   const inject: typeof import('vue')['inject']
   const injectLocal: typeof import('@vueuse/core')['injectLocal']
@@ -65,7 +61,7 @@ declare global {
   const isRef: typeof import('vue')['isRef']
   const makeDestructurable: typeof import('@vueuse/core')['makeDestructurable']
   const markRaw: typeof import('vue')['markRaw']
-  const mathjax: typeof import('./src/composables/mathjax')['mathjax']
+  const mathjax: typeof import('./src/services/mathjax')['mathjax']
   const message: typeof import('./src/composables/message')['message']
   const nextTick: typeof import('vue')['nextTick']
   const onActivated: typeof import('vue')['onActivated']
@@ -111,8 +107,8 @@ declare global {
   const shallowReactive: typeof import('vue')['shallowReactive']
   const shallowReadonly: typeof import('vue')['shallowReadonly']
   const shallowRef: typeof import('vue')['shallowRef']
-  const shrink: typeof import('./src/composables/utils')['shrink']
-  const svgToPngDataUrl: typeof import('./src/composables/utils')['svgToPngDataUrl']
+  const shrink: typeof import('./src/utils/number')['shrink']
+  const svgToPngDataUrl: typeof import('./src/utils/transform')['svgToPngDataUrl']
   const syncRef: typeof import('@vueuse/core')['syncRef']
   const syncRefs: typeof import('@vueuse/core')['syncRefs']
   const templateRef: typeof import('@vueuse/core')['templateRef']
@@ -136,6 +132,7 @@ declare global {
   const until: typeof import('@vueuse/core')['until']
   const useActiveElement: typeof import('@vueuse/core')['useActiveElement']
   const useAnimate: typeof import('@vueuse/core')['useAnimate']
+  const useAppLocalStorage: typeof import('./src/composables/storage')['useAppLocalStorage']
   const useArrayDifference: typeof import('@vueuse/core')['useArrayDifference']
   const useArrayEvery: typeof import('@vueuse/core')['useArrayEvery']
   const useArrayFilter: typeof import('@vueuse/core')['useArrayFilter']
@@ -324,14 +321,14 @@ declare global {
   export type { Component, Slot, Slots, ComponentPublicInstance, ComputedRef, DirectiveBinding, ExtractDefaultPropTypes, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, MaybeRef, MaybeRefOrGetter, VNode, WritableComputedRef } from 'vue'
   import('vue')
   // @ts-ignore
-  export type { GhostElement, GhostElementOptions, GhostElementShowOptions } from './src/composables/ghost'
-  import('./src/composables/ghost')
+  export type { ColorSettings, ToolType, AppState, SerchingElement } from './src/services/app'
+  import('./src/services/app')
   // @ts-ignore
-  export type { ColorSettings, ToolType, AppState, SerchingElement } from './src/composables/state'
-  import('./src/composables/state')
+  export type { GhostElement, GhostElementOptions, GhostElementShowOptions } from './src/services/ghost'
+  import('./src/services/ghost')
   // @ts-ignore
-  export type { Memory } from './src/composables/types'
-  import('./src/composables/types')
+  export type { Memory } from './src/types/memory'
+  import('./src/types/memory')
 }
 
 // for vue template auto import
@@ -339,17 +336,14 @@ import { UnwrapRef } from 'vue'
 declare module 'vue' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
-    readonly APP_NAME: UnwrapRef<typeof import('./src/composables/constants')['APP_NAME']>
-    readonly AppState: UnwrapRef<typeof import('./src/composables/state')['AppState']>
-    readonly ColorSettings: UnwrapRef<typeof import('./src/composables/state')['ColorSettings']>
-    readonly DEFAULT_MEMORY: UnwrapRef<typeof import('./src/composables/constants')['DEFAULT_MEMORY']>
+    readonly AppState: UnwrapRef<typeof import('./src/services/app')['AppState']>
+    readonly ColorSettings: UnwrapRef<typeof import('./src/services/app')['ColorSettings']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
-    readonly GhostElement: UnwrapRef<typeof import('./src/composables/ghost')['GhostElement']>
-    readonly MONACO_COMPLETION: UnwrapRef<typeof import('./src/composables/monaco')['MONACO_COMPLETION']>
-    readonly MONACO_CONFIG: UnwrapRef<typeof import('./src/composables/monaco')['MONACO_CONFIG']>
-    readonly NAME_MAX_LENGTH: UnwrapRef<typeof import('./src/composables/constants')['NAME_MAX_LENGTH']>
-    readonly ToolType: UnwrapRef<typeof import('./src/composables/state')['ToolType']>
-    readonly appState: UnwrapRef<typeof import('./src/composables/state')['appState']>
+    readonly GhostElement: UnwrapRef<typeof import('./src/services/ghost')['GhostElement']>
+    readonly MONACO_COMPLETION: UnwrapRef<typeof import('./src/services/monaco')['MONACO_COMPLETION']>
+    readonly MONACO_CONFIG: UnwrapRef<typeof import('./src/services/monaco')['MONACO_CONFIG']>
+    readonly ToolType: UnwrapRef<typeof import('./src/services/app')['ToolType']>
+    readonly appState: UnwrapRef<typeof import('./src/services/app')['appState']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
@@ -359,8 +353,8 @@ declare module 'vue' {
     readonly computedWithControl: UnwrapRef<typeof import('@vueuse/core')['computedWithControl']>
     readonly controlledComputed: UnwrapRef<typeof import('@vueuse/core')['controlledComputed']>
     readonly controlledRef: UnwrapRef<typeof import('@vueuse/core')['controlledRef']>
-    readonly copyPng: UnwrapRef<typeof import('./src/composables/utils')['copyPng']>
-    readonly copyText: UnwrapRef<typeof import('./src/composables/utils')['copyText']>
+    readonly copyPng: UnwrapRef<typeof import('./src/utils/clipboard')['copyPng']>
+    readonly copyText: UnwrapRef<typeof import('./src/utils/clipboard')['copyText']>
     readonly createApp: UnwrapRef<typeof import('vue')['createApp']>
     readonly createEventHook: UnwrapRef<typeof import('@vueuse/core')['createEventHook']>
     readonly createGlobalState: UnwrapRef<typeof import('@vueuse/core')['createGlobalState']>
@@ -372,8 +366,7 @@ declare module 'vue' {
     readonly createTemplatePromise: UnwrapRef<typeof import('@vueuse/core')['createTemplatePromise']>
     readonly createUnrefFn: UnwrapRef<typeof import('@vueuse/core')['createUnrefFn']>
     readonly customRef: UnwrapRef<typeof import('vue')['customRef']>
-    readonly dataUrlToBlob: UnwrapRef<typeof import('./src/composables/utils')['dataUrlToBlob']>
-    readonly debounce: UnwrapRef<typeof import('./src/composables/utils')['debounce']>
+    readonly dataUrlToBlob: UnwrapRef<typeof import('./src/utils/transform')['dataUrlToBlob']>
     readonly debouncedRef: UnwrapRef<typeof import('@vueuse/core')['debouncedRef']>
     readonly debouncedWatch: UnwrapRef<typeof import('@vueuse/core')['debouncedWatch']>
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
@@ -381,12 +374,12 @@ declare module 'vue' {
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
-    readonly fontSize: UnwrapRef<typeof import('./src/composables/utils')['fontSize']>
+    readonly fontSize: UnwrapRef<typeof import('./src/utils/attr')['fontSize']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
-    readonly getMaybeTransformedBBox: UnwrapRef<typeof import('./src/composables/utils')['getMaybeTransformedBBox']>
+    readonly getMaybeTransformedBBox: UnwrapRef<typeof import('./src/utils/svg')['getMaybeTransformedBBox']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
-    readonly hexify: UnwrapRef<typeof import('./src/composables/utils')['hexify']>
+    readonly hexify: UnwrapRef<typeof import('./src/utils/transform')['hexify']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
     readonly injectLocal: UnwrapRef<typeof import('@vueuse/core')['injectLocal']>
@@ -398,7 +391,7 @@ declare module 'vue' {
     readonly isRef: UnwrapRef<typeof import('vue')['isRef']>
     readonly makeDestructurable: UnwrapRef<typeof import('@vueuse/core')['makeDestructurable']>
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
-    readonly mathjax: UnwrapRef<typeof import('./src/composables/mathjax')['mathjax']>
+    readonly mathjax: UnwrapRef<typeof import('./src/services/mathjax')['mathjax']>
     readonly message: UnwrapRef<typeof import('./src/composables/message')['message']>
     readonly nextTick: UnwrapRef<typeof import('vue')['nextTick']>
     readonly onActivated: UnwrapRef<typeof import('vue')['onActivated']>
@@ -444,8 +437,8 @@ declare module 'vue' {
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>
     readonly shallowReadonly: UnwrapRef<typeof import('vue')['shallowReadonly']>
     readonly shallowRef: UnwrapRef<typeof import('vue')['shallowRef']>
-    readonly shrink: UnwrapRef<typeof import('./src/composables/utils')['shrink']>
-    readonly svgToPngDataUrl: UnwrapRef<typeof import('./src/composables/utils')['svgToPngDataUrl']>
+    readonly shrink: UnwrapRef<typeof import('./src/utils/number')['shrink']>
+    readonly svgToPngDataUrl: UnwrapRef<typeof import('./src/utils/transform')['svgToPngDataUrl']>
     readonly syncRef: UnwrapRef<typeof import('@vueuse/core')['syncRef']>
     readonly syncRefs: UnwrapRef<typeof import('@vueuse/core')['syncRefs']>
     readonly templateRef: UnwrapRef<typeof import('@vueuse/core')['templateRef']>
@@ -469,6 +462,7 @@ declare module 'vue' {
     readonly until: UnwrapRef<typeof import('@vueuse/core')['until']>
     readonly useActiveElement: UnwrapRef<typeof import('@vueuse/core')['useActiveElement']>
     readonly useAnimate: UnwrapRef<typeof import('@vueuse/core')['useAnimate']>
+    readonly useAppLocalStorage: UnwrapRef<typeof import('./src/composables/storage')['useAppLocalStorage']>
     readonly useArrayDifference: UnwrapRef<typeof import('@vueuse/core')['useArrayDifference']>
     readonly useArrayEvery: UnwrapRef<typeof import('@vueuse/core')['useArrayEvery']>
     readonly useArrayFilter: UnwrapRef<typeof import('@vueuse/core')['useArrayFilter']>
