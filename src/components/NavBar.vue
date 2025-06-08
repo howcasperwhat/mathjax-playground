@@ -22,9 +22,6 @@ function dragenter(idx: number) {
   appState.move(src.value, idx)
   src.value = idx
   moving.value = true
-  setTimeout(() => {
-    moving.value = false
-  }, 300)
 }
 function dragend() {
   src.value = -1
@@ -37,7 +34,7 @@ function dragend() {
     flex="~ items-center"
     w-full select-none relative z-tabs of-x-auto
     of-y-hidden color-base children:h-full
-    children:transition-all-300
+    children:transition-all-200
   >
     <div text-lg p-2 bd rd-t-xl b-b-none flex shadow translate-y-1>
       <div m-a p-1 rd-xl bg-stone:16>
@@ -62,6 +59,7 @@ function dragend() {
           @dragend.stop="dragend()"
           @dragenter.stop.prevent="dragenter(idx)"
           @dragover.stop.prevent=""
+          @transitionend="moving = false"
           @mouseenter="(src === -1) && (hover = name)"
           @mouseleave="(src === -1) && (hover = '')"
         >
