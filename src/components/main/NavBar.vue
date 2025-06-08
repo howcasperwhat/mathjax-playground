@@ -44,9 +44,9 @@ function dragend() {
         <div i:svg />
       </div>
     </div>
-    <div b-b="1px solid stone:16" shrink-0 w-1 />
     <TransitionGroup name="tab">
       <template v-for="name, idx in tabs" :key="name">
+        <div b-b="1px solid stone:16" shrink-0 w-1 />
         <button
           :title="name" draggable="true"
           bd rd-xl rd-b-0 min-w-24 shadow
@@ -76,7 +76,6 @@ function dragend() {
             <div i-carbon:close />
           </div>
         </button>
-        <div b-b="1px solid stone:16" shrink-0 w-1 />
       </template>
     </TransitionGroup>
     <div flex-1 h-full b-b="1px solid stone:16" />
