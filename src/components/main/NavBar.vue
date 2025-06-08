@@ -30,13 +30,16 @@ function dragend() {
 
 <template>
   <div
-    ref="container"
-    flex="~ items-center"
+    ref="container" flex="~ items-center"
     w-full select-none relative z-tabs of-x-auto
     of-y-hidden color-base children:h-full
     children:transition-all-200
   >
-    <div text-lg p-2 bd rd-t-xl b-b-none flex shadow translate-y-1>
+    <div
+      text-lg p-2 bd rd-t-xl b-b-none flex h-full
+      shadow translate-y-1 left-0 top-0 sticky
+      z-6 bg-base
+    >
       <div m-a p-1 rd-xl bg-stone:16>
         <div i:svg />
       </div>
