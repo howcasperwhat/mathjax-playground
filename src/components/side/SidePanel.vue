@@ -1,6 +1,6 @@
 <script setup lang='ts'>
-import MemoryView from './MemoryView.vue'
-import SettingView from './SettingView.vue'
+import MemoryView from './memory/MemoryView.vue'
+import SettingView from './setting/SettingView.vue'
 
 interface UIData {
   icon: string
