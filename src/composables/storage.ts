@@ -1,5 +1,5 @@
 import type { UseStorageOptions } from '@vueuse/core'
-import { APP_NAME } from '~/constants/global'
+import { APP_NAME } from '~/constants/shared'
 
 export function useAppLocalStorage<T>(
   key: string,

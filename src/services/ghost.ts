@@ -1,17 +1,3 @@
-type Style = Partial<CSSStyleDeclaration>
-
-export interface GhostElementOptions {
-  show?: Style
-  hide?: Style
-}
-
-export interface GhostElementShowOptions {
-  w: string
-  h: string
-  x: string
-  y: string
-}
-
 export class GhostElement {
   private readonly TRANSITION_DURATION = 0.1
   private readonly TRANSITION_EASING = 'linear'

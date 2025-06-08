@@ -1,33 +1,8 @@
 import { DEFAULT_MEMORY } from '../data/memory'
 
-export interface SerchingElement {
+interface SerchingElement {
   element: SVGGraphicsElement
   depth: number
-}
-
-export class ColorSettings {
-  light: string
-  dark: string
-  color: string
-  opacity: number
-
-  constructor(light: string = '#000', dark: string = '#fff') {
-    this.light = hexify(light, '#000')
-    this.dark = hexify(dark, '#fff')
-    this.color = isDark.value ? this.dark : this.light
-    this.opacity = 100
-  }
-
-  get hex() {
-    return hexify(this.color, isDark.value ? this.dark : this.light, this.opacity)
-  }
-}
-
-export enum ToolType {
-  Pen,
-  Brush,
-  Eraser,
-  Free,
 }
 
 export class AppState {
@@ -68,9 +43,9 @@ export class AppState {
     },
   })
 
-  pen = reactive(new ColorSettings())
-  brush = reactive(new ColorSettings())
-  global = reactive(new ColorSettings())
+  pen = reactive(new ColorHandler())
+  brush = reactive(new ColorHandler())
+  global = reactive(new ColorHandler())
 
   private _active: Ref<string> = ref('')
   memory: Ref<Record<string, Memory>> = ref(AppState.DEFAULT_MEMORY)

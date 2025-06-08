@@ -7,12 +7,12 @@
 export {}
 declare global {
   const AppState: typeof import('./src/services/app')['AppState']
-  const ColorSettings: typeof import('./src/services/app')['ColorSettings']
+  const ColorHandler: typeof import('./src/services/color')['ColorHandler']
   const EffectScope: typeof import('vue')['EffectScope']
   const GhostElement: typeof import('./src/services/ghost')['GhostElement']
   const MONACO_COMPLETION: typeof import('./src/services/monaco')['MONACO_COMPLETION']
   const MONACO_CONFIG: typeof import('./src/services/monaco')['MONACO_CONFIG']
-  const ToolType: typeof import('./src/services/app')['ToolType']
+  const ToolType: typeof import('./src/types/app')['ToolType']
   const appState: typeof import('./src/services/app')['appState']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
@@ -321,14 +321,23 @@ declare global {
   export type { Component, Slot, Slots, ComponentPublicInstance, ComputedRef, DirectiveBinding, ExtractDefaultPropTypes, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, MaybeRef, MaybeRefOrGetter, VNode, WritableComputedRef } from 'vue'
   import('vue')
   // @ts-ignore
-  export type { ColorSettings, ToolType, AppState, SerchingElement } from './src/services/app'
+  export type { AppState } from './src/services/app'
   import('./src/services/app')
   // @ts-ignore
-  export type { GhostElement, GhostElementOptions, GhostElementShowOptions } from './src/services/ghost'
+  export type { ColorHandler } from './src/services/color'
+  import('./src/services/color')
+  // @ts-ignore
+  export type { GhostElement } from './src/services/ghost'
   import('./src/services/ghost')
   // @ts-ignore
-  export type { Memory } from './src/types/memory'
-  import('./src/types/memory')
+  export type { ToolType, Memory } from './src/types/app'
+  import('./src/types/app')
+  // @ts-ignore
+  export type { GhostElementOptions, GhostElementShowOptions } from './src/types/ghost'
+  import('./src/types/ghost')
+  // @ts-ignore
+  export type { Style } from './src/types/shared'
+  import('./src/types/shared')
 }
 
 // for vue template auto import
@@ -337,12 +346,12 @@ declare module 'vue' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
     readonly AppState: UnwrapRef<typeof import('./src/services/app')['AppState']>
-    readonly ColorSettings: UnwrapRef<typeof import('./src/services/app')['ColorSettings']>
+    readonly ColorHandler: UnwrapRef<typeof import('./src/services/color')['ColorHandler']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly GhostElement: UnwrapRef<typeof import('./src/services/ghost')['GhostElement']>
     readonly MONACO_COMPLETION: UnwrapRef<typeof import('./src/services/monaco')['MONACO_COMPLETION']>
     readonly MONACO_CONFIG: UnwrapRef<typeof import('./src/services/monaco')['MONACO_CONFIG']>
-    readonly ToolType: UnwrapRef<typeof import('./src/services/app')['ToolType']>
+    readonly ToolType: UnwrapRef<typeof import('./src/types/app')['ToolType']>
     readonly appState: UnwrapRef<typeof import('./src/services/app')['appState']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
