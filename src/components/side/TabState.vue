@@ -14,7 +14,7 @@ const active = ref(props.active)
 <template>
   <div flex="~ items-center">
     <button
-      v-for="name, _ in props.names" :key="_"
+      v-for="name in props.names" :key="name"
       v-tooltip="name"
       :class="active === name
         ? 'op-100! b-b-stone'
