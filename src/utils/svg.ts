@@ -1,4 +1,5 @@
 export function getMaybeTransformedBBox(element: SVGGraphicsElement) {
+  const message = useMessage()
   const [C, P] = [element, element.parentElement] as SVGGraphicsElement[]
 
   // https://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html#getCTM

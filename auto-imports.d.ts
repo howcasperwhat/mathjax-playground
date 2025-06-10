@@ -62,7 +62,7 @@ declare global {
   const makeDestructurable: typeof import('@vueuse/core')['makeDestructurable']
   const markRaw: typeof import('vue')['markRaw']
   const mathjax: typeof import('./src/services/mathjax')['mathjax']
-  const message: typeof import('./src/composables/message')['message']
+  const messageTypes: typeof import('./src/composables/message')['messageTypes']
   const nextTick: typeof import('vue')['nextTick']
   const onActivated: typeof import('vue')['onActivated']
   const onBeforeMount: typeof import('vue')['onBeforeMount']
@@ -216,6 +216,7 @@ declare global {
   const useMediaQuery: typeof import('@vueuse/core')['useMediaQuery']
   const useMemoize: typeof import('@vueuse/core')['useMemoize']
   const useMemory: typeof import('@vueuse/core')['useMemory']
+  const useMessage: typeof import('./src/composables/message')['useMessage']
   const useModel: typeof import('vue')['useModel']
   const useMounted: typeof import('@vueuse/core')['useMounted']
   const useMouse: typeof import('@vueuse/core')['useMouse']
@@ -401,7 +402,7 @@ declare module 'vue' {
     readonly makeDestructurable: UnwrapRef<typeof import('@vueuse/core')['makeDestructurable']>
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
     readonly mathjax: UnwrapRef<typeof import('./src/services/mathjax')['mathjax']>
-    readonly message: UnwrapRef<typeof import('./src/composables/message')['message']>
+    readonly messageTypes: UnwrapRef<typeof import('./src/composables/message')['messageTypes']>
     readonly nextTick: UnwrapRef<typeof import('vue')['nextTick']>
     readonly onActivated: UnwrapRef<typeof import('vue')['onActivated']>
     readonly onBeforeMount: UnwrapRef<typeof import('vue')['onBeforeMount']>
@@ -555,6 +556,7 @@ declare module 'vue' {
     readonly useMediaQuery: UnwrapRef<typeof import('@vueuse/core')['useMediaQuery']>
     readonly useMemoize: UnwrapRef<typeof import('@vueuse/core')['useMemoize']>
     readonly useMemory: UnwrapRef<typeof import('@vueuse/core')['useMemory']>
+    readonly useMessage: UnwrapRef<typeof import('./src/composables/message')['useMessage']>
     readonly useModel: UnwrapRef<typeof import('vue')['useModel']>
     readonly useMounted: UnwrapRef<typeof import('@vueuse/core')['useMounted']>
     readonly useMouse: UnwrapRef<typeof import('@vueuse/core')['useMouse']>

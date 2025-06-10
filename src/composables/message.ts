@@ -1,23 +1,182 @@
-function success(msg: string, duration?: number) {
-  // eslint-disable-next-line no-console
-  console.log('success', msg, duration)
-}
-function info(msg: string, duration?: number) {
-  // eslint-disable-next-line no-console
-  console.log('info', msg, duration)
-}
-function warning(msg: string, duration?: number) {
-  // eslint-disable-next-line no-console
-  console.log('warning', msg, duration)
-}
-function error(msg: string, duration?: number) {
-  // eslint-disable-next-line no-console
-  console.log('error', msg, duration)
+import type { FunctionalComponent, VNode } from 'vue'
+import { isString } from '@vue/shared'
+import { render, TransitionGroup } from 'vue'
+
+export const messageTypes = ['primary', 'success', 'info', 'warning', 'error'] as const
+let messageSeed = 0
+
+type MessageType = (typeof messageTypes)[number]
+interface MessageProps {
+  message: string
+  type: MessageType
 }
 
-export const message = {
-  success,
-  info,
-  warning,
-  error,
+type MessageParams = MessageProps | MessageProps['message']
+
+// type MessageParams = MessageProps & {
+//   onClose?: () => void
+// }
+
+interface MessageHandler {
+  close: () => void
+}
+
+interface MessageContext {
+  id: string
+  vnode: VNode
+  props: MessageProps
+  handler: MessageHandler
+}
+
+interface MessageFn {
+  (options: MessageParams): MessageHandler
+  closeAll: (type?: MessageType) => void
+}
+
+type Message = MessageFn & {
+  [K in MessageType]: (options: MessageProps['message']) => MessageHandler
+}
+
+const instances = ref<MessageContext[]>([])
+
+const MessageComponent: FunctionalComponent<MessageProps> = (props) => {
+  return h('div', {
+    // class: 'flex items-center bg-base bd rd p-2 shadow-md min-w-36 max-w-96',
+    class: 'bd rd bg-stone:20 shadow backdrop-blur-8',
+    style: {
+      'display': 'flex',
+      'align-items': 'center',
+      'padding': '0.5rem',
+      'min-width': '9rem',
+      'max-width': '24rem',
+    },
+  }, [
+    h('div', { class: `i-message:${props.type}` }),
+    h('span', { class: 'ml-2' }, props.message),
+  ])
+}
+
+const MessageContainer = defineComponent({
+  setup: () => {
+    return () => h(TransitionGroup, {
+      name: 'message',
+      tag: 'div',
+      style: {
+        'display': 'flex',
+        'flex-direction': 'column',
+        'gap': '0.5rem',
+        'position': 'fixed',
+        'top': '1rem',
+        'right': '1rem',
+        'z-index': '100',
+        'padding': '1rem',
+        'transition': 'all 0.3s ease',
+      },
+    }, () => instances.value.map((instance) => {
+      return h(MessageComponent, {
+        ...instance.props,
+        key: instance.id,
+      })
+    }))
+  },
+})
+
+function closeMessage(instance: MessageContext) {
+  const idx = instances.value.indexOf(instance)
+  if (idx === -1)
+    return
+
+  instances.value.splice(idx, 1)
+  const { handler } = instance
+  handler.close()
+}
+
+function createMessage(_options: MessageParams): MessageContext {
+  const id = `message-${messageSeed++}`
+
+  const container = document.createElement('div')
+  let instance: MessageContext
+  const options: MessageProps = isString(_options)
+    ? { message: _options, type: 'info' }
+    : _options
+  const props = {
+    ...options,
+    onClose: () => {
+      closeMessage(instance)
+    },
+    onDestroy: () => {
+      render(null, container)
+      container.remove()
+    },
+  }
+  const vnode = h(
+    MessageComponent,
+    props,
+    () => props.message,
+  )
+  render(vnode, container)
+  // vnode.appContext = getCurrentInstance()?.appContext || context || null
+
+  // render(vnode, container)
+  // instances will remove this item when close function gets called. So we do not need to worry about it.
+  // appendTo.appendChild(container.firstElementChild!)
+
+  const handler: MessageHandler = {
+    // instead of calling the onClose function directly, setting this value so that we can have the full lifecycle
+    // for out component, so that all closing steps will not be skipped.
+    close: () => {
+      vnode.component!.exposed!.close()
+    },
+  }
+
+  instance = { id, props, vnode, handler }
+
+  return instance
+}
+
+const message: MessageFn & Partial<Message> = (
+  options: MessageParams,
+) => {
+  const instance = createMessage(options)
+  instances.value.push(instance)
+  return instance.handler
+}
+
+messageTypes.forEach((type) => {
+  message[type] = (msg: MessageProps['message']) => {
+    return message({
+      message: msg,
+      type,
+    })
+  }
+})
+
+let isMounted = false
+
+message.closeAll = (type?: MessageType) => {
+  if (!isMounted)
+    return
+
+  render(null, document.getElementById('message-container')!)
+  isMounted = false
+
+  instances.value.forEach((instance) => {
+    const props = instance.vnode.component!.props
+    if (!type || props.type === type) {
+      instance.handler.close()
+    }
+  })
+}
+
+export function useMessage() {
+  if (!isMounted) {
+    const container = document.createElement('div')
+    container.id = 'message-container'
+    const vnode = h(MessageContainer)
+    vnode.appContext = getCurrentInstance()?.appContext || null
+    render(vnode, container)
+    document.body.appendChild(container.firstChild!)
+    isMounted = true
+  }
+  return message as Message
 }

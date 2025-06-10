@@ -5,6 +5,8 @@ interface SerchingElement {
   depth: number
 }
 
+const message = useMessage()
+
 export class AppState {
   static readonly MAX_SIZE = 2e6
   static readonly BRUSH_RECT_CLASS = 'brushed-rect'

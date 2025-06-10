@@ -46,12 +46,24 @@ export default defineConfig({
     'z-mathjax-tool': 'z-15',
     'z-monaco': 'z-20',
     'z-nomobile': 'z-30',
+
+    'i-message:primary': 'i-carbon:subtract-alt c-neutral',
+    'i-message:success': 'i-carbon:checkmark-outline c-green',
+    'i-message:info': 'i-carbon:information c-blue',
+    'i-message:warning': 'i-carbon:warning c-yellow',
+    'i-message:error': 'i-carbon:close-outline c-red',
   },
   safelist: [
     'i:tex',
     'i:svg',
     'i:workspace',
     'i:default',
+
+    'i-message:primary',
+    'i-message:success',
+    'i-message:info',
+    'i-message:warning',
+    'i-message:error',
   ],
   presets: [
     presetWind4(),
