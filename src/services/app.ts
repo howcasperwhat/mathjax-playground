@@ -236,12 +236,13 @@ export class AppState {
       return
     switch (type) {
       case 'png':
-        copyPng(await svgToPngDataUrl(this.elem.outerHTML))
+        await copyPng(await svgToPngDataUrl(this.elem.outerHTML))
         break
       case 'svg':
-        copyText(this.elem.outerHTML)
+        await copyText(this.elem.outerHTML)
         break
     }
+    message.success('SVG copied to clipboard')
   }
 
   async download(type: 'png' | 'svg') {

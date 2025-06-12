@@ -9,13 +9,11 @@ type MessageType = (typeof messageTypes)[number]
 interface MessageProps {
   message: string
   type: MessageType
+  onClose?: () => void
+  onDestroy?: () => void
 }
 
 type MessageParams = MessageProps | MessageProps['message']
-
-// type MessageParams = MessageProps & {
-//   onClose?: () => void
-// }
 
 interface MessageHandler {
   close: () => void
@@ -40,6 +38,9 @@ type Message = MessageFn & {
 const instances = ref<MessageContext[]>([])
 
 const MessageComponent: FunctionalComponent<MessageProps> = (props) => {
+  setTimeout(() => {
+    props.onClose?.()
+  }, 3000)
   return h('div', {
     // class: 'flex items-center bg-base bd rd p-2 shadow-md min-w-36 max-w-96',
     class: 'bd rd bg-stone:20 shadow backdrop-blur-8',
@@ -51,8 +52,8 @@ const MessageComponent: FunctionalComponent<MessageProps> = (props) => {
       'max-width': '24rem',
     },
   }, [
-    h('div', { class: `i-message:${props.type}` }),
-    h('span', { class: 'ml-2' }, props.message),
+    h('div', { class: `i-message:${props.type} shrink-0` }),
+    h('div', { class: 'ml-2' }, props.message),
   ])
 }
 
@@ -70,7 +71,6 @@ const MessageContainer = defineComponent({
         'right': '1rem',
         'z-index': '100',
         'padding': '1rem',
-        'transition': 'all 0.3s ease',
       },
     }, () => instances.value.map((instance) => {
       return h(MessageComponent, {
@@ -96,11 +96,11 @@ function createMessage(_options: MessageParams): MessageContext {
 
   const container = document.createElement('div')
   let instance: MessageContext
-  const options: MessageProps = isString(_options)
-    ? { message: _options, type: 'info' }
-    : _options
+  // const options: MessageProps =
   const props = {
-    ...options,
+    ...(isString(_options)
+      ? { message: _options, type: 'info' as const }
+      : _options),
     onClose: () => {
       closeMessage(instance)
     },
