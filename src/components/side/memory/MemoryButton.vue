@@ -6,6 +6,7 @@ const { deleting, name, item } = defineProps<{
 }>()
 
 const el = useTemplateRef<HTMLInputElement>('el')
+const message = useMessage()
 const editing = ref(false)
 const content = ref(name)
 
@@ -24,13 +25,6 @@ function getClass() {
     return 'hover:b-red:36 hover:bg-red:8!'
   return ''
 }
-function getTooltip() {
-  if (editing.value)
-    return 'Enter to confirm, esc to cancel'
-  if (deleting)
-    return '⚠️ Delete item'
-  return name
-}
 
 function handle() {
   deleting ? _delete() : _show()
@@ -42,6 +36,11 @@ function _show() {
 }
 function _delete() {
   appState.delete(name)
+  message.success(`'${name}' deleted`)
+}
+function _rename(o: string, n: string) {
+  appState.rename(o, n)
+  message.success(`'${o}' renamed to '${n}'`)
 }
 
 function prepare() {
@@ -55,8 +54,8 @@ function prepare() {
 function confirm() {
   const [o, n] = [name, content.value.trim()]
   appState.exists(n)
-    ? message.error('State name already exists')
-    : appState.rename(o, n)
+    ? message.error(`'${n}' already exists`)
+    : _rename(o, n)
   cancel()
 }
 function cancel() {
@@ -67,7 +66,6 @@ function cancel() {
 
 <template>
   <button
-    v-tooltip.left="getTooltip()"
     btn-md hover:bg-hex-8881
     :class="getClass()"
     @click="handle"

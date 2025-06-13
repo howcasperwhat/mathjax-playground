@@ -12,7 +12,7 @@ const active = ref(props.active)
 </script>
 
 <template>
-  <div flex="~ items-center">
+  <div flex="~ items-center" children:shrink-0>
     <button
       v-for="name in props.names" :key="name"
       v-tooltip="name"

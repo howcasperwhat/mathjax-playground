@@ -2,6 +2,7 @@
 const editing = defineModel<boolean>({ required: true })
 
 const el = useTemplateRef<HTMLInputElement>('el')
+const message = useMessage()
 const content = ref('')
 
 function confirm() {
@@ -11,9 +12,10 @@ function confirm() {
     appState.tabs.value.add(name) // tabs
     appState.active = name // active
     editing.value = false
+    message.success(`'${name}' added`)
   }
   else {
-    message.error('State name already exists')
+    message.error(`'${name}' already exists`)
     el.value?.focus()
   }
 }

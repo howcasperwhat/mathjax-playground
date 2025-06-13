@@ -42,14 +42,14 @@ const MessageComponent: FunctionalComponent<MessageProps> = (props) => {
     props.onClose?.()
   }, 3000)
   return h('div', {
-    // class: 'flex items-center bg-base bd rd p-2 shadow-md min-w-36 max-w-96',
     class: 'bd rd bg-stone:20 shadow backdrop-blur-8',
     style: {
       'display': 'flex',
       'align-items': 'center',
       'padding': '0.5rem',
-      'min-width': '9rem',
-      'max-width': '24rem',
+      'word-break': 'break-all',
+      'overflow-wrap': 'break-word',
+      'max-width': '20rem',
     },
   }, [
     h('div', { class: `i-message:${props.type} shrink-0` }),
@@ -96,7 +96,6 @@ function createMessage(_options: MessageParams): MessageContext {
 
   const container = document.createElement('div')
   let instance: MessageContext
-  // const options: MessageProps =
   const props = {
     ...(isString(_options)
       ? { message: _options, type: 'info' as const }
@@ -115,15 +114,7 @@ function createMessage(_options: MessageParams): MessageContext {
     () => props.message,
   )
   render(vnode, container)
-  // vnode.appContext = getCurrentInstance()?.appContext || context || null
-
-  // render(vnode, container)
-  // instances will remove this item when close function gets called. So we do not need to worry about it.
-  // appendTo.appendChild(container.firstElementChild!)
-
   const handler: MessageHandler = {
-    // instead of calling the onClose function directly, setting this value so that we can have the full lifecycle
-    // for out component, so that all closing steps will not be skipped.
     close: () => {
       vnode.component!.exposed!.close()
     },

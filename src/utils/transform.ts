@@ -8,9 +8,7 @@ export function dataUrlToBlob(dataurl: string) {
   return new Blob([arr], { type })
 }
 
-export async function svgToPngDataUrl(svg: string) {
-  const scaleFactor = 8
-
+export async function svgToPngDataUrl(svg: string, scale: number = 1) {
   const canvas = document.createElement('canvas')
   const image = document.createElement('img')
   const canvasCtx = canvas.getContext('2d')!
@@ -19,8 +17,8 @@ export async function svgToPngDataUrl(svg: string) {
     image.crossOrigin = 'anonymous'
     image.onload = async () => {
       Object.assign(canvas, {
-        width: image.naturalWidth * scaleFactor,
-        height: image.naturalHeight * scaleFactor,
+        width: image.naturalWidth * scale,
+        height: image.naturalHeight * scale,
       })
       canvasCtx.drawImage(image, 0, 0, canvas.width, canvas.height)
       resolve(canvas.toDataURL('image/png'))

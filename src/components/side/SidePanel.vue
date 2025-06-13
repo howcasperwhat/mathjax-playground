@@ -19,12 +19,13 @@ const data: Record<string, UIData> = {
 }
 
 const active = ref(Object.keys(data).at(0)!)
+useAppLocalStorage('side-active', active)
 </script>
 
 <template>
   <div
     flex="~ col gap-4"
-    py-4 bd rd-xl h-full shadow children:px-4
+    py-4 bd rd-xl h-full shadow of-auto children:px-4
   >
     <TabState
       :names="Object.keys(data)" :active
