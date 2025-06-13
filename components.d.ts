@@ -20,7 +20,9 @@ declare module 'vue' {
     MonacoEditor: typeof import('./src/components/main/MonacoEditor.vue')['default']
     NavBar: typeof import('./src/components/main/NavBar.vue')['default']
     NoMobile: typeof import('./src/components/NoMobile.vue')['default']
+    NumInput: typeof import('./src/components/NumInput.vue')['default']
     Painter: typeof import('./src/components/tool/Painter.vue')['default']
+    PicScale: typeof import('./src/components/side/setting/PicScale.vue')['default']
     Resizable: typeof import('./src/components/Resizable.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
@@ -29,6 +31,7 @@ declare module 'vue' {
     SidePanel: typeof import('./src/components/side/SidePanel.vue')['default']
     TabState: typeof import('./src/components/side/TabState.vue')['default']
     ThemeSwitcher: typeof import('./src/components/tool/ThemeSwitcher.vue')['default']
+    TitledSep: typeof import('./src/components/side/setting/TitledSep.vue')['default']
     ToolBar: typeof import('./src/components/tool/ToolBar.vue')['default']
   }
 }

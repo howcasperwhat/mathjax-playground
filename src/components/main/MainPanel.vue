@@ -1,9 +1,9 @@
 <script setup lang="ts">
-const tex = computed({
+const tex = computed<string>({
   get: () => appState.tex.value,
   set: value => appState.tex.value = value,
 })
-const svg = computed({
+const svg = computed<string>({
   get: () => appState.svg.value,
   set: value => appState.svg.value = value,
 })

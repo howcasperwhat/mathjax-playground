@@ -1,24 +1,16 @@
 <script setup lang='ts'>
-// TODO: color和props属性，emit color和opacity事件
-const setting = defineModel<ColorSettings>({ required: true })
+const setting = defineModel<ColorHandler>({ required: true })
 const el = useTemplateRef<HTMLInputElement>('el')
 
-function change(event: Event) {
+const change = useDebounceFn((event: Event) => {
   const target = event.target as HTMLInputElement
   setting.value.color = target.value
-}
+}, 200)
 
-function input(event: Event) {
-  const target = event.target as HTMLInputElement
-  const value = target.value
-  setting.value.opacity = shrink(Number.parseInt(value) || 0)
-  target.value = setting.value.opacity.toString()
-  appState.init()
-}
-function update(delta: number) {
-  setting.value.opacity = shrink(setting.value.opacity + delta)
-  appState.init()
-}
+const opacity = computed<number>({
+  get: () => setting.value.opacity,
+  set: value => setting.value.opacity = value,
+})
 </script>
 
 <template>
@@ -41,7 +33,11 @@ function update(delta: number) {
       absolute dark:scheme-dark @input="change"
     >
   </div>
-  <div flex="~ items-center" bd rd>
+  <NumInput
+    v-model="opacity"
+    :min="0" :max="100" h-8
+  />
+  <!-- <div flex="~ items-center" bd rd>
     <input
       :value="setting.opacity" maxlength="3"
       px-1 text-align-center ipt w-12
@@ -61,10 +57,10 @@ function update(delta: number) {
         <div i-carbon:caret-down />
       </button>
     </div>
-  </div>
+  </div> -->
   <input
     v-model="setting.color"
-    font-mono ipt-sm text-align-center bd
+    font-mono ipt-sm text-align-center bd h-8
     w="[calc(8ch+1rem)]" maxlength="7"
   >
 </template>

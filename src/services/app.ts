@@ -54,6 +54,7 @@ export class AppState {
   tabs: Ref<Set<string>> = ref(new Set<string>())
   tex: Ref<string> = ref('')
   svg: Ref<string> = ref('')
+  picScale: Ref<number> = ref(1)
 
   get active() {
     return this._active.value
@@ -236,13 +237,12 @@ export class AppState {
       return
     switch (type) {
       case 'png':
-        await copyPng(await svgToPngDataUrl(this.elem.outerHTML))
+        await copyPng(await svgToPngDataUrl(this.elem.outerHTML, this.picScale.value))
         break
       case 'svg':
         await copyText(this.elem.outerHTML)
         break
     }
-    message.success('SVG copied to clipboard')
   }
 
   async download(type: 'png' | 'svg') {
@@ -252,7 +252,7 @@ export class AppState {
     const name = `mathjax-playground-download.${type}`
     const blob = type === 'svg'
       ? new Blob([this.elem.outerHTML], { type: 'image/svg+xml;charset=utf-8' })
-      : dataUrlToBlob(await svgToPngDataUrl(this.elem.outerHTML))
+      : dataUrlToBlob(await svgToPngDataUrl(this.elem.outerHTML, this.picScale.value))
 
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')

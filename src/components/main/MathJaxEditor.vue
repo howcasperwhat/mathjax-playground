@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { clamp } from '@vueuse/core'
+
 const props = defineProps<{
   svg: string
 }>()
@@ -21,7 +23,7 @@ const INITIAL_STATE = {
 const ZOOM_UNIT = 10
 const zoom = ref(INITIAL_STATE.zoom)
 function scale(factor: number) {
-  zoom.value = shrink(
+  zoom.value = clamp(
     zoom.value + factor * ZOOM_UNIT,
     30,
     300,

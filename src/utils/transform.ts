@@ -1,3 +1,5 @@
+import { clamp } from '@vueuse/core'
+
 export function dataUrlToBlob(dataurl: string) {
   const parts = dataurl.split(',')
   const type = parts[0].split(':')[1].split(';')[0]
@@ -8,7 +10,7 @@ export function dataUrlToBlob(dataurl: string) {
   return new Blob([arr], { type })
 }
 
-export async function svgToPngDataUrl(svg: string, scale: number = 1) {
+export async function svgToPngDataUrl(svg: string, scale: number) {
   const canvas = document.createElement('canvas')
   const image = document.createElement('img')
   const canvasCtx = canvas.getContext('2d')!
@@ -36,7 +38,7 @@ export function hexify(color: string, _default: string, opacity: number = 100) {
   if (!/^#(?:[0-9a-f]{3}|[0-9a-f]{6})$/i.test(color))
     hex = _default
   hex = color
-  opacity = shrink(opacity, 0, 100)
+  opacity = clamp(opacity, 0, 100)
   if (hex.length === 4)
     hex = `#${hex[1]}${hex[1]}${hex[2]}${hex[2]}${hex[3]}${hex[3]}`
   if (opacity < 100)
