@@ -35,22 +35,15 @@ onMounted(() => {
 
     font-mono bd rd children:h-full
   >
-    <button
-      btn b-r="1px solid stone:16"
-      @click="uivalue -= 1"
-    >
+    <button btn @click="uivalue -= 1">
       <div i-carbon:subtract />
     </button>
     <input
-      ref="el"
-      v-model="uivalue" type="number"
+      ref="el" v-model="uivalue" type="number"
       :style="{ width: `${Math.max(0, String(uivalue).length) + 2}ch` }"
-      px-1 text-align-center ipt @input="input"
+      b-x="1px solid stone:16" px-1 text-align-center ipt @input="input"
     >
-    <button
-      btn b-l="1px solid stone:16"
-      @click="uivalue += 1"
-    >
+    <button btn @click="uivalue += 1">
       <div i-carbon:add />
     </button>
   </div>

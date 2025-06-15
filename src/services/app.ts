@@ -45,9 +45,9 @@ export class AppState {
     },
   })
 
-  pen = reactive(new ColorHandler())
-  brush = reactive(new ColorHandler())
-  global = reactive(new ColorHandler())
+  pen = new ColorHandler()
+  brush = new ColorHandler()
+  global = new ColorHandler()
 
   private _active: Ref<string> = ref('')
   memory: Ref<Record<string, Memory>> = ref(AppState.DEFAULT_MEMORY)
@@ -94,21 +94,21 @@ export class AppState {
     const g = this.elem.lastChild! as SVGGElement
     g.removeAttribute('fill')
     g.removeAttribute('stroke')
-    this.elem.setAttribute('fill', this.global.hex)
-    this.elem.setAttribute('stroke', this.global.hex)
+    this.elem.setAttribute('fill', this.global.hex.value)
+    this.elem.setAttribute('stroke', this.global.hex.value)
   }
 
   paintForeground(element: SVGGraphicsElement) {
     if (element === this.elem)
       return message.error('Cannot operate on the root element')
-    element.setAttribute('fill', this.pen.hex)
+    element.setAttribute('fill', this.pen.hex.value)
   }
 
   paintBackground(element: SVGGraphicsElement) {
     if (element === this.elem)
       return message.error('Cannot operate on the root element')
     if (this.isBrushedRect(element.previousElementSibling))
-      return
+      element.previousElementSibling!.remove()
 
     const { x, y, w, h } = getMaybeTransformedBBox(element)
 
@@ -118,7 +118,7 @@ export class AppState {
     box.setAttribute('width', `${w}`)
     box.setAttribute('height', `${h}`)
     box.setAttribute('class', AppState.BRUSH_RECT_CLASS)
-    box.setAttribute('fill', this.brush.hex)
+    box.setAttribute('fill', this.brush.hex.value)
     element.before(box)
   }
 
@@ -177,6 +177,10 @@ export class AppState {
       },
     })
     useAppLocalStorage('active', this._active)
+    useAppLocalStorage('pic-scale', this.picScale)
+    useAppLocalStorage('pen', this.pen.props)
+    useAppLocalStorage('brush', this.brush.props)
+    useAppLocalStorage('global', this.global.props)
 
     watch(this._tool, () => {
       document.body.style.cursor = this.free
@@ -184,11 +188,14 @@ export class AppState {
         : 'crosshair'
     })
     watch(isDark, () => {
-      for (const settings of [this.pen, this.brush, this.global])
-        settings.color = isDark.value ? settings.dark : settings.light
+      for (const settings of [this.pen, this.brush, this.global]) {
+        settings.props.value.color = isDark.value
+          ? settings.props.value.dark
+          : settings.props.value.light
+      }
     })
     watch(this._elem, () => this.init())
-    watch(this.global, () => this.init())
+    watch(this.global.props, () => this.init(), { deep: true })
 
     useEventListener('keydown', (event) => {
       switch (event.key) {
@@ -235,12 +242,13 @@ export class AppState {
   async copy(type: 'png' | 'svg') {
     if (!this.elem)
       return
+    const text = svgToText(this.elem, this.picScale.value)
     switch (type) {
       case 'png':
-        await copyPng(await svgToPngDataUrl(this.elem.outerHTML, this.picScale.value))
+        await copyPng(await svgToPngDataUrl(text))
         break
       case 'svg':
-        await copyText(this.elem.outerHTML)
+        await copyText(text)
         break
     }
   }
@@ -250,9 +258,10 @@ export class AppState {
       return
 
     const name = `mathjax-playground-download.${type}`
+    const text = svgToText(this.elem, this.picScale.value)
     const blob = type === 'svg'
-      ? new Blob([this.elem.outerHTML], { type: 'image/svg+xml;charset=utf-8' })
-      : dataUrlToBlob(await svgToPngDataUrl(this.elem.outerHTML, this.picScale.value))
+      ? new Blob([text], { type: 'image/svg+xml;charset=utf-8' })
+      : dataUrlToBlob(await svgToPngDataUrl(text))
 
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
@@ -359,6 +368,11 @@ export class AppState {
         result.push(tabs[src])
     }
     this.tabs.value = new Set(result)
+  }
+
+  update(tex: string, svg?: string) {
+    this.tex.value = tex
+    this.svg.value = svg ?? mathjax.from(tex).outerHTML
   }
 }
 

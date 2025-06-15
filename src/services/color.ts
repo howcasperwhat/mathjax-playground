@@ -1,17 +1,22 @@
 export class ColorHandler {
-  light: string
-  dark: string
-  color: string
-  opacity: number
+  props: Ref<ColorProps>
+  hex: ComputedRef<string>
 
   constructor(light: string = '#000', dark: string = '#fff') {
-    this.light = hexify(light, '#000')
-    this.dark = hexify(dark, '#fff')
-    this.color = isDark.value ? this.dark : this.light
-    this.opacity = 100
-  }
-
-  get hex() {
-    return hexify(this.color, isDark.value ? this.dark : this.light, this.opacity)
+    this.props = ref({
+      light: hexify(light, '#000'),
+      dark: hexify(dark, '#fff'),
+      color: isDark.value ? hexify(dark, '#fff') : hexify(light, '#000'),
+      opacity: 100,
+    })
+    this.hex = computed(() => {
+      return hexify(
+        this.props.value.color,
+        isDark.value
+          ? this.props.value.dark
+          : this.props.value.light,
+        this.props.value.opacity,
+      )
+    })
   }
 }

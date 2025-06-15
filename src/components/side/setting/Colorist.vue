@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-const setting = defineModel<ColorHandler>({ required: true })
+const setting = defineModel<ColorProps>({ required: true })
 const el = useTemplateRef<HTMLInputElement>('el')
 
 const change = useDebounceFn((event: Event) => {
@@ -37,27 +37,6 @@ const opacity = computed<number>({
     v-model="opacity"
     :min="0" :max="100" h-8
   />
-  <!-- <div flex="~ items-center" bd rd>
-    <input
-      :value="setting.opacity" maxlength="3"
-      px-1 text-align-center ipt w-12
-      @input.prevent="input"
-    >
-    <div
-      flex="~ col"
-      text-xs bd b-b-0 b-r-0 b-t-0
-    >
-      <button
-        bd b-l-0 b-r-0 b-t-0 btn
-        @click="update(1)"
-      >
-        <div i-carbon:caret-up />
-      </button>
-      <button btn @click="update(-1)">
-        <div i-carbon:caret-down />
-      </button>
-    </div>
-  </div> -->
   <input
     v-model="setting.color"
     font-mono ipt-sm text-align-center bd h-8

@@ -10,7 +10,7 @@ export function dataUrlToBlob(dataurl: string) {
   return new Blob([arr], { type })
 }
 
-export async function svgToPngDataUrl(svg: string, scale: number) {
+export async function svgToPngDataUrl(svg: string, scale: number = 1) {
   const canvas = document.createElement('canvas')
   const image = document.createElement('img')
   const canvasCtx = canvas.getContext('2d')!
@@ -31,6 +31,17 @@ export async function svgToPngDataUrl(svg: string, scale: number) {
       }),
     )
   })
+}
+
+export function svgToText(el: SVGSVGElement, scale: number = 1) {
+  const elem = el.cloneNode(true) as SVGSVGElement
+  const width = elem.getAttribute('width')
+  const height = elem.getAttribute('height')
+  if (width && height) {
+    elem.setAttribute('width', `${Number.parseFloat(width) * scale}`)
+    elem.setAttribute('height', `${Number.parseFloat(height) * scale}`)
+  }
+  return new XMLSerializer().serializeToString(elem)
 }
 
 export function hexify(color: string, _default: string, opacity: number = 100) {

@@ -107,8 +107,8 @@ declare global {
   const shallowReactive: typeof import('vue')['shallowReactive']
   const shallowReadonly: typeof import('vue')['shallowReadonly']
   const shallowRef: typeof import('vue')['shallowRef']
-  const shrink: typeof import('./src/utils/number')['shrink']
   const svgToPngDataUrl: typeof import('./src/utils/transform')['svgToPngDataUrl']
+  const svgToText: typeof import('./src/utils/transform')['svgToText']
   const syncRef: typeof import('@vueuse/core')['syncRef']
   const syncRefs: typeof import('@vueuse/core')['syncRefs']
   const templateRef: typeof import('@vueuse/core')['templateRef']
@@ -331,8 +331,11 @@ declare global {
   export type { GhostElement } from './src/services/ghost'
   import('./src/services/ghost')
   // @ts-ignore
-  export type { ToolType, Memory } from './src/types/app'
+  export type { ToolType, Memory, URLParams } from './src/types/app'
   import('./src/types/app')
+  // @ts-ignore
+  export type { ColorProps } from './src/types/color'
+  import('./src/types/color')
   // @ts-ignore
   export type { GhostElementOptions, GhostElementShowOptions } from './src/types/ghost'
   import('./src/types/ghost')
@@ -448,6 +451,7 @@ declare module 'vue' {
     readonly shallowReadonly: UnwrapRef<typeof import('vue')['shallowReadonly']>
     readonly shallowRef: UnwrapRef<typeof import('vue')['shallowRef']>
     readonly svgToPngDataUrl: UnwrapRef<typeof import('./src/utils/transform')['svgToPngDataUrl']>
+    readonly svgToText: UnwrapRef<typeof import('./src/utils/transform')['svgToText']>
     readonly syncRef: UnwrapRef<typeof import('@vueuse/core')['syncRef']>
     readonly syncRefs: UnwrapRef<typeof import('@vueuse/core')['syncRefs']>
     readonly templateRef: UnwrapRef<typeof import('@vueuse/core')['templateRef']>

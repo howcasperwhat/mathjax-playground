@@ -36,8 +36,8 @@ const scaledHeight = computed(() => {
       </div>
     </div>
     <NumInput
-      v-model="scale" h-8 :min="0"
-      :max="100"
+      v-model="scale" h-8
+      :min="0" :max="100"
     />
     <div flex="~ col items-center gap-2">
       <div text-neutral>

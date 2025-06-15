@@ -66,7 +66,7 @@ function cancel() {
 
 <template>
   <button
-    btn-md hover:bg-hex-8881
+    btn-md hover:bg-neutral:8
     :class="getClass()"
     @click="handle"
     @dblclick="prepare"

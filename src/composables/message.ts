@@ -115,9 +115,7 @@ function createMessage(_options: MessageParams): MessageContext {
   )
   render(vnode, container)
   const handler: MessageHandler = {
-    close: () => {
-      vnode.component!.exposed!.close()
-    },
+    close: () => { },
   }
 
   instance = { id, props, vnode, handler }

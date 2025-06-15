@@ -8,3 +8,7 @@ export enum ToolType {
   Eraser,
   Free,
 }
+
+export interface URLParams {
+  tex?: string
+}
