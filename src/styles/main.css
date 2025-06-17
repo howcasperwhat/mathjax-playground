@@ -1,3 +1,4 @@
+/* Main */
 #app {
   width: 100vw;
   height: 100vh;
@@ -15,83 +16,4 @@ button:focus,
 input:focus,
 textarea:focus {
   outline: none;
-}
-
-/* Toggle Theme */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
-}
-
-::view-transition-old(root),
-.dark::view-transition-new(root) {
-  z-index: 1;
-}
-
-::view-transition-new(root),
-.dark::view-transition-old(root) {
-  z-index: 9999;
-}
-
-/* Overrides Floating Vue */
-.v-popper--theme-dropdown .v-popper__inner,
-.v-popper--theme-tooltip .v-popper__inner {
-  --at-apply: bg-tooltip color-base font-sans rounded border border-base shadow dark: shadow-2xl;
-  box-shadow: 0 6px 30px #0000001a;
-}
-
-.v-popper--theme-tooltip .v-popper__inner {
-  --at-apply: text-sm;
-}
-
-.v-popper--theme-tooltip {
-  max-width: 20rem;
-}
-
-.v-popper--theme-tooltip .v-popper__arrow-inner,
-.v-popper--theme-dropdown .v-popper__arrow-inner {
-  visibility: visible;
-  --at-apply: border-white dark-border-#121212;
-}
-
-.v-popper--theme-tooltip .v-popper__arrow-outer,
-.v-popper--theme-dropdown .v-popper__arrow-outer {
-  --at-apply: border-base;
-}
-
-.v-popper--theme-tooltip.v-popper--shown,
-.v-popper--theme-tooltip.v-popper--shown * {
-  transition: none !important;
-}
-
-/* Message Animation */
-/* Enter */
-.message-enter-from {
-  --at-apply: op-0 translate-y-4;
-}
-
-.message-enter-active {
-  --at-apply: transition-all-200;
-}
-
-.message-enter-to {
-  --at-apply: op-100 translate-y-0;
-}
-/* Leave */
-.message-leave-from {
-  --at-apply: ;
-}
-
-.message-leave-active {
-  --at-apply: transition-all-200 of-hidden;
-}
-
-.message-leave-to {
-  --at-apply: min-h-0 h-0 important-m-y-0 important-p-y-0 important-b-0;
-  interpolate-size: allow-keywords;
-}
-/* Move */
-.message-move {
-  --at-apply: transition-all-200;
 }

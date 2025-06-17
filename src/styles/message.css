@@ -1,0 +1,30 @@
+/* Message Animation */
+/* Enter */
+.message-enter-from {
+  --at-apply: op-0 translate-y-4;
+}
+
+.message-enter-active {
+  --at-apply: transition-all-200;
+}
+
+.message-enter-to {
+  --at-apply: op-100 translate-y-0;
+}
+/* Leave */
+.message-leave-from {
+  --at-apply: ;
+}
+
+.message-leave-active {
+  --at-apply: transition-all-200 of-hidden;
+}
+
+.message-leave-to {
+  --at-apply: min-h-0 h-0 important-m-y-0 important-p-y-0 important-b-0;
+  interpolate-size: allow-keywords;
+}
+/* Move */
+.message-move {
+  --at-apply: transition-all-200;
+}
