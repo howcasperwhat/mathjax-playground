@@ -45,3 +45,9 @@ useAppLocalStorage('side-active', active)
     <component :is="data[active].component" />
   </div>
 </template>
+
+<style scoped>
+::-webkit-scrollbar {
+  --at-apply: hidden w-0 h-0 bg-transparent;
+}
+</style>
