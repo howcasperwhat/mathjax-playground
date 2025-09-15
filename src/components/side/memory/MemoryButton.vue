@@ -19,6 +19,8 @@ function format(usage: number) {
   return `${(usage / (1024 ** units.length)).toFixed(2)} TB`
 }
 function getClass() {
+  if (appState.memory.value[appState.active] === item)
+    return 'b-neutral:24 bg-neutral:8 hover:bg-neutral:16!'
   if (editing.value)
     return 'b-blue:36 bg-blue:8 hover:bg-blue:8!'
   if (deleting)
