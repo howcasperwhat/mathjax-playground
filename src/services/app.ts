@@ -324,21 +324,13 @@ export class AppState {
     this._active.value = Array.from(this.tabs.value).at(0) ?? ''
   }
 
-  save(type: 'tex' | 'svg' | 'workspace') {
+  save(type: 'tex' | 'svg' | 'workspace' | 'auto' = 'auto') {
     const name = this._active.value
     const item = this.memory.value[name]
-    if (type === 'tex') {
-      item.tex = this.tex.value
-      item.svg = undefined
-    }
-    else if (type === 'svg') {
-      item.tex = undefined
-      item.svg = this.elem?.outerHTML ?? ''
-    }
-    else if (type === 'workspace') {
-      item.tex = this.tex.value
-      item.svg = this.elem?.outerHTML ?? ''
-    }
+    const utex = type === 'tex' || type === 'workspace' || (type === 'auto' && item?.tex !== undefined)
+    const usvg = type === 'svg' || type === 'workspace' || (type === 'auto' && item?.svg !== undefined)
+    utex ? (item.tex = this.tex.value) : (item.tex = undefined)
+    usvg ? (item.svg = this.elem?.outerHTML ?? '') : (item.svg = undefined)
   }
 
   rename(o: string, n: string) {

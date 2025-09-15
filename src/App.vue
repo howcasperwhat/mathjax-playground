@@ -10,6 +10,12 @@ onMounted(async () => {
   await nextTick()
   appState.update(params.tex!)
 })
+onKeyStroke(['s', 'S'], (e) => {
+  if (e.ctrlKey || e.metaKey) {
+    e.preventDefault()
+    appState.save()
+  }
+})
 </script>
 
 <template>
